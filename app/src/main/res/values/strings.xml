@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Tabtest</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <color name="red">#FF6969</color>
+    <color name="black">#4F4B4B</color>
+    <color name="white">#FFFFFF</color>
+    <string name="tablon">Tablón</string>
+    <string name="chat">Chat</string>
+    <string name="archivos">archivos</string>
+
+</resources>
