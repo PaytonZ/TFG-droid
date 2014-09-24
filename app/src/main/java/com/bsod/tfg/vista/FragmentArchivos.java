@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bsod.tfg.R;
 
@@ -31,15 +30,8 @@ public class FragmentArchivos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_tablon, container,
+        View rootView = inflater.inflate(R.layout.fragment_archivos, container,
                 false);
-        mainText = (TextView) rootView.findViewById(R.id.maintextarchivos);
-        if (mainText == null)
-
-            Toast.makeText(getActivity(), "NULLPOINTER TO MAJO", Toast.LENGTH_LONG).show();
-
-        else
-            mainText.setText("ARCHIVOS LOCATION!");
 
 
         return rootView;

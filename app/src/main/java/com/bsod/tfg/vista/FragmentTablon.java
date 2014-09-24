@@ -29,6 +29,7 @@ public class FragmentTablon extends Fragment {
         // Inflamos la Vista que se debe mostrar en pantalla.
         View rootView = inflater.inflate(R.layout.fragment_tablon, container,
                 false);
+
         // Devolvemos la vista para que se muestre en pantalla.
         return rootView;
     }

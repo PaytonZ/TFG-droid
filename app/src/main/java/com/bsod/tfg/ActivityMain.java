@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +21,11 @@ import com.bsod.tfg.vista.TabsAdapter;
 public class ActivityMain extends FragmentActivity implements
         ActionBar.TabListener, ViewPager.OnPageChangeListener, android.view.View.OnClickListener {
 
+    private static final String TAG = "ActivityMain";
+
     private NonSwipeableViewPager vPager;
     private TabsAdapter tAdapter;
     private ActionBar aBar;
-
     private TextView location;
     private ImageView searchImage;
 
@@ -51,15 +53,10 @@ public class ActivityMain extends FragmentActivity implements
         //Default page selected
         onPageSelected(0);
 
-
         //Search button Stuff
         searchImage = (ImageView) findViewById(R.id.searchbutton);
         searchImage.setOnClickListener(this);
-
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,6 +81,7 @@ public class ActivityMain extends FragmentActivity implements
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // Establecer el fragment que se debe mostrar.
         vPager.setCurrentItem(tab.getPosition());
+        Log.i(TAG, String.valueOf(tab.getPosition()));
     }
 
     @Override
