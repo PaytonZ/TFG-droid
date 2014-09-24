@@ -8,20 +8,24 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bsod.tfg.vista.NonSwipeableViewPager;
 import com.bsod.tfg.vista.TabsAdapter;
 
 
 public class ActivityMain extends FragmentActivity implements
-        ActionBar.TabListener, ViewPager.OnPageChangeListener {
+        ActionBar.TabListener, ViewPager.OnPageChangeListener, android.view.View.OnClickListener {
 
     private NonSwipeableViewPager vPager;
     private TabsAdapter tAdapter;
     private ActionBar aBar;
 
     private TextView location;
+    private ImageView searchImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,13 @@ public class ActivityMain extends FragmentActivity implements
 
         //Default page selected
         onPageSelected(0);
+
+
+        //Search button Stuff
+        searchImage = (ImageView) findViewById(R.id.searchbutton);
+        searchImage.setOnClickListener(this);
+
+
 
     }
 
@@ -99,8 +110,10 @@ public class ActivityMain extends FragmentActivity implements
                 text = getString(R.string.tablon);
                 break;
             case 1:
+                text = getString(R.string.chat);
                 break;
             case 2:
+                text = getString(R.string.archivos);
                 break;
             default:
         }
@@ -111,5 +124,12 @@ public class ActivityMain extends FragmentActivity implements
     @Override
     public void onPageScrollStateChanged(int i) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == searchImage) {
+            Toast.makeText(this, "SEARCH BUTTON DISABLED", Toast.LENGTH_LONG).show();
+        }
     }
 }
