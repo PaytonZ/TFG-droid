@@ -8,13 +8,13 @@ import android.view.MotionEvent;
 /**
  * Created by Payton on 23/09/2014.
  */
-public class NonSwipeableViewPager extends ViewPager {
+public class ViewPagerNonSwipeable extends ViewPager {
 
-    public NonSwipeableViewPager(Context context) {
+    public ViewPagerNonSwipeable(Context context) {
         super(context);
     }
 
-    public NonSwipeableViewPager(Context context, AttributeSet attrs) {
+    public ViewPagerNonSwipeable(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

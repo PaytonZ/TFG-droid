@@ -1,21 +1,25 @@
-package com.bsod.tfg.vista;
+package com.bsod.tfg.controlador;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
+import com.bsod.tfg.vista.FragmentArchivos;
+import com.bsod.tfg.vista.FragmentChat;
+import com.bsod.tfg.vista.FragmentTablon;
+
 /**
  * Created by Payton on 23/09/2014.
  */
-public class TabsAdapter extends FragmentPagerAdapter {
+public class AdapterTab extends FragmentPagerAdapter {
 
     private static int NUM_OF_TABS = 3;
-    private static final String TAG = "TabsAdapter";
+    private static final String TAG = "AdapterTab";
 
     private Fragment[] fragmentList;
 
-    public TabsAdapter(FragmentManager fm) {
+    public AdapterTab(FragmentManager fm) {
         super(fm);
         fragmentList = new Fragment[3];
         fragmentList[0] = FragmentTablon.newInstance();

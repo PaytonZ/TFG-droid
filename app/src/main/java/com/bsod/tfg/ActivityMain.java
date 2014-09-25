@@ -14,17 +14,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bsod.tfg.vista.NonSwipeableViewPager;
-import com.bsod.tfg.vista.TabsAdapter;
+import com.bsod.tfg.controlador.AdapterTab;
+import com.bsod.tfg.vista.ViewPagerNonSwipeable;
 
-
+/**
+ * Actividad Principal que contiene las pestañas
+ */
 public class ActivityMain extends FragmentActivity implements
         ActionBar.TabListener, ViewPager.OnPageChangeListener, android.view.View.OnClickListener {
 
     private static final String TAG = "ActivityMain";
 
-    private NonSwipeableViewPager vPager;
-    private TabsAdapter tAdapter;
+    private ViewPagerNonSwipeable vPager;
+    private AdapterTab tAdapter;
     private ActionBar aBar;
     private TextView location;
     private ImageView searchImage;
@@ -34,8 +36,8 @@ public class ActivityMain extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        vPager = (NonSwipeableViewPager) findViewById(R.id.view_pager);
-        tAdapter = new TabsAdapter(getSupportFragmentManager());
+        vPager = (ViewPagerNonSwipeable) findViewById(R.id.view_pager);
+        tAdapter = new AdapterTab(getSupportFragmentManager());
         aBar = getActionBar();
 
         vPager.setAdapter(tAdapter);
