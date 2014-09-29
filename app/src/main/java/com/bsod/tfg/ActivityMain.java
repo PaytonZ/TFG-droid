@@ -3,6 +3,7 @@ package com.bsod.tfg;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -12,9 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bsod.tfg.controlador.AdapterTab;
+import com.bsod.tfg.vista.ActivityBuscarUni;
 import com.bsod.tfg.vista.ViewPagerNonSwipeable;
 
 /**
@@ -24,6 +25,7 @@ public class ActivityMain extends FragmentActivity implements
         ActionBar.TabListener, ViewPager.OnPageChangeListener, android.view.View.OnClickListener {
 
     private static final String TAG = "ActivityMain";
+    public final static String EXTRA_MESSAGE = "com.bsod.tfg.MESSAGE";
 
     private ViewPagerNonSwipeable vPager;
     private AdapterTab tAdapter;
@@ -41,7 +43,11 @@ public class ActivityMain extends FragmentActivity implements
         aBar = getActionBar();
 
         vPager.setAdapter(tAdapter);
+        // Habilita el modo de navegación por pestañas
         aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        aBar.setHomeButtonEnabled(true);
+        aBar.setDisplayHomeAsUpEnabled(true);
+
 
         //Añadiendo tabs
         aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_tablon).setTabListener(this));
@@ -129,7 +135,15 @@ public class ActivityMain extends FragmentActivity implements
     @Override
     public void onClick(View view) {
         if (view == searchImage) {
-            Toast.makeText(this, "SEARCH BUTTON DISABLED", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "SEARCH BUTTON DISABLED", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, ActivityBuscarUni.class);
+            intent.putExtra(EXTRA_MESSAGE, location.getText().toString());
+            startActivity(intent);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
