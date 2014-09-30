@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +24,13 @@ public class ActivityMain extends FragmentActivity implements
         ActionBar.TabListener, ViewPager.OnPageChangeListener, android.view.View.OnClickListener {
 
     private static final String TAG = "ActivityMain";
-    public final static String EXTRA_MESSAGE = "com.bsod.tfg.MESSAGE";
+    public final static String CURRENT_LOCATION = "com.bsod.tfg.MESSAGE";
+    public final static String NEXT_LOCATION = "";
+    private String uni_location = "Unv.Complutense-Informática";
+
+    // Maybe Should be in other package
+    public final static int UNI_SELECTED = 201;
+
 
     private ViewPagerNonSwipeable vPager;
     private AdapterTab tAdapter;
@@ -59,7 +64,8 @@ public class ActivityMain extends FragmentActivity implements
         location = (TextView) findViewById(R.id.location);
 
         //Default page selected
-        onPageSelected(0);
+        //onPageSelected(0);
+        location.setText(uni_location);
 
         //Search button Stuff
         searchImage = (ImageView) findViewById(R.id.searchbutton);
@@ -89,7 +95,7 @@ public class ActivityMain extends FragmentActivity implements
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // Establecer el fragment que se debe mostrar.
         vPager.setCurrentItem(tab.getPosition());
-        Log.i(TAG, String.valueOf(tab.getPosition()));
+        /* Log.i(TAG, String.valueOf(tab.getPosition())); */
     }
 
     @Override
@@ -110,7 +116,7 @@ public class ActivityMain extends FragmentActivity implements
     @Override
     // Método que cuando se cambia a la página position
     public void onPageSelected(int position) {
-        String text = "";
+        /*String text = "";
         switch (position) {
             case 0:
                 text = getString(R.string.tablon);
@@ -124,7 +130,7 @@ public class ActivityMain extends FragmentActivity implements
             default:
         }
         location.setText(text);
-
+*/
     }
 
     @Override
@@ -137,8 +143,17 @@ public class ActivityMain extends FragmentActivity implements
         if (view == searchImage) {
             //Toast.makeText(this, "SEARCH BUTTON DISABLED", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, ActivityBuscarUni.class);
-            intent.putExtra(EXTRA_MESSAGE, location.getText().toString());
-            startActivity(intent);
+            intent.putExtra(CURRENT_LOCATION, location.getText().toString());
+            startActivityForResult(intent, UNI_SELECTED);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == UNI_SELECTED) {
+            if (data.hasExtra(NEXT_LOCATION)) {
+                location.setText(data.getExtras().getString(NEXT_LOCATION));
+            }
         }
     }
 
