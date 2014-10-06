@@ -1,23 +1,32 @@
 package com.bsod.tfg.vista;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.bsod.tfg.R;
 
-public class ActivitySplash extends Activity {
+public class ActivitySplash extends Activity implements View.OnClickListener {
+
+
+    private Button button_registrate;
+    private Button button_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Para realizar una pantalla tipo 'splash' deseamos ocultar la barra superior
+        button_registrate = (Button) findViewById(R.id.splash_registrate_button);
+        button_login = (Button) findViewById(R.id.splash_login_button);
 
-        //ActionBar actionBar = getActionBar();
-        //actionBar.hide();
+        button_registrate.setOnClickListener(this);
+        button_login.setOnClickListener(this);
+
     }
 
 
@@ -38,5 +47,17 @@ public class ActivitySplash extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == button_registrate) {
+            Intent intent = new Intent(this, ActivityRegistrate.class);
+            startActivity(intent);
+        } else if (view == button_login) {
+            Intent intent = new Intent(this, ActivityLogin.class);
+            startActivity(intent);
+        }
+
     }
 }
