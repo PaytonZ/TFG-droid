@@ -23,8 +23,28 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".vista.ActivitySplash"
+            android:label="@string/title_activity_activity_splash"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".vista.ActivityRegistrate"
+            android:label="@string/title_activity_activity_registrate" >
+        </activity>
+        <activity
+            android:name=".vista.ActivityLogin"
+            android:label="@string/title_activity_activity_login" >
         </activity>
     </application>
 
