@@ -20,5 +20,8 @@
     <string name="inicia_sesion">Inicia Sesión</string>
     <string name="title_activity_activity_registrate">ActivityRegistrate</string>
     <string name="title_activity_activity_login">ActivityLogin</string>
+    <string name="usuario">Usuario</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="invalid_user_password">Usuario y contraseña no válidos</string>
 
 </resources>

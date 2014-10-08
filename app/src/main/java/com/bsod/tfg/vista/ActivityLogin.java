@@ -1,17 +1,41 @@
 package com.bsod.tfg.vista;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.bsod.tfg.R;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class ActivityLogin extends Activity {
+
+import com.bsod.tfg.ActivityMain;
+import com.bsod.tfg.R;
+import com.bsod.tfg.modelo.Constants;
+
+public class ActivityLogin extends Activity implements View.OnClickListener {
+
+    private Button logButton;
+    private TextView user;
+    private TextView password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        logButton = (Button) findViewById(R.id.login_log_button);
+        logButton.setOnClickListener(this);
+
+        user = (TextView) findViewById(R.id.login_usuario);
+        password = (TextView) findViewById(R.id.login_password);
+
     }
 
 
@@ -32,5 +56,38 @@ public class ActivityLogin extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        // The user wants to log in
+        if (view == logButton) {
+
+            // Stackoverflow hack http://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
+            InputMethodManager imm = (InputMethodManager)getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(password.getWindowToken(), 0);
+
+            if (validateUserPassword(user.getText().toString(), password.getText().toString())) {
+
+                SharedPreferences settings = getSharedPreferences(Constants.SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString(Constants.USER, user.getText().toString()).commit();
+
+                Intent intent = new Intent(this, ActivityMain.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, R.string.invalid_user_password, Toast.LENGTH_LONG).show();
+                password.setText("");
+
+            }
+        } else {
+
+        }
+    }
+
+    private boolean validateUserPassword(String user, String password) {
+        return user.equals(password);
     }
 }

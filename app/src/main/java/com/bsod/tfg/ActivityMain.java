@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bsod.tfg.controlador.AdapterTab;
+import com.bsod.tfg.modelo.Constants;
 import com.bsod.tfg.vista.ActivityBuscarUni;
 import com.bsod.tfg.vista.ViewPagerNonSwipeable;
 
@@ -29,7 +30,6 @@ public class ActivityMain extends FragmentActivity implements
     private String uni_location = "Unv.Complutense-Informática";
 
     // Maybe Should be in other package
-    public final static int UNI_SELECTED = 201;
 
 
     private ViewPagerNonSwipeable vPager;
@@ -144,13 +144,13 @@ public class ActivityMain extends FragmentActivity implements
             //Toast.makeText(this, "SEARCH BUTTON DISABLED", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, ActivityBuscarUni.class);
             intent.putExtra(CURRENT_LOCATION, location.getText().toString());
-            startActivityForResult(intent, UNI_SELECTED);
+            startActivityForResult(intent, Constants.UNI_SELECTED);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == UNI_SELECTED) {
+        if (resultCode == RESULT_OK && requestCode == Constants.UNI_SELECTED) {
             if (data.hasExtra(NEXT_LOCATION)) {
                 location.setText(data.getExtras().getString(NEXT_LOCATION));
             }
