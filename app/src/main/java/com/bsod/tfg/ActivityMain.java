@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -157,8 +158,10 @@ public class ActivityMain extends FragmentActivity implements
         }
     }
 
+
     @Override
     public void onBackPressed() {
+
         finish();
     }
 }

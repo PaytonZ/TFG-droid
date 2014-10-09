@@ -75,7 +75,12 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                 PreferencesManager.getInstance().setUser(user.getText().toString());
 
                 Intent intent = new Intent(this, ActivityMain.class);
+                // Closing all the Activities from stack
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                // Add new Flag to start new Activity
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(this, R.string.invalid_user_password, Toast.LENGTH_LONG).show();
                 password.setText("");

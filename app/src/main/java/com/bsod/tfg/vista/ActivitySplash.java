@@ -27,7 +27,12 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
         if (PreferencesManager.getInstance().getUser() != null) {
             activityClass = ActivityMain.class;
             Intent newActivity = new Intent(this, activityClass);
-            Log.d(TAG,"Login OK!");
+            // Closing all the Activities from stack
+            newActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            // Add new Flag to start new Activity
+            newActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            Log.d(TAG, "Login OK!");
             this.startActivity(newActivity);
         }
 
@@ -68,6 +73,7 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
         if (view == button_registrate) {
             Intent intent = new Intent(this, ActivityRegister.class);
             startActivity(intent);
+
         } else if (view == button_login) {
             Intent intent = new Intent(this, ActivityLogin.class);
             startActivity(intent);
