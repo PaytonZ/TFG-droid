@@ -13,6 +13,8 @@ public class PreferencesManager {
     private static PreferencesManager sInstance;
     private final SharedPreferences mPref;
 
+    private static final String USER = "com.bsod.tfg.USER";
+
     private PreferencesManager(Context context) {
         mPref = context.getSharedPreferences(SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
     }
@@ -31,14 +33,15 @@ public class PreferencesManager {
         return sInstance;
     }
 
-    public void setValue(String key , String value) {
+    public void setUser(String value) {
         mPref.edit()
-                .putString(key, value)
+                .putString(USER, value)
                 .commit();
     }
 
-    public String getValue(String key) {
-        return mPref.getString(key,"");
+    public String getUser() {
+
+        return mPref.getString(USER, "");
     }
 
     public void remove(String key) {

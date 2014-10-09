@@ -21,9 +21,9 @@ import com.bsod.tfg.controlador.AdapterBuscarUni;
 
 import java.util.ArrayList;
 
-public class ActivityBuscarUni extends Activity {
+public class ActivitySearchUni extends Activity {
 
-    private static final String TAG = "ActivityBuscarUni";
+    private static final String TAG = "ActivitySearchUni";
     private TextView text;
     private ListView listview;
     private AdapterBuscarUni adapter;

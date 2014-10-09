@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.Constants;
+import com.bsod.tfg.modelo.PreferencesManager;
 
 public class ActivityLogin extends Activity implements View.OnClickListener {
 
@@ -71,9 +72,7 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
 
             if (validateUserPassword(user.getText().toString(), password.getText().toString())) {
 
-                SharedPreferences settings = getSharedPreferences(Constants.SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString(Constants.USER, user.getText().toString()).commit();
+                PreferencesManager.getInstance().setUser(user.getText().toString());
 
                 Intent intent = new Intent(this, ActivityMain.class);
                 startActivity(intent);

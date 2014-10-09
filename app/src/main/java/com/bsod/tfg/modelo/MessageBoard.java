@@ -3,10 +3,10 @@ package com.bsod.tfg.modelo;
 /**
  * Created by Payton on 25/09/2014.
  */
-public class MensajeTablon {
+public class MessageBoard {
     private String text;
 
-    public MensajeTablon() {
+    public MessageBoard() {
 
     }
 

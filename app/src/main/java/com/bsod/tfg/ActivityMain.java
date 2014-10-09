@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.bsod.tfg.controlador.AdapterTab;
 import com.bsod.tfg.modelo.Constants;
-import com.bsod.tfg.vista.ActivityBuscarUni;
+import com.bsod.tfg.vista.ActivitySearchUni;
 import com.bsod.tfg.vista.ViewPagerNonSwipeable;
 
 /**
@@ -142,7 +142,7 @@ public class ActivityMain extends FragmentActivity implements
     public void onClick(View view) {
         if (view == searchImage) {
             //Toast.makeText(this, "SEARCH BUTTON DISABLED", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, ActivityBuscarUni.class);
+            Intent intent = new Intent(this, ActivitySearchUni.class);
             intent.putExtra(CURRENT_LOCATION, location.getText().toString());
             startActivityForResult(intent, Constants.UNI_SELECTED);
         }

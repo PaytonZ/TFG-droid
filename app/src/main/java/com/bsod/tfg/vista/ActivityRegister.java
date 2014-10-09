@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.bsod.tfg.R;
 
-public class ActivityRegistrate extends Activity {
+public class ActivityRegister extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
