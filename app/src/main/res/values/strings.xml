@@ -3,7 +3,7 @@
 
     <string name="app_name">TFG Test</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Opciones</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <color name="red">#FF6969</color>
@@ -23,5 +23,10 @@
     <string name="usuario">Usuario</string>
     <string name="contraseña">Contraseña</string>
     <string name="invalid_user_password">Usuario y contraseña no válidos</string>
+    <string name="action_logout">Desconectarse</string>
+    <string name="desconectado">Te has desconectado correctamente.</string>
+
+
+
 
 </resources>

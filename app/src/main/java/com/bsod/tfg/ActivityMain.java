@@ -7,15 +7,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bsod.tfg.controlador.AdapterTab;
 import com.bsod.tfg.modelo.Constants;
+import com.bsod.tfg.modelo.Session;
 import com.bsod.tfg.vista.ActivitySearchUni;
 import com.bsod.tfg.vista.ViewPagerNonSwipeable;
 
@@ -28,7 +30,7 @@ public class ActivityMain extends FragmentActivity implements
     private static final String TAG = "ActivityMain";
     public final static String CURRENT_LOCATION = "com.bsod.tfg.MESSAGE";
     public final static String NEXT_LOCATION = "";
-    private String uni_location = "Unv.Complutense-Informática";
+    private String uni_location = null;
 
     // Maybe Should be in other package
 
@@ -42,6 +44,9 @@ public class ActivityMain extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        uni_location = Session.getSession().getUniversity().getName();
+
         setContentView(R.layout.activity_main);
 
         vPager = (ViewPagerNonSwipeable) findViewById(R.id.view_pager);
@@ -71,6 +76,8 @@ public class ActivityMain extends FragmentActivity implements
         //Search button Stuff
         searchImage = (ImageView) findViewById(R.id.searchbutton);
         searchImage.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -86,9 +93,28 @@ public class ActivityMain extends FragmentActivity implements
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+
+            case R.id.action_logout:
+                Session.destroySession();
+
+
+                Toast.makeText(this, R.string.desconectado, Toast.LENGTH_SHORT).show();
+                /*Intent i = new Intent(this, ActivitySplash.class);
+                // Closing all the Activities from stack
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                // Add new Flag to start new Activity
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+*/
+                Log.d(TAG, "UnLogin OK!");
+                //  this.startActivity(i);
+                finish();
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -112,6 +138,11 @@ public class ActivityMain extends FragmentActivity implements
     @Override
     public void onPageScrolled(int i, float v, int i2) {
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -158,10 +189,9 @@ public class ActivityMain extends FragmentActivity implements
         }
     }
 
-
     @Override
     public void onBackPressed() {
-
+        android.os.Process.killProcess(android.os.Process.myPid());
         finish();
     }
 }

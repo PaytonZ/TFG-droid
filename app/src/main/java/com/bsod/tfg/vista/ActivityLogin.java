@@ -3,7 +3,6 @@ package com.bsod.tfg.vista;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,11 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.Constants;
-import com.bsod.tfg.modelo.PreferencesManager;
+import com.bsod.tfg.modelo.Session;
+import com.bsod.tfg.modelo.University;
 
 public class ActivityLogin extends Activity implements View.OnClickListener {
 
@@ -66,13 +64,17 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
         if (view == logButton) {
 
             // Stackoverflow hack http://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
-            InputMethodManager imm = (InputMethodManager)getSystemService(
+            InputMethodManager imm = (InputMethodManager) getSystemService(
                     Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(password.getWindowToken(), 0);
 
-            if (validateUserPassword(user.getText().toString(), password.getText().toString())) {
+            String username = user.getText().toString();
+            String pass = password.getText().toString();
 
-                PreferencesManager.getInstance().setUser(user.getText().toString());
+            if (validateUserPassword(username, pass)) {
+
+                //PreferencesManager.getInstance().setUser(user.getText().toString());
+                createSession(username);
 
                 Intent intent = new Intent(this, ActivityMain.class);
                 // Closing all the Activities from stack
@@ -82,7 +84,7 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(this, R.string.invalid_user_password, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.invalid_user_password, Toast.LENGTH_SHORT).show();
                 password.setText("");
 
             }
@@ -93,5 +95,18 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
 
     private boolean validateUserPassword(String user, String password) {
         return user.equals(password);
+    }
+
+    private void createSession(String username) {
+        // Takes more data from the server and put it here
+        Session.getSession().setUser(username);
+        Session.getSession().setToken("asihjdajshdjasd");
+        University i = new University();
+        i.setId(1);
+        i.setName("Unv. Complutensis Madritensis.");
+        Session.getSession().setUniversity(i);
+        Session.persistPreferences();
+
+
     }
 }
