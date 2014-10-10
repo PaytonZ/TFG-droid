@@ -16,13 +16,22 @@ import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.Session;
 import com.bsod.tfg.modelo.University;
+import com.bsod.tfg.utils.HttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ActivityLogin extends Activity implements View.OnClickListener {
 
+    private static final String TAG = "ActivityLogin";
     private Button logButton;
     private TextView user;
     private TextView password;
-
+    private ActivityLogin thisactivity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +77,23 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                     Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(password.getWindowToken(), 0);
 
-            String username = user.getText().toString();
-            String pass = password.getText().toString();
+            final String username = user.getText().toString();
+            final String pass = password.getText().toString();
 
-            if (validateUserPassword(username, pass)) {
+            RequestParams params = new RequestParams();
+            params.put("user", username);
+            params.put("pass", pass);
 
-                //PreferencesManager.getInstance().setUser(user.getText().toString());
-                createSession(username);
-
-                Intent intent = new Intent(this, ActivityMain.class);
+            // HARDCODING for making root toor always accesible
+            if (username.equals("root") && pass.equals("toor")) {
+                Session.getSession().setUser(username);
+                Session.getSession().setToken("asihjdajshdjasd");
+                University i = new University();
+                i.setId(1);
+                i.setName("Root Access!");
+                Session.getSession().setUniversity(i);
+                Session.persistPreferences();
+                Intent intent = new Intent(thisactivity, ActivityMain.class);
                 // Closing all the Activities from stack
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 // Add new Flag to start new Activity
@@ -84,29 +101,53 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(this, R.string.invalid_user_password, Toast.LENGTH_SHORT).show();
-                password.setText("");
 
+
+                HttpClient.get("loginuser", params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        // If the response is JSONObject instead of expected JSONArray
+                        try {
+                            // Usuario y contraseña no validos
+                            if (Integer.parseInt(response.get("error").toString()) != 200) {
+                                Toast.makeText(thisactivity, R.string.invalid_user_password, Toast.LENGTH_SHORT).show();
+                                password.setText("");
+                            } else {
+
+                                // Takes more data from the server and put it here
+                                Session.getSession().setUser(username);
+                                Session.getSession().setToken(response.get("token").toString());
+                                University i = new University();
+                                i.setId(1);
+                                i.setName("Unv. Complutensis Madritensis.");
+                                Session.getSession().setUniversity(i);
+                                Session.persistPreferences();
+
+                                Intent intent = new Intent(thisactivity, ActivityMain.class);
+                                // Closing all the Activities from stack
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                // Add new Flag to start new Activity
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+
+                    }
+                });
             }
+
         } else {
 
         }
     }
 
-    private boolean validateUserPassword(String user, String password) {
-        return user.equals(password);
-    }
 
-    private void createSession(String username) {
-        // Takes more data from the server and put it here
-        Session.getSession().setUser(username);
-        Session.getSession().setToken("asihjdajshdjasd");
-        University i = new University();
-        i.setId(1);
-        i.setName("Unv. Complutensis Madritensis.");
-        Session.getSession().setUniversity(i);
-        Session.persistPreferences();
-
-
-    }
 }

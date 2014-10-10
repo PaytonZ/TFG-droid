@@ -3,7 +3,6 @@ package com.bsod.tfg.vista;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.preference.Preference;
 
 import com.bsod.tfg.modelo.PreferencesManager;
 import com.bsod.tfg.modelo.Session;

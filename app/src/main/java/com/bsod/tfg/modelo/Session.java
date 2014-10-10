@@ -45,8 +45,7 @@ public class Session {
         this.user = user;
     }
 
-    public static void loadPreferences()
-    {
+    public static void loadPreferences() {
         getSession().setUser(PreferencesManager.getInstance().getUser());
         getSession().setToken(PreferencesManager.getInstance().getToken());
         getSession().setUniversity(PreferencesManager.getInstance().getUniversity());
@@ -54,8 +53,7 @@ public class Session {
 
     }
 
-    public static void persistPreferences()
-    {
+    public static void persistPreferences() {
         PreferencesManager.getInstance().setUser(getSession().getUser());
         PreferencesManager.getInstance().setToken(getSession().getToken());
         PreferencesManager.getInstance().setUniversity(getSession().getUniversity());
