@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bsod.tfg" >
+    package="com.bsod.tfg">
+
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:name=".vista.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/CustomActionBarTheme" >
+        android:theme="@style/CustomActionBarTheme">
         <activity
             android:name=".ActivityMain"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".vista.ActivitySearchUni"
             android:label="@string/title_activity_activity_buscar_uni"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -32,20 +31,28 @@
         <activity
             android:name=".vista.ActivitySplash"
             android:label="@string/title_activity_activity_splash"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".vista.ActivityRegister"
-            android:label="@string/title_activity_activity_registrate" >
+            android:label="@string/title_activity_activity_registrate"
+            android:parentActivityName="com.bsod.tfg.vista.ActivitySplash">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bsod.tfg.vista.ActivitySplash" />
         </activity>
         <activity
             android:name=".vista.ActivityLogin"
-            android:label="@string/title_activity_activity_login" >
+            android:label="@string/title_activity_activity_login"
+            android:parentActivityName="com.bsod.tfg.vista.ActivitySplash">
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bsod.tfg.vista.ActivitySplash" />
         </activity>
     </application>
 

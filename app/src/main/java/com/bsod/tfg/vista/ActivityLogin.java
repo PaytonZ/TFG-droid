@@ -1,5 +1,6 @@
 package com.bsod.tfg.vista;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,7 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
     private TextView user;
     private TextView password;
     private ActivityLogin thisactivity = this;
+    private ActionBar aBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,10 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
 
         user = (TextView) findViewById(R.id.login_usuario);
         password = (TextView) findViewById(R.id.login_password);
+
+        aBar = getActionBar();
+
+        aBar.setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -152,6 +158,7 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
 
         }
     }
+
 
 
 }
