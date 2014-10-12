@@ -8,4 +8,6 @@ public class Constants {
     public final static int UNI_SELECTED = 201;
     public final static String USER = "user";
 
+    public final static String LOGIN_USER_HTTP = "loginuser";
+
 }

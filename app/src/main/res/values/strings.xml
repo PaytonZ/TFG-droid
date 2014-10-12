@@ -16,7 +16,7 @@
     <string name="archivos">Archivos</string>
     <string name="title_activity_activity_buscar_uni">ActivityBuscarUni</string>
     <string name="title_activity_activity_splash">ActivitySplash</string>
-    <string name="registrate">Registrate</string>
+    <string name="registrate">Crear mi cuenta</string>
     <string name="inicia_sesion">Inicia Sesión</string>
     <string name="title_activity_activity_registrate">ActivityRegistrate</string>
     <string name="title_activity_activity_login">ActivityLogin</string>
@@ -25,8 +25,14 @@
     <string name="invalid_user_password">Usuario y contraseña no válidos</string>
     <string name="action_logout">Desconectarse</string>
     <string name="desconectado">Te has desconectado correctamente.</string>
-
-
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="contraseña_olvidada">¿Olvidaste tu contraseña?</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="localizacion">Localización</string>
+    <string name="universidad">Universidad</string>
+    <string name="facultad">Facultad</string>
+    <string name="registrarte">Registrarte</string>
+    <string name="disclaimer_registraste">Al pulsar en \'Registrate\' estás aceptando nuestros términos y condiciones de servicio y política de privacidad , vendiendo tu alma al diablo y puede que hasta nos quedemos con tu primer primógenito.</string>
 
 
 </resources>

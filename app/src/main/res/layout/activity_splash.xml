@@ -24,13 +24,22 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/inicia_sesion"
+            android:text="@string/iniciar_sesion"
             android:id="@+id/splash_login_button"
             android:theme="@style/buttons_splash"
             android:layout_marginTop="44dp"
             android:layout_below="@+id/splash_registrate_button"
             android:layout_centerHorizontal="true"
              />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Holi :)"
+            android:id="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="71dp" />
 
     </RelativeLayout>
 

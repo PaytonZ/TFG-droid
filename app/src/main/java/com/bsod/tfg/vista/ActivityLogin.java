@@ -25,6 +25,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bsod.tfg.modelo.Constants;
+
+
 public class ActivityLogin extends Activity implements View.OnClickListener {
 
     private static final String TAG = "ActivityLogin";
@@ -103,13 +106,14 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
             } else {
 
 
-                HttpClient.get("loginuser", params, new JsonHttpResponseHandler() {
+                HttpClient.get(Constants.LOGIN_USER_HTTP, params, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         // If the response is JSONObject instead of expected JSONArray
                         try {
                             // Usuario y contraseña no validos
-                            if (Integer.parseInt(response.get("error").toString()) != 200) {
+                            int error = Integer.parseInt(response.get("error").toString());
+                            if (error != 200) {
                                 Toast.makeText(thisactivity, R.string.invalid_user_password, Toast.LENGTH_SHORT).show();
                                 password.setText("");
                             } else {
