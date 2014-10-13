@@ -45,7 +45,7 @@ public class ActivityMain extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        uni_location = Session.getSession().getUniversity().getName();
+        uni_location = Session.getSession().getUniversidad().getName();
 
         setContentView(R.layout.activity_main);
 

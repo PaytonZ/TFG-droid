@@ -3,6 +3,7 @@
     package="com.bsod.tfg">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:name=".vista.App"
         android:allowBackup="true"

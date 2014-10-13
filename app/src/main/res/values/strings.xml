@@ -28,11 +28,13 @@
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="contraseña_olvidada">¿Olvidaste tu contraseña?</string>
     <string name="email">Correo Electrónico</string>
-    <string name="localizacion">Localización</string>
+    <string name="localizacion">Provincia</string>
     <string name="universidad">Universidad</string>
     <string name="facultad">Facultad</string>
     <string name="registrarte">Registrarte</string>
     <string name="disclaimer_registraste">Al pulsar en \'Registrate\' estás aceptando nuestros términos y condiciones de servicio y política de privacidad , vendiendo tu alma al diablo y puede que hasta nos quedemos con tu primer primógenito.</string>
+    <string name="selecciona_provincia"><![CDATA[<Seleciona una provincia>]]></string>
+    <string name="selecciona_universidad"><![CDATA[<<Seleciona Universidad>>]]></string>
 
 
 </resources>

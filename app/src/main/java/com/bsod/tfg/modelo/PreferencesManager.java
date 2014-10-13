@@ -66,8 +66,8 @@ public class PreferencesManager {
         return mPref.getString(TOKEN, "");
     }
 
-    public University getUniversity() {
-        University i = new University();
+    public Universidad getUniversity() {
+        Universidad i = new Universidad();
         i.setId(mPref.getInt(UNIVERSITY_ID, 0));
         i.setName(mPref.getString(UNIVERSITY_NAME, ""));
         return i;
@@ -79,8 +79,8 @@ public class PreferencesManager {
                 .commit();
     }
 
-    public void setUniversity(University university) {
-        mPref.edit().putString(UNIVERSITY_NAME, university.getName()).commit();
-        mPref.edit().putInt(UNIVERSITY_ID, university.getId()).commit();
+    public void setUniversity(Universidad universidad) {
+        mPref.edit().putString(UNIVERSITY_NAME, universidad.getName()).commit();
+        mPref.edit().putInt(UNIVERSITY_ID, universidad.getId()).commit();
     }
 }

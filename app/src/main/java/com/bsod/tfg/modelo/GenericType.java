@@ -1,12 +1,12 @@
 package com.bsod.tfg.modelo;
 
 /**
- * Created by Payton on 09/10/2014.
+ * Created by Payton on 13/10/2014.
  */
-public class University {
+public abstract class GenericType {
 
-    private Integer id;
-    private String name;
+    protected Integer id;
+    protected String name;
 
     public Integer getId() {
         return id;
@@ -23,4 +23,12 @@ public class University {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public abstract String selectOneText();
+
 }

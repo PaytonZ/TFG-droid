@@ -15,8 +15,9 @@ import android.widget.Toast;
 
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
+import com.bsod.tfg.modelo.Constants;
 import com.bsod.tfg.modelo.Session;
-import com.bsod.tfg.modelo.University;
+import com.bsod.tfg.modelo.Universidad;
 import com.bsod.tfg.utils.HttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -25,8 +26,6 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.bsod.tfg.modelo.Constants;
 
 
 public class ActivityLogin extends Activity implements View.OnClickListener {
@@ -97,10 +96,10 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
             if (username.equals("root") && pass.equals("toor")) {
                 Session.getSession().setUser(username);
                 Session.getSession().setToken("asihjdajshdjasd");
-                University i = new University();
+                Universidad i = new Universidad();
                 i.setId(1);
                 i.setName("Root Access!");
-                Session.getSession().setUniversity(i);
+                Session.getSession().setUniversidad(i);
                 Session.persistPreferences();
                 Intent intent = new Intent(thisactivity, ActivityMain.class);
                 // Closing all the Activities from stack
@@ -112,7 +111,7 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
             } else {
 
 
-                HttpClient.get(Constants.LOGIN_USER_HTTP, params, new JsonHttpResponseHandler() {
+                HttpClient.get(Constants.HTTP_LOGIN_USER, params, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         // If the response is JSONObject instead of expected JSONArray
@@ -127,10 +126,10 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                                 // Takes more data from the server and put it here
                                 Session.getSession().setUser(username);
                                 Session.getSession().setToken(response.get("token").toString());
-                                University i = new University();
+                                Universidad i = new Universidad();
                                 i.setId(1);
                                 i.setName("Unv. Complutensis Madritensis.");
-                                Session.getSession().setUniversity(i);
+                                Session.getSession().setUniversidad(i);
                                 Session.persistPreferences();
 
                                 Intent intent = new Intent(thisactivity, ActivityMain.class);
@@ -158,7 +157,6 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
 
         }
     }
-
 
 
 }

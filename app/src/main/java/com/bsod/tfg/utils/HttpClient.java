@@ -1,5 +1,8 @@
 package com.bsod.tfg.utils;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -23,6 +26,7 @@ public class HttpClient {
     private static String getAbsoluteUrl(String relativeUrl) {
         return BASE_URL + relativeUrl;
     }
+
 
 
 }
