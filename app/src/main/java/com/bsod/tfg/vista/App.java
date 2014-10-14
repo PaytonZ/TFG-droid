@@ -12,16 +12,19 @@ import com.bsod.tfg.modelo.Session;
  * Taken from http://yakivmospan.wordpress.com/2014/04/17/best-practice-application/
  */
 public class App extends Application {
+
+    private static Context mContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
         // your application starts from here
+        mContext = this;
         initModel();
     }
 
     private void initModel() {
         Context applicationContext = getApplicationContext();
-
         PreferencesManager.initializeInstance(applicationContext);
         Session.loadPreferences();
 
@@ -32,6 +35,10 @@ public class App extends Application {
         super.onLowMemory();
         // This is called when the overall system is running low on memory
         // and actively running processes should trim their memory usage
+    }
+
+    public static Context getContext() {
+        return mContext;
     }
 
     @Override

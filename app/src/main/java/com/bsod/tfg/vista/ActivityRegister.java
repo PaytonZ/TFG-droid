@@ -1,6 +1,7 @@
 package com.bsod.tfg.vista;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,11 +12,12 @@ import android.widget.Spinner;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.Constants;
+import com.bsod.tfg.modelo.Facultad;
 import com.bsod.tfg.modelo.GenericType;
 import com.bsod.tfg.modelo.Provincia;
 import com.bsod.tfg.modelo.Universidad;
 import com.bsod.tfg.utils.HttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -34,6 +36,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
     private Spinner spinnerUniversidad;
     private Spinner spinnerFacultad;
     private ActivityRegister thisactivity = this;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -47,7 +50,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
 
 
         RequestParams params = new RequestParams();
-        HttpClient.get(Constants.HTTP_GET_PROVINCIAS, params, new JsonHttpResponseHandler() {
+        HttpClient.get(Constants.HTTP_GET_PROVINCIAS, params, new JsonHttpResponseHandlerCustom(this) {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         // If the response is JSONObject instead of expected JSONArray
@@ -103,28 +106,60 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
         if (adapterView == spinnerProvincias) {
             //Toast.makeText(this, adapterView.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
-            RequestParams params = new RequestParams();
+
             Provincia p = (Provincia) adapterView.getItemAtPosition(position);
-            params.add("id", p.getId().toString());
-            final ArrayList<GenericType> listOfUniversitys = new ArrayList<GenericType>();
-            HttpClient.get(Constants.HTTP_GET_UNIS, params, new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    try {
-                        int error = Integer.parseInt(response.get("error").toString());
+            if (p.getId() > 0) {
+                RequestParams params = new RequestParams();
+                params.add("id", p.getId().toString());
+                final ArrayList<GenericType> listOfUniversitys = new ArrayList<GenericType>();
+                HttpClient.get(Constants.HTTP_GET_UNIS, params, new JsonHttpResponseHandlerCustom(this) {
 
-                        if (error == 200) {
-                            processJSONData(response, listOfUniversitys, Universidad.class);
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        try {
+                            int error = Integer.parseInt(response.get("error").toString());
+
+                            if (error == 200) {
+                                processJSONData(response, listOfUniversitys, Universidad.class);
+                            }
+                            spinnerUniversidad.setAdapter(new ArrayAdapter<GenericType>(thisactivity, android.R.layout.simple_spinner_item, listOfUniversitys));
+                            spinnerUniversidad.setOnItemSelectedListener(thisactivity);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        spinnerUniversidad.setAdapter(new ArrayAdapter<GenericType>(thisactivity, android.R.layout.simple_spinner_item, listOfUniversitys));
-                        spinnerUniversidad.setOnItemSelectedListener(thisactivity);
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
+                });
+            }
+        } else {
 
+            if (adapterView == spinnerUniversidad) {
+                Universidad u = (Universidad) adapterView.getItemAtPosition(position);
+                if (u.getId() > 0) {
+                    RequestParams params = new RequestParams();
+                    params.add("id", u.getId().toString());
+                    final ArrayList<GenericType> listOfFacultys = new ArrayList<GenericType>();
+                    HttpClient.get(Constants.HTTP_GET_FACULTYS, params, new JsonHttpResponseHandlerCustom(this) {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            try {
+                                int error = Integer.parseInt(response.get("error").toString());
+
+                                if (error == 200) {
+                                    processJSONData(response, listOfFacultys, Facultad.class);
+                                }
+                                spinnerFacultad.setAdapter(new ArrayAdapter<GenericType>(thisactivity, android.R.layout.simple_spinner_item, listOfFacultys));
+                                spinnerFacultad.setOnItemSelectedListener(thisactivity);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
                 }
-            });
+            }
         }
     }
 
@@ -140,7 +175,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
      * @param listOfObjects
      * @throws JSONException
      */
-    private void processJSONData(JSONObject result, List<GenericType> listOfObjects, Class <? extends GenericType> obj) throws Exception {
+    private void processJSONData(JSONObject result, List<GenericType> listOfObjects, Class<? extends GenericType> obj) throws Exception {
 
         GenericType generic = obj.newInstance();
         generic.setName(generic.selectOneText());
