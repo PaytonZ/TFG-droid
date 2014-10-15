@@ -1,7 +1,5 @@
 package com.bsod.tfg.modelo;
 
-import android.content.res.Resources;
-
 import com.bsod.tfg.R;
 import com.bsod.tfg.vista.App;
 

@@ -19,11 +19,10 @@ import com.bsod.tfg.modelo.Constants;
 import com.bsod.tfg.modelo.Session;
 import com.bsod.tfg.modelo.Universidad;
 import com.bsod.tfg.utils.HttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -88,9 +87,6 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
             final String username = user.getText().toString();
             final String pass = password.getText().toString();
 
-            RequestParams params = new RequestParams();
-            params.put("user", username);
-            params.put("pass", pass);
 
             // HARDCODING for making root toor always accesible
             if (username.equals("root") && pass.equals("toor")) {
@@ -110,8 +106,10 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                 finish();
             } else {
 
-
-                HttpClient.get(Constants.HTTP_LOGIN_USER, params, new JsonHttpResponseHandler() {
+                RequestParams params = new RequestParams();
+                params.put("user", username);
+                params.put("pass", pass);
+                HttpClient.get(Constants.HTTP_LOGIN_USER, params, new JsonHttpResponseHandlerCustom(this) {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         // If the response is JSONObject instead of expected JSONArray
@@ -123,7 +121,7 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                                 password.setText("");
                             } else {
 
-                                // Takes more data from the server and put it here
+                                // TODO: Takes more data from the server and put it here
                                 Session.getSession().setUser(username);
                                 Session.getSession().setToken(response.get("token").toString());
                                 Universidad i = new Universidad();
@@ -146,10 +144,7 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
 
                     }
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 
-                    }
                 });
             }
 

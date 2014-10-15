@@ -37,6 +37,7 @@
     <string name="selecciona_universidad"><![CDATA[<<Seleciona Universidad>>]]></string>
     <string name="selecciona_facultad"><![CDATA[<<Seleciona Facultad>>]]></string>
     <string name="loading">Cargando...</string>
+    <string name="passlenght">Al menos 6 caracteres</string>
 
 
 </resources>

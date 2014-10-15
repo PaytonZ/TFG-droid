@@ -1,21 +1,30 @@
 package com.bsod.tfg.vista;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.Constants;
 import com.bsod.tfg.modelo.Facultad;
 import com.bsod.tfg.modelo.GenericType;
 import com.bsod.tfg.modelo.Provincia;
+import com.bsod.tfg.modelo.Session;
 import com.bsod.tfg.modelo.Universidad;
+import com.bsod.tfg.utils.EmailChecker;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.loopj.android.http.RequestParams;
@@ -28,16 +37,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityRegister extends Activity implements AdapterView.OnItemSelectedListener {
+public class ActivityRegister extends Activity implements AdapterView.OnItemSelectedListener, View.OnFocusChangeListener, View.OnClickListener {
 
     private static final String TAG = "ActivityRegister";
     private ArrayList<GenericType> listOfProvincias = new ArrayList<GenericType>();
     private Spinner spinnerProvincias;
     private Spinner spinnerUniversidad;
     private Spinner spinnerFacultad;
+    private EditText editTextUsuario;
+    private EditText editTextPassword;
+    private EditText editTextEmail;
     private ActivityRegister thisactivity = this;
-    private ProgressDialog progressDialog;
-
+    private Button buttonRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +58,20 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
         spinnerProvincias = (Spinner) findViewById(R.id.spinnerlocation);
         spinnerUniversidad = (Spinner) findViewById(R.id.spinneruniversidad);
         spinnerFacultad = (Spinner) findViewById(R.id.spinnerfacultad);
+
+        editTextUsuario = (EditText) findViewById(R.id.register_usuario);
+        editTextUsuario.setOnFocusChangeListener(this);
+
+        editTextPassword = (EditText) findViewById(R.id.register_password);
+        editTextPassword.setText(getText(R.string.passlenght));
+        editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        editTextPassword.setOnFocusChangeListener(this);
+
+        buttonRegister = (Button) findViewById(R.id.registar_button);
+        buttonRegister.setOnClickListener(this);
+
+        editTextEmail = (EditText) findViewById(R.id.register_email);
+        editTextEmail.setOnFocusChangeListener(this);
 
 
         RequestParams params = new RequestParams();
@@ -192,4 +217,114 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
         }
     }
 
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (view == editTextPassword) {
+            if (hasFocus) {
+                if (editTextPassword.getText().toString().equals(getString(R.string.passlenght))) {
+                    editTextPassword.setText("");
+                    editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            } else {
+                if (editTextPassword.getText().toString().equals("")) {
+                    editTextPassword.setText(getText(R.string.passlenght));
+                    editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    editTextPassword.setTransformationMethod(null);
+                } else {
+                    if (checkValidity(editTextPassword)) {
+                        editTextPassword.setTextColor(Color.GREEN);
+                    } else {
+                        editTextPassword.setTextColor(Color.RED);
+                    }
+                }
+            }
+        } else if (view == editTextUsuario) {
+            if (!hasFocus) {
+                if (checkValidity(editTextUsuario)) {
+                    editTextUsuario.setTextColor(Color.GREEN);
+                } else {
+                    editTextUsuario.setTextColor(Color.RED);
+                }
+            }
+        } else if (view == editTextEmail) {
+
+            if (!hasFocus) {
+                if (checkValidity(editTextEmail))
+                    editTextEmail.setTextColor(Color.GREEN);
+                else {
+                    editTextEmail.setTextColor(Color.RED);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == buttonRegister) {
+            //Better be safe than sorry , double check
+            Boolean b = checkValidity(editTextUsuario) && checkValidity(editTextEmail) && checkValidity(editTextPassword) && checkValidity(spinnerFacultad) && checkValidity(spinnerProvincias)
+                    && checkValidity(spinnerUniversidad);
+            if (b) {
+                RequestParams params = new RequestParams();
+                params.put("user", editTextUsuario.getText().toString());
+                params.put("pass", editTextPassword.getText().toString());
+                params.put("email", editTextEmail.getText().toString());
+                params.put("university", ((GenericType) spinnerUniversidad.getSelectedItem()).getId());
+                params.put("faculty", ((GenericType) spinnerFacultad.getSelectedItem()).getId());
+
+
+                HttpClient.get(Constants.HTTP_REGISTER_USER, params, new JsonHttpResponseHandlerCustom(this) {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                        int error = 0;
+                        try {
+                            error = Integer.parseInt(response.get("error").toString());
+                            if (error == 200) {
+                                // TODO: Takes more data from the server and put it here
+                                Session.getSession().setUser(editTextUsuario.getText().toString());
+                                Session.getSession().setToken(response.get("token").toString());
+                                Universidad i = new Universidad();
+                                i.setId(1);
+                                i.setName("Unv. Complutensis Madritensis.");
+                                Session.getSession().setUniversidad(i);
+                                Session.persistPreferences();
+
+                                Intent intent = new Intent(thisactivity, ActivityMain.class);
+                                // Closing all the Activities from stack
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                // Add new Flag to start new Activity
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                });
+            } else {
+                Toast.makeText(this, "Psst! Hay algun parametro que esta mal!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private boolean checkValidity(View v) {
+        Boolean validity = false;
+
+        if (v == editTextPassword) {
+            validity = (editTextPassword.getText().length() > 5);
+
+        } else if (v == editTextUsuario) {
+            validity = editTextUsuario.getText().length() > 3;
+        } else if (v == editTextEmail) {
+            validity = editTextEmail.getText().length() > 4 && new EmailChecker().validate(editTextEmail.getText().toString());
+        } else if (v == spinnerUniversidad || v == spinnerProvincias || v == spinnerFacultad) {
+            validity = ((GenericType) ((Spinner) v).getSelectedItem()).getId() > 0;
+        }
+        return validity;
+    }
 }
