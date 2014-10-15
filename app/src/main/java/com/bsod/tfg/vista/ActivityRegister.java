@@ -27,6 +27,7 @@ import com.bsod.tfg.modelo.Universidad;
 import com.bsod.tfg.utils.EmailChecker;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -219,6 +220,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
 
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
+
         if (view == editTextPassword) {
             if (hasFocus) {
                 if (editTextPassword.getText().toString().equals(getString(R.string.passlenght))) {
@@ -234,26 +236,34 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                 } else {
                     if (checkValidity(editTextPassword)) {
                         editTextPassword.setTextColor(Color.GREEN);
+                        editTextPassword.setError(null);
                     } else {
                         editTextPassword.setTextColor(Color.RED);
                     }
                 }
             }
         } else if (view == editTextUsuario) {
-            if (!hasFocus) {
+            if (hasFocus) {
+                editTextUsuario.setTextColor(Color.BLACK);
+            } else {
                 if (checkValidity(editTextUsuario)) {
                     editTextUsuario.setTextColor(Color.GREEN);
+                    editTextUsuario.setError(null);
                 } else {
                     editTextUsuario.setTextColor(Color.RED);
                 }
+
             }
         } else if (view == editTextEmail) {
-
-            if (!hasFocus) {
-                if (checkValidity(editTextEmail))
+            if (hasFocus) {
+                editTextEmail.setTextColor(Color.BLACK);
+            } else {
+                if (checkValidity(editTextEmail)) {
                     editTextEmail.setTextColor(Color.GREEN);
-                else {
+                    editTextUsuario.setError(null);
+                } else {
                     editTextEmail.setTextColor(Color.RED);
+
                 }
             }
         }
@@ -263,9 +273,8 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
     public void onClick(View view) {
         if (view == buttonRegister) {
             //Better be safe than sorry , double check
-            Boolean b = checkValidity(editTextUsuario) && checkValidity(editTextEmail) && checkValidity(editTextPassword) && checkValidity(spinnerFacultad) && checkValidity(spinnerProvincias)
-                    && checkValidity(spinnerUniversidad);
-            if (b) {
+            if (checkValidity(editTextUsuario) && checkValidity(editTextEmail) && checkValidity(editTextPassword) && checkValidity(spinnerFacultad) && checkValidity(spinnerProvincias)
+                    && checkValidity(spinnerUniversidad)) {
                 RequestParams params = new RequestParams();
                 params.put("user", editTextUsuario.getText().toString());
                 params.put("pass", editTextPassword.getText().toString());
@@ -278,7 +287,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                        int error = 0;
+                        int error;
                         try {
                             error = Integer.parseInt(response.get("error").toString());
                             if (error == 200) {
@@ -290,41 +299,104 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                                 i.setName("Unv. Complutensis Madritensis.");
                                 Session.getSession().setUniversidad(i);
                                 Session.persistPreferences();
-
                                 Intent intent = new Intent(thisactivity, ActivityMain.class);
                                 // Closing all the Activities from stack
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 // Add new Flag to start new Activity
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                Toast.makeText(thisactivity, R.string.successful_register, Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                                 finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 });
             } else {
-                Toast.makeText(this, "Psst! Hay algun parametro que esta mal!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.register_bad_parameters, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    /**
+     * Comprueba si un atributo es válido según determinadas reglas.
+     *
+     * @param v Vista a ser comprobada
+     * @return Si un elemento es válido para usarse para el registro o no.
+     */
     private boolean checkValidity(View v) {
-        Boolean validity = false;
-
+        final boolean[] validity = new boolean[2];
+    /* Comprobación del Campo de Contraseña */
         if (v == editTextPassword) {
-            validity = (editTextPassword.getText().length() > 5);
-
+            validity[0] = (editTextPassword.getText().length() > 5);
+    /* Comprobación del Campo de Usuario */
         } else if (v == editTextUsuario) {
-            validity = editTextUsuario.getText().length() > 3;
-        } else if (v == editTextEmail) {
-            validity = editTextEmail.getText().length() > 4 && new EmailChecker().validate(editTextEmail.getText().toString());
-        } else if (v == spinnerUniversidad || v == spinnerProvincias || v == spinnerFacultad) {
-            validity = ((GenericType) ((Spinner) v).getSelectedItem()).getId() > 0;
+            validity[0] = editTextUsuario.getText().length() > 3;
+            if (validity[0]) {
+                RequestParams params = new RequestParams();
+                params.put("user", editTextUsuario.getText().toString());
+                HttpClient.get(Constants.HTTP_CHECK_USER, params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        int error;
+                        try {
+                            error = Integer.parseInt(response.get("error").toString());
+                            if (error == 200) {
+                                int available = Integer.parseInt(response.get("available").toString());
+                                validity[1] = (available == 1);
+                                validity[0] = validity[0] && validity[1];
+                                if (!validity[0]) {
+                                    editTextUsuario.setTextColor(Color.RED);
+                                    editTextUsuario.setError(thisactivity.getString(R.string.already_existing_user));
+                                }
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
         }
-        return validity;
+    /* Comprobación del Campo de Email */
+        else if (v == editTextEmail) {
+            validity[0] = editTextEmail.getText().length() > 4 && new EmailChecker().validate(editTextEmail.getText().toString());
+            if (validity[0]) {
+                RequestParams params = new RequestParams();
+                params.put("email", editTextEmail.getText().toString());
+                HttpClient.get(Constants.HTTP_CHECK_EMAIL, params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        int error;
+                        try {
+                            error = Integer.parseInt(response.get("error").toString());
+                            if (error == 200) {
+                                int available = Integer.parseInt(response.get("available").toString());
+                                validity[1] = (available == 1);
+                                validity[0] = validity[0] && validity[1];
+                                if (!validity[0]) {
+                                    editTextEmail.setTextColor(Color.RED);
+                                    editTextEmail.setError(thisactivity.getString(R.string.already_existing_email));
+                                }
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+            /* Comprobación del Campos de Provincia - Facultad y Universidad  */
+        } else if (v == spinnerUniversidad || v == spinnerProvincias || v == spinnerFacultad) {
+            validity[0] = ((GenericType) ((Spinner) v).getSelectedItem()).getId() > 0;
+        }
+        return validity[0];
     }
 }
+
+
+
+

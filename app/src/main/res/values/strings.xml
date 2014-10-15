@@ -38,6 +38,10 @@
     <string name="selecciona_facultad"><![CDATA[<<Seleciona Facultad>>]]></string>
     <string name="loading">Cargando...</string>
     <string name="passlenght">Al menos 6 caracteres</string>
+    <string name="register_bad_parameters"> ¡Psst! ¡Hay algún parámetro que está mal! </string>
+    <string name="already_existing_user"> Ya existe un usuario con ese nombre </string>
+    <string name="already_existing_email">Ya existe un usuario con ese e-mail</string>
+    <string name="successful_register">¡ Te has registrado satisfactoriamente !</string>
 
 
 </resources>
