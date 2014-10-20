@@ -1,6 +1,7 @@
 package com.bsod.tfg.controlador;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,8 @@ public class AdapterTablon extends ArrayAdapter<String> {
         TextView textView = (TextView) rowView.findViewById(R.id.first_line);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         textView.setText(String.valueOf(getItem(position)));
+        textView.setTypeface(null, Typeface.BOLD);
+
         // change the icon for Windows and iPhone
         String s = String.valueOf(getItem(position));
 
