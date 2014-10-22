@@ -19,17 +19,20 @@ import com.bsod.tfg.controlador.AdapterTab;
 import com.bsod.tfg.modelo.Constants;
 import com.bsod.tfg.modelo.Session;
 import com.bsod.tfg.vista.ActivitySearchUni;
+import com.bsod.tfg.vista.ActivitySettings;
 import com.bsod.tfg.vista.ViewPagerNonSwipeable;
 
 /**
  * Actividad Principal que contiene las pestañas
+ * <div>Icons made by Designerz Base from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>
+ * is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
  */
 public class ActivityMain extends FragmentActivity implements
         ActionBar.TabListener, ViewPager.OnPageChangeListener, android.view.View.OnClickListener {
 
-    private static final String TAG = "ActivityMain";
     public final static String CURRENT_LOCATION = "com.bsod.tfg.MESSAGE";
     public final static String NEXT_LOCATION = "";
+    private static final String TAG = "ActivityMain";
     private String uni_location = null;
 
     // Maybe Should be in other package
@@ -95,6 +98,8 @@ public class ActivityMain extends FragmentActivity implements
         int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
+                Intent i = new Intent(this, ActivitySettings.class);
+                this.startActivity(i);
                 return true;
 
             case R.id.action_logout:
