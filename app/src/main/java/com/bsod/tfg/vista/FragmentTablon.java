@@ -1,8 +1,7 @@
 package com.bsod.tfg.vista;
 
 
-import android.annotation.TargetApi;
-import android.os.Build;
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -11,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterTablon;
+import com.bsod.tfg.modelo.MessageBoard;
 
 import java.util.ArrayList;
 
@@ -24,8 +23,13 @@ import java.util.ArrayList;
  */
 public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener {
 
+    private static final String TAG = "FragmentTablon";
     private SwipeRefreshLayout swipeLayout;
     private ListView tablonList;
+    private ActionBar aBar;
+
+    private int mLastFirstVisibleItem;
+    private boolean mIsScrollingUp;
 
     public FragmentTablon() {
         // Required empty public constructor
@@ -45,42 +49,40 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_tablon);
         swipeLayout.setOnRefreshListener(this);
 
+        aBar = getActivity().getActionBar();
 
         tablonList = (ListView) rootView.findViewById(R.id.list_tablon);
-        String[] values = new String[]{"Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile"};
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
-        }
-        final AdapterTablon adapter = new AdapterTablon(getActivity(),
-                android.R.layout.simple_list_item_1, list);
+        final ArrayList<MessageBoard> list = new ArrayList<MessageBoard>();
+
+        MessageBoard mb = new MessageBoard();
+        mb.setMessage("Holi :)");
+        list.add(mb);
+        mb = new MessageBoard();
+        mb.setMessage("Adiosi :)");
+        list.add(mb);
+        mb = new MessageBoard();
+        mb.setMessage("Wut :)");
+        list.add(mb);
+        mb = new MessageBoard();
+        mb.setMessage("whatdafaq :)");
+        list.add(mb);
+        mb = new MessageBoard();
+        mb.setMessage("lol nubs :)");
+        list.add(mb);
+        mb = new MessageBoard();
+        mb.setMessage("aksjdkasjdkajskdjaskd :)");
+        list.add(mb);
+        mb = new MessageBoard();
+        mb.setMessage("keybaoardhacker :)");
+        list.add(mb);
+
+
+        final AdapterTablon adapter = new AdapterTablon(getActivity());
         tablonList.setAdapter(adapter);
+        adapter.updateMessages(list);
+        tablonList.setOnItemClickListener(adapter);
 
-        tablonList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            //Animacion al hacer click de eliminar
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-                final String item = (String) parent.getItemAtPosition(position);
-                view.animate().setDuration(2000).alpha(0)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                list.remove(item);
-                                adapter.notifyDataSetChanged();
-                                view.setAlpha(1);
-                            }
-                        });
-            }
-
-        });
 
         tablonList.setOnScrollListener(this);
 
@@ -99,15 +101,30 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         }, 5000);
 
     }
-/* Hack taken from
-http://nlopez.io/swiperefreshlayout-with-listview-done-right/
-*/
+
 
     @Override
-    public void onScrollStateChanged(AbsListView absListView, int i) {
+    public void onScrollStateChanged(AbsListView view, int i) {
+        final ListView lw = tablonList;
 
+        if (view.getId() == lw.getId()) {
+            final int currentFirstVisibleItem = lw.getFirstVisiblePosition();
+
+            if (currentFirstVisibleItem > mLastFirstVisibleItem && aBar.isShowing()) {
+                mIsScrollingUp = false;
+                //aBar.hide();
+            } else if (currentFirstVisibleItem < mLastFirstVisibleItem && !aBar.isShowing()) {
+                mIsScrollingUp = true;
+                //aBar.show();
+            }
+
+            mLastFirstVisibleItem = currentFirstVisibleItem;
+        }
     }
 
+    /* Hack taken from
+    http://nlopez.io/swiperefreshlayout-with-listview-done-right/
+    */
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         int topRowVerticalPosition =

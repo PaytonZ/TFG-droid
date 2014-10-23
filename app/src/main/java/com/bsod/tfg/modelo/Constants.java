@@ -18,5 +18,7 @@ public class Constants {
     public static final String HTTP_GET_FACULTYS = "getfacultades";
     public static final String HTTP_CHECK_USER = "checkuser";
     public static final String HTTP_CHECK_EMAIL = "checkemail";
+    public static final String HTTP_GET_MESSAGES_BOARD = "getmensajestablon";
+    public static final String HTTP_POST_MESSAGES_BOARD = "sendmensajetablon";
 
 }

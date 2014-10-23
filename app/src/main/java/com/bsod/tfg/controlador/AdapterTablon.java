@@ -5,91 +5,99 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bsod.tfg.R;
+import com.bsod.tfg.modelo.MessageBoard;
+import com.bsod.tfg.utils.ViewHolder;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by Payton on 25/09/2014.
  */
 
-public class AdapterTablon extends ArrayAdapter<String> {
+public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClickListener {
 
+    private List<MessageBoard> messageList = Collections.emptyList();
     private final Context context;
-    private HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
 
-    public AdapterTablon(Context context, int textViewResourceId,
-                         List<String> objects) {
-        super(context, textViewResourceId, objects);
+    public AdapterTablon(Context context) {
         this.context = context;
-        for (int i = 0; i < objects.size(); ++i) {
-            mIdMap.put(objects.get(i), i);
-        }
+    }
+
+    public void updateMessages(List<MessageBoard> messageList) {
+        this.messageList = messageList;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getCount() {
+        return messageList.size();
+    }
+
+    @Override
+    public MessageBoard getItem(int position) {
+        return messageList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        String item = getItem(position);
-        return mIdMap.get(item);
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return true;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder;
+
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.tablonlayout, parent, false);
-
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-
+            //holder = new ViewHolder();
+            convertView = LayoutInflater.from(context).inflate(R.layout.tablonlayout, parent, false);
         }
-
-        // object item based on the position
-        Long objectItem = getItemId(position);
-
-        // assign values if the object is not null
-        if (objectItem != null) {
-            // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
-            holder.textView = (TextView) convertView.findViewById(R.id.first_line);
+            /*holder.messageText = (TextView) convertView.findViewById(R.id.first_line);
             holder.imageView = (ImageView) convertView.findViewById(R.id.icon);
-            holder.textView.setText(String.valueOf(getItem(position)));
-            holder.textView.setTypeface(null, Typeface.BOLD);
+            convertView.setTag(holder);*/
 
-            // change the icon for Windows and iPhone
-            String s = String.valueOf(getItem(position));
+        TextView message = ViewHolder.get(convertView, R.id.message_board_text);
+        TextView title = ViewHolder.get(convertView, R.id.message_board_title);
+        ImageView image = ViewHolder.get(convertView, R.id.message_board_image);
 
-            if (s.hashCode() % 2 == 0) {
-                holder.imageView.setImageResource(R.drawable.ic_owned_fire);
-            } else {
-                holder.imageView.setImageResource(R.drawable.ic_cthulhu_president);
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
+        });
+        MessageBoard mb = getItem(position);
+        message.setText(mb.getMessage());
+        message.setTypeface(null, Typeface.BOLD);
 
+        // change the icon for Windows and iPhone
+        String s = String.valueOf(getItem(position));
+
+        if (s.hashCode() % 2 == 0) {
+            image.setImageResource(R.drawable.ic_owned_fire);
+        } else {
+            image.setImageResource(R.drawable.ic_cthulhu_president);
         }
 
 
         return convertView;
     }
 
-    static class ViewHolder {
-        TextView textView;
-        ImageView imageView;
-
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        Toast.makeText(context, String.valueOf(view.getId()), Toast.LENGTH_SHORT).show();
     }
 
+
 }
+
+
 
