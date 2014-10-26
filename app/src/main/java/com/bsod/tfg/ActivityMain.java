@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -37,7 +38,6 @@ public class ActivityMain extends FragmentActivity implements
 
     // Maybe Should be in other package
 
-
     private ViewPagerNonSwipeable vPager;
     private AdapterTab tAdapter;
     private ActionBar aBar;
@@ -48,7 +48,7 @@ public class ActivityMain extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        uni_location = Session.getSession().getUniversidad().getName();
+        uni_location = Session.getSession().getFacultad().getName();
 
         setContentView(R.layout.activity_main);
 
@@ -59,8 +59,8 @@ public class ActivityMain extends FragmentActivity implements
         vPager.setAdapter(tAdapter);
         // Habilita el modo de navegación por pestañas
         aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        aBar.setHomeButtonEnabled(true);
-        aBar.setDisplayHomeAsUpEnabled(true);
+        //aBar.setHomeButtonEnabled(true);
+        //aBar.setDisplayHomeAsUpEnabled(true);
 
 
         //Añadiendo tabs
@@ -105,7 +105,6 @@ public class ActivityMain extends FragmentActivity implements
             case R.id.action_logout:
                 Session.destroySession();
 
-
                 Toast.makeText(this, R.string.desconectado, Toast.LENGTH_SHORT).show();
                 /*Intent i = new Intent(this, ActivitySplash.class);
                 // Closing all the Activities from stack
@@ -127,6 +126,7 @@ public class ActivityMain extends FragmentActivity implements
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // Establecer el fragment que se debe mostrar.
         vPager.setCurrentItem(tab.getPosition());
+        //invalidateOptionsMenu();
         /* Log.i(TAG, String.valueOf(tab.getPosition())); */
     }
 
@@ -192,6 +192,11 @@ public class ActivityMain extends FragmentActivity implements
                 location.setText(data.getExtras().getString(NEXT_LOCATION));
             }
         }
+    }
+
+    public Fragment getCurrentFragment()
+    {
+       return tAdapter.getItem(aBar.getSelectedTab().getPosition());
     }
 
 

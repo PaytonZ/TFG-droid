@@ -15,8 +15,6 @@
         android:layout_height="wrap_content" >
     </ListView>
 
-
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
@@ -32,7 +30,6 @@
                 android:textSize="20sp"
                 android:visibility="gone" />
             </LinearLayout>
-
 
     </LinearLayout>
 

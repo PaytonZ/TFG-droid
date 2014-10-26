@@ -3,10 +3,11 @@ package com.bsod.tfg.vista;
 
 import android.app.ActionBar;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -14,22 +15,37 @@ import android.widget.ListView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterTablon;
+import com.bsod.tfg.modelo.Constants;
 import com.bsod.tfg.modelo.MessageBoard;
+import com.bsod.tfg.modelo.Session;
+import com.bsod.tfg.utils.HttpClient;
+import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
+import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.type.TypeFactory;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener {
+public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener, DialogSendMessageBoard.DialogSendMessageBoardListener {
 
     private static final String TAG = "FragmentTablon";
     private SwipeRefreshLayout swipeLayout;
     private ListView tablonList;
     private ActionBar aBar;
+    private List<MessageBoard> listOfMessages = new ArrayList<MessageBoard>();
 
     private int mLastFirstVisibleItem;
     private boolean mIsScrollingUp;
+
 
     public FragmentTablon() {
         // Required empty public constructor
@@ -53,52 +69,22 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
 
         tablonList = (ListView) rootView.findViewById(R.id.list_tablon);
 
-        final ArrayList<MessageBoard> list = new ArrayList<MessageBoard>();
-
-        MessageBoard mb = new MessageBoard();
-        mb.setMessage("Holi :)");
-        list.add(mb);
-        mb = new MessageBoard();
-        mb.setMessage("Adiosi :)");
-        list.add(mb);
-        mb = new MessageBoard();
-        mb.setMessage("Wut :)");
-        list.add(mb);
-        mb = new MessageBoard();
-        mb.setMessage("whatdafaq :)");
-        list.add(mb);
-        mb = new MessageBoard();
-        mb.setMessage("lol nubs :)");
-        list.add(mb);
-        mb = new MessageBoard();
-        mb.setMessage("aksjdkasjdkajskdjaskd :)");
-        list.add(mb);
-        mb = new MessageBoard();
-        mb.setMessage("keybaoardhacker :)");
-        list.add(mb);
-
-
         final AdapterTablon adapter = new AdapterTablon(getActivity());
         tablonList.setAdapter(adapter);
-        adapter.updateMessages(list);
         tablonList.setOnItemClickListener(adapter);
-
-
         tablonList.setOnScrollListener(this);
-
+        refreshMessages();
         // Devolvemos la vista para que se muestre en pantalla.
+
+        setHasOptionsMenu(true);
         return rootView;
     }
 
 
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                swipeLayout.setRefreshing(false);
-            }
-        }, 5000);
+
+        refreshMessages();
 
     }
 
@@ -131,5 +117,94 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                 (tablonList == null || tablonList.getChildCount() == 0) ?
                         0 : tablonList.getChildAt(0).getTop();
         swipeLayout.setEnabled(topRowVerticalPosition >= 0);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_refresh_messages:
+                //Toast.makeText(getActivity(),"REFRESHING",Toast.LENGTH_SHORT).show();
+                refreshMessages();
+                return true;
+            case R.id.menu_send_message:
+                //Toast.makeText(getActivity(),"SENDING",Toast.LENGTH_SHORT).show();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                DialogSendMessageBoard sendMessageBoard = new DialogSendMessageBoard();
+                sendMessageBoard.show(fm, "sendMessageBoard");
+
+
+                return true;
+            default:
+                break;
+        }
+
+        return false;
+    }
+
+    private void refreshMessages() {
+
+        swipeLayout.setRefreshing(true);
+
+        RequestParams params = new RequestParams();
+        params.put("token", Session.getSession().getToken());
+        params.put("idmessage", ((tablonList.getAdapter()).getCount() == 0) ? 0 : ((AdapterTablon) tablonList.getAdapter()).getItem(0).getId());
+        params.put("idfaculty", Session.getSession().getFacultad().getId());
+
+        HttpClient.get(Constants.HTTP_GET_MESSAGES_BOARD, params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                int error;
+                try {
+                    error = Integer.parseInt(response.get("error").toString());
+                    if (error == 200) {
+                        ObjectMapper mapper = new ObjectMapper();
+                        mapper.registerModule(new JsonOrgModule());
+                        List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
+                                response.get("data").toString(),
+                                TypeFactory.collectionType(
+                                        List.class, MessageBoard.class));
+                        listOfMessages.addAll(listOfMessagesUpdated);
+                        ((AdapterTablon) tablonList.getAdapter()).updateMessages(listOfMessages);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        swipeLayout.setRefreshing(false);
+    }
+
+
+    @Override
+    public void onSendMessageBoard(String inputText) {
+
+        RequestParams params = new RequestParams();
+        params.put("token", Session.getSession().getToken());
+        params.put("message", inputText);
+        params.put("idfaculty", Session.getSession().getFacultad().getId());
+
+        HttpClient.get(Constants.HTTP_POST_MESSAGES_BOARD, params, new JsonHttpResponseHandlerCustom(getActivity()) {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                int error;
+                try {
+                    error = Integer.parseInt(response.get("error").toString());
+                    if (error == 200) {
+                        ObjectMapper mapper = new ObjectMapper();
+                        List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
+                                response.get("data").toString(),
+                                TypeFactory.collectionType(
+                                        List.class, MessageBoard.class));
+                        listOfMessages.addAll(listOfMessagesUpdated);
+                        ((AdapterTablon) tablonList.getAdapter()).updateMessages(listOfMessages);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        });
     }
 }

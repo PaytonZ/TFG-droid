@@ -44,5 +44,7 @@
     <string name="successful_register">¡ Te has registrado satisfactoriamente !</string>
     <string name="char150test"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p</string>
     <string name="tablon_no_results">No hay mensajes aún en este tablón ... Sé el primero en comentar :)</string>
+    <string name="tablon_refrescar_mensajes">Actualiza los mensajes del tablón</string>
+    <string name="enviar">¡ Enviar !</string>
 
 </resources>

@@ -19,11 +19,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by Payton on 25/09/2014.
+ * Proudly created by Payton on 25/09/2014.
  */
-
 public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClickListener {
 
+    private static final String TAG = "AdapterTablon";
     private List<MessageBoard> messageList = Collections.emptyList();
     private final Context context;
 
@@ -54,7 +54,6 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
         if (convertView == null) {
 
             //holder = new ViewHolder();
@@ -75,8 +74,9 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
             }
         });
         MessageBoard mb = getItem(position);
+        title.setText(mb.getUser().getName() + " " + mb.getCreationDate().toString());
+        title.setTypeface(null, Typeface.BOLD);
         message.setText(mb.getMessage());
-        message.setTypeface(null, Typeface.BOLD);
 
         // change the icon for Windows and iPhone
         String s = String.valueOf(getItem(position));
@@ -86,7 +86,6 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
         } else {
             image.setImageResource(R.drawable.ic_cthulhu_president);
         }
-
 
         return convertView;
     }

@@ -146,7 +146,10 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                             int error = Integer.parseInt(response.get("error").toString());
 
                             if (error == 200) {
+                                // ObjectMapper om = new ObjectMapper();
+                                //JsonNode o = om.valueToTree(response);
                                 processJSONData(response, listOfUniversitys, Universidad.class);
+                                //new ObjectMapper().readValue(o, Universidad.class);
                             }
                             spinnerUniversidad.setAdapter(new ArrayAdapter<GenericType>(thisactivity, android.R.layout.simple_spinner_item, listOfUniversitys));
                             spinnerUniversidad.setOnItemSelectedListener(thisactivity);
@@ -282,7 +285,6 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                 params.put("university", ((GenericType) spinnerUniversidad.getSelectedItem()).getId());
                 params.put("faculty", ((GenericType) spinnerFacultad.getSelectedItem()).getId());
 
-
                 HttpClient.get(Constants.HTTP_REGISTER_USER, params, new JsonHttpResponseHandlerCustom(this) {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -294,10 +296,10 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                                 // TODO: Takes more data from the server and put it here
                                 Session.getSession().setUser(editTextUsuario.getText().toString());
                                 Session.getSession().setToken(response.get("token").toString());
-                                Universidad i = new Universidad();
+                                Facultad i = new Facultad();
                                 i.setId(1);
                                 i.setName("Unv. Complutensis Madritensis.");
-                                Session.getSession().setUniversidad(i);
+                                Session.getSession().setFacultad(i);
                                 Session.persistPreferences();
                                 Intent intent = new Intent(thisactivity, ActivityMain.class);
                                 // Closing all the Activities from stack
