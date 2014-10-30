@@ -46,7 +46,7 @@
             android:name=".vista.ActivityRegister"
             android:label="@string/title_activity_activity_registrate"
             android:parentActivityName=".vista.ActivitySplash">
-        <meta-data
+            <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bsod.tfg.vista.ActivitySplash" />
         </activity>
@@ -54,7 +54,7 @@
             android:name=".vista.ActivityLogin"
             android:label="@string/title_activity_activity_login"
             android:parentActivityName=".vista.ActivitySplash">
-        >
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bsod.tfg.vista.ActivitySplash" />

@@ -15,6 +15,10 @@ public class App extends Application {
 
     private static Context mContext;
 
+    public static Context getContext() {
+        return mContext;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,10 +39,6 @@ public class App extends Application {
         super.onLowMemory();
         // This is called when the overall system is running low on memory
         // and actively running processes should trim their memory usage
-    }
-
-    public static Context getContext() {
-        return mContext;
     }
 
     @Override

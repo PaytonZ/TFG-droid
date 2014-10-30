@@ -4,7 +4,7 @@ import com.bsod.tfg.R;
 import com.bsod.tfg.vista.App;
 
 /**
- * Created by Payton on 14/10/2014.
+ * Proudly created by Payton on 14/10/2014.
  */
 public class Facultad extends GenericType {
     @Override

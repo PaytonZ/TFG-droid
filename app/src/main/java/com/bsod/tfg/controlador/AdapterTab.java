@@ -14,9 +14,8 @@ import com.bsod.tfg.vista.FragmentTablon;
  */
 public class AdapterTab extends FragmentPagerAdapter {
 
-    private static int NUM_OF_TABS = 3;
     private static final String TAG = "AdapterTab";
-
+    private static int NUM_OF_TABS = 3;
     private Fragment[] fragmentList;
 
     public AdapterTab(FragmentManager fm) {

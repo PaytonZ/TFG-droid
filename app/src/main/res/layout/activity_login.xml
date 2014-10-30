@@ -25,8 +25,7 @@
         style="@style/registertext"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/contraseña">
-    </TextView>
+        android:text="@string/contraseña"></TextView>
 
     <EditText
         android:id="@+id/login_password"

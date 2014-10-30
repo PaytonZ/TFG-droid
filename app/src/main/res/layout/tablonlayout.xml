@@ -18,9 +18,8 @@
 
     <TextView
         android:id="@+id/message_board_title"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
         android:layout_toRightOf="@id/message_board_image"
@@ -31,11 +30,18 @@
         android:textSize="17sp" />
 
     <TextView
+        android:id="@+id/message_board_date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/message_board_title"
+        android:gravity="end"
+        android:text="asdasd User"
+        android:textSize="14sp" />
+
+    <TextView
         android:id="@+id/message_board_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_below="@id/message_board_title"
         android:layout_toRightOf="@id/message_board_image"
         android:ellipsize="start"
@@ -44,4 +50,16 @@
         android:singleLine="false"
         android:text="@string/char150test"
         android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/message_board_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/message_board_text"
+        android:contentDescription="@string/tablon_star_string_access"
+        android:src="@drawable/ic_action_favorite"
+
+        />
+
 </RelativeLayout>

@@ -37,14 +37,6 @@ public class Session {
         PreferencesManager.getInstance().clear();
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
     public static void loadPreferences() {
         getSession().setUser(PreferencesManager.getInstance().getUser());
         getSession().setToken(PreferencesManager.getInstance().getToken());
@@ -61,6 +53,13 @@ public class Session {
 
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 
     public String getToken() {
         return token;

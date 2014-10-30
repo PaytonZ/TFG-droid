@@ -44,7 +44,6 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
 
         button_registrate = (Button) findViewById(R.id.splash_registrate_button);
         button_login = (Button) findViewById(R.id.splash_login_button);
-
         button_registrate.setOnClickListener(this);
         button_login.setOnClickListener(this);
 

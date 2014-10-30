@@ -194,9 +194,8 @@ public class ActivityMain extends FragmentActivity implements
         }
     }
 
-    public Fragment getCurrentFragment()
-    {
-       return tAdapter.getItem(aBar.getSelectedTab().getPosition());
+    public Fragment getCurrentFragment() {
+        return tAdapter.getItem(aBar.getSelectedTab().getPosition());
     }
 
 

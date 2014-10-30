@@ -11,14 +11,13 @@ import android.content.SharedPreferences;
 public class PreferencesManager {
 
 
-    private final String SHARED_PREFERENCES_FILE = "tfg";
-    private static PreferencesManager sInstance;
-    private final SharedPreferences mPref;
-
     private static final String USER = "com.bsod.tfg.USER";
     private static final String TOKEN = "com.bsod.tfg.TOKEN";
     private static final String UNIVERSITY_ID = "com.bsod.tfg.UNIVERSITY_ID";
     private static final String UNIVERSITY_NAME = "com.bsod.tfg.UNIVERSITY_NAME";
+    private static PreferencesManager sInstance;
+    private final String SHARED_PREFERENCES_FILE = "tfg";
+    private final SharedPreferences mPref;
 
 
     private PreferencesManager(Context context) {
@@ -39,15 +38,15 @@ public class PreferencesManager {
         return sInstance;
     }
 
+    public String getUser() {
+
+        return mPref.getString(USER, "");
+    }
+
     public void setUser(String value) {
         mPref.edit()
                 .putString(USER, value)
                 .commit();
-    }
-
-    public String getUser() {
-
-        return mPref.getString(USER, "");
     }
 
     public void remove(String key) {
@@ -66,17 +65,17 @@ public class PreferencesManager {
         return mPref.getString(TOKEN, "");
     }
 
+    public void setToken(String token) {
+        mPref.edit()
+                .putString(TOKEN, token)
+                .commit();
+    }
+
     public Facultad getFacultad() {
         Facultad i = new Facultad();
         i.setId(mPref.getInt(UNIVERSITY_ID, 0));
         i.setName(mPref.getString(UNIVERSITY_NAME, ""));
         return i;
-    }
-
-    public void setToken(String token) {
-        mPref.edit()
-                .putString(TOKEN, token)
-                .commit();
     }
 
     public void setFacultad(Facultad universidad) {

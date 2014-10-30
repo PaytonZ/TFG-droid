@@ -17,14 +17,10 @@ import com.bsod.tfg.R;
  */
 public class DialogSendMessageBoard extends DialogFragment implements View.OnClickListener {
 
-    public interface DialogSendMessageBoardListener {
-        void onSendMessageBoard(String inputText);
-    }
+    private TextView dialogTextViewMessage;
 
 
  /* Helpers for the DialogFrament */
-
-    private TextView dialogTextViewMessage;
     private Button dialogButtonSendMessage;
 
     @Override
@@ -46,7 +42,6 @@ public class DialogSendMessageBoard extends DialogFragment implements View.OnCli
         return builder.create();
     }
 
-
     @Override
     public void onClick(View view) {
         if (view == dialogButtonSendMessage) {
@@ -55,5 +50,10 @@ public class DialogSendMessageBoard extends DialogFragment implements View.OnCli
             activity.onSendMessageBoard(dialogTextViewMessage.getText().toString());
             this.dismiss();
         }
+    }
+
+
+    public interface DialogSendMessageBoardListener {
+        void onSendMessageBoard(String inputText);
     }
 }

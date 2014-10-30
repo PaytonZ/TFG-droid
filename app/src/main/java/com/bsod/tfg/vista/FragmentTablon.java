@@ -2,6 +2,7 @@ package com.bsod.tfg.vista;
 
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterTablon;
@@ -42,7 +44,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     private ListView tablonList;
     private ActionBar aBar;
     private List<MessageBoard> listOfMessages = new ArrayList<MessageBoard>();
-
+    private Context thisContext;
     private int mLastFirstVisibleItem;
     private boolean mIsScrollingUp;
 
@@ -74,6 +76,9 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         tablonList.setOnItemClickListener(adapter);
         tablonList.setOnScrollListener(this);
         refreshMessages();
+
+        thisContext = getActivity();
+
         // Devolvemos la vista para que se muestre en pantalla.
 
         setHasOptionsMenu(true);
@@ -124,7 +129,8 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         switch (item.getItemId()) {
             case R.id.menu_refresh_messages:
                 //Toast.makeText(getActivity(),"REFRESHING",Toast.LENGTH_SHORT).show();
-                refreshMessages();
+                swipeLayout.setRefreshing(true);
+                onRefresh();
                 return true;
             case R.id.menu_send_message:
                 //Toast.makeText(getActivity(),"SENDING",Toast.LENGTH_SHORT).show();
@@ -143,8 +149,6 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
 
     private void refreshMessages() {
 
-        swipeLayout.setRefreshing(true);
-
         RequestParams params = new RequestParams();
         params.put("token", Session.getSession().getToken());
         params.put("idmessage", ((tablonList.getAdapter()).getCount() == 0) ? 0 : ((AdapterTablon) tablonList.getAdapter()).getItem(0).getId());
@@ -158,21 +162,29 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                 try {
                     error = Integer.parseInt(response.get("error").toString());
                     if (error == 200) {
+                        //swipeLayout.setRefreshing(true);
                         ObjectMapper mapper = new ObjectMapper();
                         mapper.registerModule(new JsonOrgModule());
                         List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
                                 response.get("data").toString(),
                                 TypeFactory.collectionType(
                                         List.class, MessageBoard.class));
-                        listOfMessages.addAll(listOfMessagesUpdated);
+                        listOfMessages.addAll(0, listOfMessagesUpdated);
                         ((AdapterTablon) tablonList.getAdapter()).updateMessages(listOfMessages);
+                        swipeLayout.setRefreshing(false);
+
+                    } else {
+                        if (error == 201) {
+                            Toast.makeText(thisContext, R.string.tablon_no_nuevos_mensajes, Toast.LENGTH_SHORT).show();
+                            swipeLayout.setRefreshing(false);
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-        swipeLayout.setRefreshing(false);
+
     }
 
 
@@ -183,6 +195,8 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         params.put("token", Session.getSession().getToken());
         params.put("message", inputText);
         params.put("idfaculty", Session.getSession().getFacultad().getId());
+
+        //refreshMessages();
 
         HttpClient.get(Constants.HTTP_POST_MESSAGES_BOARD, params, new JsonHttpResponseHandlerCustom(getActivity()) {
             @Override
@@ -196,7 +210,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                                 response.get("data").toString(),
                                 TypeFactory.collectionType(
                                         List.class, MessageBoard.class));
-                        listOfMessages.addAll(listOfMessagesUpdated);
+                        listOfMessages.addAll(0, listOfMessagesUpdated);
                         ((AdapterTablon) tablonList.getAdapter()).updateMessages(listOfMessages);
                     }
                 } catch (Exception e) {

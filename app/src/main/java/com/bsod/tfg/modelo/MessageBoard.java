@@ -5,9 +5,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.Date;
 
 /**
- * Created by Payton on 25/09/2014.
+ * Proudly created by Payton on 25/09/2014.
  */
-
 public class MessageBoard {
 
     @JsonProperty("pk")
@@ -17,6 +16,7 @@ public class MessageBoard {
     @JsonProperty("fecha_creacion")
     private long creationDateUnix;
     private Date creationDate;
+
     //private User user;
     //private Image ...
     @JsonProperty("usuario")

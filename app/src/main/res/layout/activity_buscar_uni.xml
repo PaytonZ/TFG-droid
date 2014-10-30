@@ -8,8 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:drawingCacheQuality="auto"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/listview_buscar_uni"
@@ -17,8 +16,6 @@
         android:layout_height="wrap_content">
 
     </ListView>
-
-
 
 
 </LinearLayout>

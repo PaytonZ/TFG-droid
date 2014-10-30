@@ -2,15 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ActivityMain">
 
-    <item android:id="@+id/menu_send_message"
+    <item
+        android:id="@+id/menu_send_message"
         android:icon="@drawable/ic_action_mail_add"
         android:showAsAction="ifRoom"
-        android:title="@string/tablon_refrescar_mensajes"/>
+        android:title="@string/tablon_refrescar_mensajes" />
 
-    <item android:id="@+id/menu_refresh_messages"
+    <item
+        android:id="@+id/menu_refresh_messages"
         android:icon="@drawable/ic_action_refresh"
         android:showAsAction="ifRoom"
-        android:title="@string/tablon_refrescar_mensajes"/>
+        android:title="@string/tablon_refrescar_mensajes" />
 
 
     <item
