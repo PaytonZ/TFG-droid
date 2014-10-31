@@ -49,5 +49,6 @@
     <string name="tablon_no_nuevos_mensajes">No hay nuevos mensajes en este tablón</string>
     <string name="tablon_star_string_access">Favorite Star</string>
     <string name="lupa_access">Lupa para buscar más facultades</string>
+    <string name="ANDROID">Android</string>
 
 </resources>

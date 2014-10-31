@@ -27,6 +27,7 @@ import com.bsod.tfg.modelo.Universidad;
 import com.bsod.tfg.utils.EmailChecker;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
+import com.bsod.tfg.utils.Statistics;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -214,8 +215,8 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
         for (int i = 0; i < genericData.length(); i++) {
             generic = obj.newInstance();
             JSONObject genericObject = (JSONObject) genericData.get(i);
-            JSONObject data = genericObject.getJSONObject("fields");
-            generic.setName(data.getString("nombre"));
+            //JSONObject data = genericObject.getJSONObject("fields");
+            generic.setName(genericObject.getString("nombre"));
             generic.setId(genericObject.getInt("pk"));
             listOfObjects.add(generic);
         }
@@ -284,6 +285,10 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                 params.put("email", editTextEmail.getText().toString());
                 params.put("university", ((GenericType) spinnerUniversidad.getSelectedItem()).getId());
                 params.put("faculty", ((GenericType) spinnerFacultad.getSelectedItem()).getId());
+                Statistics st = new Statistics();
+                params.put("model", st.getDeviceName());
+                params.put("displaysize", st.getResolution(this));
+                params.put("platform", getString(R.string.ANDROID));
 
                 HttpClient.get(Constants.HTTP_REGISTER_USER, params, new JsonHttpResponseHandlerCustom(this) {
                     @Override
@@ -329,71 +334,78 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
      */
     private boolean checkValidity(View v) {
         final boolean[] validity = new boolean[2];
+
+        try {
+
     /* Comprobación del Campo de Contraseña */
-        if (v == editTextPassword) {
-            validity[0] = (editTextPassword.getText().length() > 5);
+            if (v == editTextPassword) {
+                validity[0] = (editTextPassword.getText().length() > 5);
     /* Comprobación del Campo de Usuario */
-        } else if (v == editTextUsuario) {
-            validity[0] = editTextUsuario.getText().length() > 3;
-            if (validity[0]) {
-                RequestParams params = new RequestParams();
-                params.put("user", editTextUsuario.getText().toString());
-                HttpClient.get(Constants.HTTP_CHECK_USER, params, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        int error;
-                        try {
-                            error = Integer.parseInt(response.get("error").toString());
-                            if (error == 200) {
-                                int available = Integer.parseInt(response.get("available").toString());
-                                validity[1] = (available == 1);
-                                validity[0] = validity[0] && validity[1];
-                                if (!validity[0]) {
-                                    editTextUsuario.setTextColor(Color.RED);
-                                    editTextUsuario.setError(thisactivity.getString(R.string.already_existing_user));
+            } else if (v == editTextUsuario) {
+                validity[0] = editTextUsuario.getText().length() > 3;
+                if (validity[0]) {
+                    RequestParams params = new RequestParams();
+                    params.put("user", editTextUsuario.getText().toString());
+                    HttpClient.get(Constants.HTTP_CHECK_USER, params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            int error;
+                            try {
+                                error = Integer.parseInt(response.get("error").toString());
+                                if (error == 200) {
+                                    int available = Integer.parseInt(response.get("available").toString());
+                                    validity[1] = (available == 1);
+                                    validity[0] = validity[0] && validity[1];
+                                    if (!validity[0]) {
+                                        editTextUsuario.setTextColor(Color.RED);
+                                        editTextUsuario.setError(thisactivity.getString(R.string.already_existing_user));
+                                    }
+
                                 }
-
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
 
+                }
             }
-        }
     /* Comprobación del Campo de Email */
-        else if (v == editTextEmail) {
-            validity[0] = editTextEmail.getText().length() > 4 && new EmailChecker().validate(editTextEmail.getText().toString());
-            if (validity[0]) {
-                RequestParams params = new RequestParams();
-                params.put("email", editTextEmail.getText().toString());
-                HttpClient.get(Constants.HTTP_CHECK_EMAIL, params, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        int error;
-                        try {
-                            error = Integer.parseInt(response.get("error").toString());
-                            if (error == 200) {
-                                int available = Integer.parseInt(response.get("available").toString());
-                                validity[1] = (available == 1);
-                                validity[0] = validity[0] && validity[1];
-                                if (!validity[0]) {
-                                    editTextEmail.setTextColor(Color.RED);
-                                    editTextEmail.setError(thisactivity.getString(R.string.already_existing_email));
+            else if (v == editTextEmail) {
+                validity[0] = editTextEmail.getText().length() > 4 && new EmailChecker().validate(editTextEmail.getText().toString());
+                if (validity[0]) {
+                    RequestParams params = new RequestParams();
+                    params.put("email", editTextEmail.getText().toString());
+                    HttpClient.get(Constants.HTTP_CHECK_EMAIL, params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            int error;
+                            try {
+                                error = Integer.parseInt(response.get("error").toString());
+                                if (error == 200) {
+                                    int available = Integer.parseInt(response.get("available").toString());
+                                    validity[1] = (available == 1);
+                                    validity[0] = validity[0] && validity[1];
+                                    if (!validity[0]) {
+                                        editTextEmail.setTextColor(Color.RED);
+                                        editTextEmail.setError(thisactivity.getString(R.string.already_existing_email));
+                                    }
+
                                 }
-
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
 
-            }
+                }
             /* Comprobación del Campos de Provincia - Facultad y Universidad  */
-        } else if (v == spinnerUniversidad || v == spinnerProvincias || v == spinnerFacultad) {
-            validity[0] = ((GenericType) ((Spinner) v).getSelectedItem()).getId() > 0;
+            } else if (v == spinnerUniversidad || v == spinnerProvincias || v == spinnerFacultad) {
+                validity[0] = ((GenericType) ((Spinner) v).getSelectedItem()).getId() > 0;
+            }
+
+        } catch (Exception e) {
+            return false;
         }
         return validity[0];
     }
