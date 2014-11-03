@@ -288,7 +288,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                 Statistics st = new Statistics();
                 params.put("model", st.getDeviceName());
                 params.put("displaysize", st.getResolution(this));
-                params.put("platform", getString(R.string.ANDROID));
+                params.put("platform", st.getAndroidVersion());
 
                 HttpClient.get(Constants.HTTP_REGISTER_USER, params, new JsonHttpResponseHandlerCustom(this) {
                     @Override

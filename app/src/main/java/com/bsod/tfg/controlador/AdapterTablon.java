@@ -60,6 +60,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
             //holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.tablonlayout, parent, false);
         }
+
             /*holder.messageText = (TextView) convertView.findViewById(R.id.first_line);
             holder.imageView = (ImageView) convertView.findViewById(R.id.icon);
             convertView.setTag(holder);*/
@@ -83,6 +84,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                 Toast.makeText(context, "No toques la imagen!", Toast.LENGTH_SHORT).show();
             }
         });
+
         MessageBoard mb = getItem(position);
 
         // Formating Date
@@ -103,7 +105,6 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
         else {
             image.setImageResource(R.drawable.ic_trololol);
         }
-
 
         return convertView;
     }

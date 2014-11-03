@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterTablon;
@@ -47,7 +46,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     private Context thisContext;
     private int mLastFirstVisibleItem;
     private boolean mIsScrollingUp;
-
+    private AdapterTablon aTablon;
 
     public FragmentTablon() {
         // Required empty public constructor
@@ -71,7 +70,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
 
         tablonList = (ListView) rootView.findViewById(R.id.list_tablon);
 
-        final AdapterTablon adapter = new AdapterTablon(getActivity());
+        final AdapterTablon adapter = (aTablon == null) ? aTablon = new AdapterTablon(getActivity()) : aTablon;
         tablonList.setAdapter(adapter);
         tablonList.setOnItemClickListener(adapter);
         tablonList.setOnScrollListener(this);
@@ -85,14 +84,10 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         return rootView;
     }
 
-
     @Override
     public void onRefresh() {
-
         refreshMessages();
-
     }
-
 
     @Override
     public void onScrollStateChanged(AbsListView view, int i) {
@@ -137,8 +132,6 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 DialogSendMessageBoard sendMessageBoard = new DialogSendMessageBoard();
                 sendMessageBoard.show(fm, "sendMessageBoard");
-
-
                 return true;
             default:
                 break;
@@ -175,7 +168,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
 
                     } else {
                         if (error == 201) {
-                            Toast.makeText(thisContext, R.string.tablon_no_nuevos_mensajes, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(thisContext, R.string.tablon_no_nuevos_mensajes, Toast.LENGTH_SHORT).show();
                             swipeLayout.setRefreshing(false);
                         }
                     }
@@ -186,7 +179,6 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         });
 
     }
-
 
     @Override
     public void onSendMessageBoard(String inputText) {

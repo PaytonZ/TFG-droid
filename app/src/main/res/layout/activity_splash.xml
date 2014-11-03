@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -12,10 +11,6 @@
             android:id="@+id/splash_registrate_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/splash_login_button"
-            android:layout_alignLeft="@+id/splash_login_button"
-            android:layout_alignRight="@+id/splash_login_button"
-            android:layout_alignStart="@+id/splash_login_button"
             android:layout_centerVertical="true"
             android:text="@string/registrate"
             android:theme="@style/buttons_splash" />

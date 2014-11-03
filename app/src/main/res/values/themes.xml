@@ -18,5 +18,7 @@
 
     <style name="buttons_splash" parent="buttons">
         <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginTop">44dp</item>
+
     </style>
 </resources>

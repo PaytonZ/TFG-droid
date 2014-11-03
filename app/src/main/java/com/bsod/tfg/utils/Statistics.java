@@ -41,6 +41,10 @@ public class Statistics {
         }
     }
 
+    public String getAndroidVersion() {
+        return "Android + " + Build.VERSION.RELEASE;
+    }
+
 
     private String capitalize(String s) {
         if (s == null || s.length() == 0) {

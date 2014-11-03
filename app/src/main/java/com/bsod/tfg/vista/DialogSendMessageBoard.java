@@ -20,7 +20,7 @@ public class DialogSendMessageBoard extends DialogFragment implements View.OnCli
     private TextView dialogTextViewMessage;
 
 
- /* Helpers for the DialogFrament */
+    /* Helpers for the DialogFrament */
     private Button dialogButtonSendMessage;
 
     @Override
