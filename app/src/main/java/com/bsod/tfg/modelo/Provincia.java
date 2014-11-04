@@ -1,16 +1,14 @@
 package com.bsod.tfg.modelo;
 
-import com.bsod.tfg.R;
-import com.bsod.tfg.vista.App;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * Created by Payton on 13/10/2014.
+ * Proudly created by Payton on 04/11/2014.
  */
-public class Provincia extends GenericType {
-    @Override
-    public String selectOneText() {
-        return App.getContext().getResources().getString(R.string.selecciona_provincia);
-    }
-
+public class Provincia {
+    @JsonProperty("pk")
+    private int id;
+    @JsonProperty("nombre")
+    private String nombre;
 
 }

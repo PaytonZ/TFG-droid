@@ -145,7 +145,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         RequestParams params = new RequestParams();
         params.put("token", Session.getSession().getToken());
         params.put("idmessage", ((tablonList.getAdapter()).getCount() == 0) ? 0 : ((AdapterTablon) tablonList.getAdapter()).getItem(0).getId());
-        params.put("idfaculty", Session.getSession().getFacultad().getId());
+        params.put("idfaculty", Session.getSession().getFacultadRegistro().getId());
 
         HttpClient.get(Constants.HTTP_GET_MESSAGES_BOARD, params, new JsonHttpResponseHandler() {
 
@@ -186,7 +186,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         RequestParams params = new RequestParams();
         params.put("token", Session.getSession().getToken());
         params.put("message", inputText);
-        params.put("idfaculty", Session.getSession().getFacultad().getId());
+        params.put("idfaculty", Session.getSession().getFacultadRegistro().getId());
 
         //refreshMessages();
 

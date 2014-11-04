@@ -1,14 +1,16 @@
 package com.bsod.tfg.modelo;
 
-import com.bsod.tfg.R;
-import com.bsod.tfg.vista.App;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * Proudly created by Payton on 14/10/2014.
+ * Proudly created by Payton on 04/11/2014.
  */
-public class Facultad extends GenericType {
-    @Override
-    public String selectOneText() {
-        return App.getContext().getResources().getString(R.string.selecciona_facultad);
-    }
+public class Facultad {
+
+    @JsonProperty("pk")
+    private int id;
+    @JsonProperty("nombre")
+    private String nombre;
+    @JsonProperty("universidad")
+    private Universidad uni;
 }

@@ -19,11 +19,11 @@ import android.widget.Toast;
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.Constants;
-import com.bsod.tfg.modelo.Facultad;
+import com.bsod.tfg.modelo.FacultadRegistro;
 import com.bsod.tfg.modelo.GenericType;
-import com.bsod.tfg.modelo.Provincia;
+import com.bsod.tfg.modelo.ProvinciaRegistro;
 import com.bsod.tfg.modelo.Session;
-import com.bsod.tfg.modelo.Universidad;
+import com.bsod.tfg.modelo.UniversidadRegistro;
 import com.bsod.tfg.utils.EmailChecker;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
@@ -86,7 +86,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                             int error = Integer.parseInt(response.get("error").toString());
                             if (error == 200) {
 
-                                processJSONData(response, listOfProvincias, Provincia.class);
+                                processJSONData(response, listOfProvincias, ProvinciaRegistro.class);
 
                                 spinnerProvincias.setAdapter(new ArrayAdapter<GenericType>(thisactivity, android.R.layout.simple_spinner_item, listOfProvincias));
                                 spinnerProvincias.setOnItemSelectedListener(thisactivity);
@@ -134,7 +134,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
         if (adapterView == spinnerProvincias) {
             //Toast.makeText(this, adapterView.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
 
-            Provincia p = (Provincia) adapterView.getItemAtPosition(position);
+            ProvinciaRegistro p = (ProvinciaRegistro) adapterView.getItemAtPosition(position);
             if (p.getId() > 0) {
                 RequestParams params = new RequestParams();
                 params.add("id", p.getId().toString());
@@ -149,7 +149,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                             if (error == 200) {
                                 // ObjectMapper om = new ObjectMapper();
                                 //JsonNode o = om.valueToTree(response);
-                                processJSONData(response, listOfUniversitys, Universidad.class);
+                                processJSONData(response, listOfUniversitys, UniversidadRegistro.class);
                                 //new ObjectMapper().readValue(o, Universidad.class);
                             }
                             spinnerUniversidad.setAdapter(new ArrayAdapter<GenericType>(thisactivity, android.R.layout.simple_spinner_item, listOfUniversitys));
@@ -165,7 +165,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
         } else {
 
             if (adapterView == spinnerUniversidad) {
-                Universidad u = (Universidad) adapterView.getItemAtPosition(position);
+                UniversidadRegistro u = (UniversidadRegistro) adapterView.getItemAtPosition(position);
                 if (u.getId() > 0) {
                     RequestParams params = new RequestParams();
                     params.add("id", u.getId().toString());
@@ -177,7 +177,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                                 int error = Integer.parseInt(response.get("error").toString());
 
                                 if (error == 200) {
-                                    processJSONData(response, listOfFacultys, Facultad.class);
+                                    processJSONData(response, listOfFacultys, FacultadRegistro.class);
                                 }
                                 spinnerFacultad.setAdapter(new ArrayAdapter<GenericType>(thisactivity, android.R.layout.simple_spinner_item, listOfFacultys));
                                 spinnerFacultad.setOnItemSelectedListener(thisactivity);
@@ -301,10 +301,10 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                                 // TODO: Takes more data from the server and put it here
                                 Session.getSession().setUser(editTextUsuario.getText().toString());
                                 Session.getSession().setToken(response.get("token").toString());
-                                Facultad i = new Facultad();
+                                FacultadRegistro i = new FacultadRegistro();
                                 i.setId(1);
                                 i.setName("Unv. Complutensis Madritensis.");
-                                Session.getSession().setFacultad(i);
+                                Session.getSession().setFacultadRegistro(i);
                                 Session.persistPreferences();
                                 Intent intent = new Intent(thisactivity, ActivityMain.class);
                                 // Closing all the Activities from stack

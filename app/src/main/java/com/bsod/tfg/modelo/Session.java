@@ -12,7 +12,7 @@ public class Session {
 
     private String user;
     private String token;
-    private Facultad facultad;
+    private FacultadRegistro facultadRegistro;
     private Date expiration;
 
     private Session() {
@@ -40,17 +40,14 @@ public class Session {
     public static void loadPreferences() {
         getSession().setUser(PreferencesManager.getInstance().getUser());
         getSession().setToken(PreferencesManager.getInstance().getToken());
-        getSession().setFacultad(PreferencesManager.getInstance().getFacultad());
+        getSession().setFacultadRegistro(PreferencesManager.getInstance().getFacultad());
         //getSession().setUser(PreferencesManager.getInstance().getUser());
-
     }
 
     public static void persistPreferences() {
         PreferencesManager.getInstance().setUser(getSession().getUser());
         PreferencesManager.getInstance().setToken(getSession().getToken());
-        PreferencesManager.getInstance().setFacultad(getSession().getFacultad());
-
-
+        PreferencesManager.getInstance().setFacultad(getSession().getFacultadRegistro());
     }
 
     public String getUser() {
@@ -69,12 +66,12 @@ public class Session {
         this.token = token;
     }
 
-    public Facultad getFacultad() {
-        return facultad;
+    public FacultadRegistro getFacultadRegistro() {
+        return facultadRegistro;
     }
 
-    public void setFacultad(Facultad facultad) {
-        this.facultad = facultad;
+    public void setFacultadRegistro(FacultadRegistro facultadRegistro) {
+        this.facultadRegistro = facultadRegistro;
     }
 
     public Date getExpiration() {

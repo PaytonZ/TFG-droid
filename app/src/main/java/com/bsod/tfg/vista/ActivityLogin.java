@@ -17,13 +17,16 @@ import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.Constants;
 import com.bsod.tfg.modelo.Facultad;
+import com.bsod.tfg.modelo.FacultadRegistro;
 import com.bsod.tfg.modelo.Session;
+import com.bsod.tfg.modelo.Token;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
+import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 
 
@@ -92,10 +95,10 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
             if (username.equals("root") && pass.equals("toor")) {
                 Session.getSession().setUser(username);
                 Session.getSession().setToken("asihjdajshdjasd");
-                Facultad i = new Facultad();
+                FacultadRegistro i = new FacultadRegistro();
                 i.setId(1);
                 i.setName("Root Access!");
-                Session.getSession().setFacultad(i);
+                Session.getSession().setFacultadRegistro(i);
                 Session.persistPreferences();
                 Intent intent = new Intent(thisactivity, ActivityMain.class);
                 // Closing all the Activities from stack
@@ -122,12 +125,17 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                             } else {
 
                                 // TODO: Takes more data from the server and put it here
+                                ObjectMapper mapper = new ObjectMapper();
+                                mapper.registerModule(new JsonOrgModule());
+
+                                Token t = mapper.readValue(response.get("token").toString(),Token.class);
+                                Facultad f1 = mapper.readValue(response.get("faculty").toString(),Facultad.class);
                                 Session.getSession().setUser(username);
-                                Session.getSession().setToken(response.get("token").toString());
-                                Facultad f = new Facultad();
+                                Session.getSession().setToken(t.getToken());
+                                FacultadRegistro f = new FacultadRegistro();
                                 f.setId(1);
                                 f.setName("Unv. Complutensis Madritensis.");
-                                Session.getSession().setFacultad(f);
+                                Session.getSession().setFacultadRegistro(f);
                                 Session.persistPreferences();
 
                                 Intent intent = new Intent(thisactivity, ActivityMain.class);
@@ -138,7 +146,7 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                                 startActivity(intent);
                                 finish();
                             }
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 

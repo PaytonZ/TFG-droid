@@ -71,14 +71,14 @@ public class PreferencesManager {
                 .commit();
     }
 
-    public Facultad getFacultad() {
-        Facultad i = new Facultad();
+    public FacultadRegistro getFacultad() {
+        FacultadRegistro i = new FacultadRegistro();
         i.setId(mPref.getInt(UNIVERSITY_ID, 0));
         i.setName(mPref.getString(UNIVERSITY_NAME, ""));
         return i;
     }
 
-    public void setFacultad(Facultad universidad) {
+    public void setFacultad(FacultadRegistro universidad) {
         mPref.edit().putString(UNIVERSITY_NAME, universidad.getName()).commit();
         mPref.edit().putInt(UNIVERSITY_ID, universidad.getId()).commit();
     }
