@@ -1,4 +1,6 @@
-package com.bsod.tfg.modelo;
+package com.bsod.tfg.modelo.tablon;
+
+import com.bsod.tfg.modelo.sesion.User;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 

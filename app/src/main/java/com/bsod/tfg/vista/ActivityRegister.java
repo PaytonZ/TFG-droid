@@ -18,20 +18,25 @@ import android.widget.Toast;
 
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.Constants;
+import com.bsod.tfg.modelo.Facultad;
 import com.bsod.tfg.modelo.FacultadRegistro;
 import com.bsod.tfg.modelo.GenericType;
 import com.bsod.tfg.modelo.ProvinciaRegistro;
-import com.bsod.tfg.modelo.Session;
 import com.bsod.tfg.modelo.UniversidadRegistro;
+import com.bsod.tfg.modelo.otros.Constants;
+import com.bsod.tfg.modelo.sesion.Session;
+import com.bsod.tfg.modelo.sesion.Token;
+import com.bsod.tfg.modelo.sesion.User;
 import com.bsod.tfg.utils.EmailChecker;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.bsod.tfg.utils.Statistics;
+import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -299,13 +304,16 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                             error = Integer.parseInt(response.get("error").toString());
                             if (error == 200) {
                                 // TODO: Takes more data from the server and put it here
-                                Session.getSession().setUser(editTextUsuario.getText().toString());
-                                Session.getSession().setToken(response.get("token").toString());
-                                FacultadRegistro i = new FacultadRegistro();
-                                i.setId(1);
-                                i.setName("Unv. Complutensis Madritensis.");
-                                Session.getSession().setFacultadRegistro(i);
+                                ObjectMapper mapper = new ObjectMapper();
+                                mapper.registerModule(new JsonOrgModule());
+
+                                Token t = mapper.readValue(response.get("token").toString(), Token.class);
+                                Facultad facultad = mapper.readValue(response.get("faculty").toString(), Facultad.class);
+                                Session.getSession().setUser(mapper.readValue(response.get("user").toString(), User.class));
+                                Session.getSession().setToken(t);
+                                Session.getSession().setFacultad(facultad);
                                 Session.persistPreferences();
+
                                 Intent intent = new Intent(thisactivity, ActivityMain.class);
                                 // Closing all the Activities from stack
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -315,7 +323,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                                 startActivity(intent);
                                 finish();
                             }
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }

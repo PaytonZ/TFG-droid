@@ -15,11 +15,11 @@ import android.widget.Toast;
 
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.Constants;
 import com.bsod.tfg.modelo.Facultad;
-import com.bsod.tfg.modelo.FacultadRegistro;
-import com.bsod.tfg.modelo.Session;
-import com.bsod.tfg.modelo.Token;
+import com.bsod.tfg.modelo.otros.Constants;
+import com.bsod.tfg.modelo.sesion.Session;
+import com.bsod.tfg.modelo.sesion.Token;
+import com.bsod.tfg.modelo.sesion.User;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
@@ -93,12 +93,14 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
 
             // HARDCODING for making root toor always accesible
             if (username.equals("root") && pass.equals("toor")) {
-                Session.getSession().setUser(username);
-                Session.getSession().setToken("asihjdajshdjasd");
-                FacultadRegistro i = new FacultadRegistro();
+                User u = new User();
+                u.setName("root");
+                Session.getSession().setUser(u);
+                //Session.getSession().setToken("asihjdajshdjasd");
+                Facultad i = new Facultad();
                 i.setId(1);
-                i.setName("Root Access!");
-                Session.getSession().setFacultadRegistro(i);
+                i.setNombre("Root Access!");
+                Session.getSession().setFacultad(i);
                 Session.persistPreferences();
                 Intent intent = new Intent(thisactivity, ActivityMain.class);
                 // Closing all the Activities from stack
@@ -108,7 +110,6 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                 startActivity(intent);
                 finish();
             } else {
-
                 RequestParams params = new RequestParams();
                 params.put("user", username);
                 params.put("pass", pass);
@@ -123,19 +124,15 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                                 Toast.makeText(thisactivity, R.string.invalid_user_password, Toast.LENGTH_SHORT).show();
                                 password.setText("");
                             } else {
-
                                 // TODO: Takes more data from the server and put it here
                                 ObjectMapper mapper = new ObjectMapper();
                                 mapper.registerModule(new JsonOrgModule());
 
-                                Token t = mapper.readValue(response.get("token").toString(),Token.class);
-                                Facultad f1 = mapper.readValue(response.get("faculty").toString(),Facultad.class);
-                                Session.getSession().setUser(username);
-                                Session.getSession().setToken(t.getToken());
-                                FacultadRegistro f = new FacultadRegistro();
-                                f.setId(1);
-                                f.setName("Unv. Complutensis Madritensis.");
-                                Session.getSession().setFacultadRegistro(f);
+                                Token t = mapper.readValue(response.get("token").toString(), Token.class);
+                                Facultad facultad = mapper.readValue(response.get("faculty").toString(), Facultad.class);
+                                Session.getSession().setUser(mapper.readValue(response.get("user").toString(), User.class));
+                                Session.getSession().setToken(t);
+                                Session.getSession().setFacultad(facultad);
                                 Session.persistPreferences();
 
                                 Intent intent = new Intent(thisactivity, ActivityMain.class);
@@ -149,15 +146,9 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
-
-
                 });
             }
-
-        } else {
-
         }
     }
 

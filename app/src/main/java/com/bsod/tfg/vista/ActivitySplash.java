@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.Session;
+import com.bsod.tfg.modelo.sesion.Session;
 
 public class ActivitySplash extends Activity implements View.OnClickListener {
 
@@ -25,7 +25,7 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
         // Hack taken from http://stackoverflow.com/questions/2776116/how-do-i-dynamically-choose-which-activity-to-launch-when-opening-an-app
         final Class<? extends Activity> activityClass;
 
-        if (Session.getSession().getUser() != null && Session.getSession().getUser() != "") {
+        if (Session.getSession().getUser() != null && Session.getSession().getUser().getName() != "") {
             activityClass = ActivityMain.class;
             Intent newActivity = new Intent(this, activityClass);
             // Closing all the Activities from stack
@@ -33,7 +33,7 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
             // Add new Flag to start new Activity
             newActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            Log.d(TAG, "Login OK! User logged on ... " + Session.getSession().getUser());
+            Log.d(TAG, "Login OK! User logged on ... " + Session.getSession().getUser().getName());
             this.startActivity(newActivity);
 
         }

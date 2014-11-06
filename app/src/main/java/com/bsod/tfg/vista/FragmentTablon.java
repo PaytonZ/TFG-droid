@@ -16,9 +16,9 @@ import android.widget.ListView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterTablon;
-import com.bsod.tfg.modelo.Constants;
-import com.bsod.tfg.modelo.MessageBoard;
-import com.bsod.tfg.modelo.Session;
+import com.bsod.tfg.modelo.otros.Constants;
+import com.bsod.tfg.modelo.sesion.Session;
+import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
@@ -143,9 +143,9 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     private void refreshMessages() {
 
         RequestParams params = new RequestParams();
-        params.put("token", Session.getSession().getToken());
+        params.put("token", Session.getSession().getToken().getToken());
         params.put("idmessage", ((tablonList.getAdapter()).getCount() == 0) ? 0 : ((AdapterTablon) tablonList.getAdapter()).getItem(0).getId());
-        params.put("idfaculty", Session.getSession().getFacultadRegistro().getId());
+        params.put("idfaculty", Session.getSession().getFacultad().getId());
 
         HttpClient.get(Constants.HTTP_GET_MESSAGES_BOARD, params, new JsonHttpResponseHandler() {
 
@@ -184,9 +184,9 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     public void onSendMessageBoard(String inputText) {
 
         RequestParams params = new RequestParams();
-        params.put("token", Session.getSession().getToken());
+        params.put("token", Session.getSession().getToken().getToken());
         params.put("message", inputText);
-        params.put("idfaculty", Session.getSession().getFacultadRegistro().getId());
+        params.put("idfaculty", Session.getSession().getFacultad().getId());
 
         //refreshMessages();
 

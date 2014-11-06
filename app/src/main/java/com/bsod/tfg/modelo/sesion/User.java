@@ -1,4 +1,4 @@
-package com.bsod.tfg.modelo;
+package com.bsod.tfg.modelo.sesion;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 

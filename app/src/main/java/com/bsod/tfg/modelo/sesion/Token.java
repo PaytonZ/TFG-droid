@@ -1,4 +1,4 @@
-package com.bsod.tfg.modelo;
+package com.bsod.tfg.modelo.sesion;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -11,7 +11,7 @@ public class Token {
     @JsonProperty("pk")
     private int id;
     @JsonProperty("token")
-    private String token ;
+    private String token;
     @JsonProperty("expirationdate")
     private long expirationDateUnix;
     private Date expirationDate;

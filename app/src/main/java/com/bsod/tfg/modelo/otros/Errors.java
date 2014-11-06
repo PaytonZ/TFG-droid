@@ -1,4 +1,4 @@
-package com.bsod.tfg.modelo;
+package com.bsod.tfg.modelo.otros;
 
 /**
  * Created by Payton on 10/10/2014.

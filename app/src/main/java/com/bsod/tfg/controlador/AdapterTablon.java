@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.MessageBoard;
+import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.bsod.tfg.utils.ViewHolder;
 
 import java.text.SimpleDateFormat;

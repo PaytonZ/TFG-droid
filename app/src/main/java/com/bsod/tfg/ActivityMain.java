@@ -17,8 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsod.tfg.controlador.AdapterTab;
-import com.bsod.tfg.modelo.Constants;
-import com.bsod.tfg.modelo.Session;
+import com.bsod.tfg.modelo.otros.Constants;
+import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.vista.ActivitySearchUni;
 import com.bsod.tfg.vista.ActivitySettings;
 import com.bsod.tfg.vista.ViewPagerNonSwipeable;
@@ -48,7 +48,7 @@ public class ActivityMain extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        uni_location = Session.getSession().getFacultadRegistro().getName();
+        uni_location = Session.getSession().getFacultad().getNombre();
 
         setContentView(R.layout.activity_main);
 

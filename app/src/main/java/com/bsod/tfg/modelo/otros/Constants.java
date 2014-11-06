@@ -1,4 +1,4 @@
-package com.bsod.tfg.modelo;
+package com.bsod.tfg.modelo.otros;
 
 /**
  * Created by Payton on 08/10/2014.
@@ -20,5 +20,5 @@ public class Constants {
     public static final String HTTP_CHECK_EMAIL = "checkemail";
     public static final String HTTP_GET_MESSAGES_BOARD = "getmensajestablon";
     public static final String HTTP_POST_MESSAGES_BOARD = "sendmensajetablon";
-
+    public static final String HTTP_GET_SUBJECTS = "getsubjects";
 }
