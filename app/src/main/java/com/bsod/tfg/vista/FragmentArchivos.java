@@ -3,6 +3,7 @@ package com.bsod.tfg.vista;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,17 +63,17 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         Log.d(TAG, "CLICKING ASIGNATURA BUTTON");
 
-// Create new fragment and transaction
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        Fragment f = new FragmentArchivos();
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack
-        transaction.replace(R.id.layout_archivos1, new FragmentAsignaturas());
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-
-// Commit the transaction
-        transaction.commit();
+        fragmentTransaction.replace(R.id.fragment, f);
+         fragmentTransaction.addToBackStack(null);
+        fragmentTransaction
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.commit();
     }
+
+
 }

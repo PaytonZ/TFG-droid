@@ -3,6 +3,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+
+    <com.bsod.tfg.utils.TopBar
+        android:id="@+id/topBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true">
+
+    </com.bsod.tfg.utils.TopBar>
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -30,13 +41,15 @@
             android:src="@drawable/ic_action_search" />
     </RelativeLayout>
 
-    <com.bsod.tfg.vista.ViewPagerNonSwipeable
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <FrameLayout
+        android:id="@+id/fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/topBar">
 
-    </com.bsod.tfg.vista.ViewPagerNonSwipeable>
+    </FrameLayout>
 
 
 </LinearLayout>

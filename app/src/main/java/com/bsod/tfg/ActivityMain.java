@@ -2,11 +2,13 @@ package com.bsod.tfg;
 
 
 import android.app.ActionBar;
-import android.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
@@ -17,10 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsod.tfg.controlador.AdapterTab;
+import com.bsod.tfg.modelo.Facultad;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
+import com.bsod.tfg.utils.TopBar;
 import com.bsod.tfg.vista.ActivitySearchUni;
 import com.bsod.tfg.vista.ActivitySettings;
+import com.bsod.tfg.vista.FragmentArchivos;
+import com.bsod.tfg.vista.FragmentChat;
+import com.bsod.tfg.vista.FragmentTablon;
 import com.bsod.tfg.vista.ViewPagerNonSwipeable;
 
 /**
@@ -29,7 +36,7 @@ import com.bsod.tfg.vista.ViewPagerNonSwipeable;
  * is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
  */
 public class ActivityMain extends FragmentActivity implements
-        ActionBar.TabListener, ViewPager.OnPageChangeListener, android.view.View.OnClickListener {
+        android.view.View.OnClickListener , TopBar.TabSelectedListener {
 
     public final static String CURRENT_LOCATION = "com.bsod.tfg.MESSAGE";
     public final static String NEXT_LOCATION = "";
@@ -44,6 +51,9 @@ public class ActivityMain extends FragmentActivity implements
     private TextView location;
     private ImageView searchImage;
 
+    private TopBar menu ;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,23 +62,23 @@ public class ActivityMain extends FragmentActivity implements
 
         setContentView(R.layout.activity_main);
 
-        vPager = (ViewPagerNonSwipeable) findViewById(R.id.view_pager);
-        tAdapter = new AdapterTab(getSupportFragmentManager());
-        aBar = getActionBar();
+       // vPager = (ViewPagerNonSwipeable) findViewById(R.id.view_pager);
+        //tAdapter = new AdapterTab(getSupportFragmentManager());
+        //aBar = getActionBar();
 
-        vPager.setAdapter(tAdapter);
+        //Pager.setAdapter(tAdapter);
         // Habilita el modo de navegación por pestañas
-        aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+       // aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         //aBar.setHomeButtonEnabled(true);
         //aBar.setDisplayHomeAsUpEnabled(true);
 
 
         //Añadiendo tabs
-        aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_tablon).setTabListener(this));
-        aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_chat).setTabListener(this));
-        aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_archivos).setTabListener(this));
+        //aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_tablon).setTabListener(this));
+        //aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_chat).setTabListener(this));
+        //aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_archivos).setTabListener(this));
 
-        vPager.setOnPageChangeListener(this);
+        //vPager.setOnPageChangeListener(this);
 
         location = (TextView) findViewById(R.id.location);
 
@@ -79,6 +89,12 @@ public class ActivityMain extends FragmentActivity implements
         //Search button Stuff
         searchImage = (ImageView) findViewById(R.id.searchbutton);
         searchImage.setOnClickListener(this);
+
+
+        menu = (TopBar) findViewById(R.id.topBar);
+        menu.setTabListener(this);
+
+        menu.setSelectedTab(TopBar.TAB_TABLON);
 
 
     }
@@ -121,13 +137,13 @@ public class ActivityMain extends FragmentActivity implements
 
         return super.onOptionsItemSelected(item);
     }
-
+/*
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // Establecer el fragment que se debe mostrar.
         vPager.setCurrentItem(tab.getPosition());
         //invalidateOptionsMenu();
-        /* Log.i(TAG, String.valueOf(tab.getPosition())); */
+        /* Log.i(TAG, String.valueOf(tab.getPosition()));
     }
 
     @Override
@@ -150,9 +166,9 @@ public class ActivityMain extends FragmentActivity implements
         super.onPause();
     }
 
-    @Override
+    //@Override
     // Método que cuando se cambia a la página position
-    public void onPageSelected(int position) {
+    //public void onPageSelected(int position) {
         /*String text = "";
         switch (position) {
             case 0:
@@ -167,14 +183,14 @@ public class ActivityMain extends FragmentActivity implements
             default:
         }
         location.setText(text);
-*/
+
     }
 
     @Override
     public void onPageScrollStateChanged(int i) {
 
     }
-
+*/
     @Override
     public void onClick(View view) {
         if (view == searchImage) {
@@ -199,4 +215,32 @@ public class ActivityMain extends FragmentActivity implements
     }
 
 
+    @Override
+    public void tabSelected(int tab) {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        Fragment f = null;
+
+        switch (tab) {
+            case TopBar.TAB_TABLON:
+                f = new FragmentTablon();
+                break;
+            case TopBar.TAB_CHAT:
+                f = new FragmentChat();
+                break;
+            case TopBar.TAB_ARCHIVOS:
+                f = new FragmentArchivos();
+                break;
+        }
+        if (f != null) {
+
+            fragmentTransaction.replace(R.id.fragment, f, "TFGFragment");
+            // fragmentTransaction.addToBackStack(null);
+            fragmentTransaction
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.commit();
+
+        }
+    }
 }
