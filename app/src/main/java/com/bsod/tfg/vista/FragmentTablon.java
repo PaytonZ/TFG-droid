@@ -48,6 +48,8 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     private boolean mIsScrollingUp;
     private AdapterTablon aTablon;
 
+    private View rootView;
+
     public FragmentTablon() {
         // Required empty public constructor
     }
@@ -61,26 +63,30 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflamos la Vista que se debe mostrar en pantalla.
-        View rootView = inflater.inflate(R.layout.fragment_tablon, container,
-                false);
-        swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_tablon);
-        swipeLayout.setOnRefreshListener(this);
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_tablon, container,
+                    false);
+            swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_tablon);
+            swipeLayout.setOnRefreshListener(this);
 
-        aBar = getActivity().getActionBar();
+            aBar = getActivity().getActionBar();
 
-        tablonList = (ListView) rootView.findViewById(R.id.list_tablon);
+            tablonList = (ListView) rootView.findViewById(R.id.list_tablon);
 
-        final AdapterTablon adapter = (aTablon == null) ? aTablon = new AdapterTablon(getActivity()) : aTablon;
-        tablonList.setAdapter(adapter);
-        tablonList.setOnItemClickListener(adapter);
-        tablonList.setOnScrollListener(this);
-        refreshMessages();
+            final AdapterTablon adapter = (aTablon == null) ? aTablon = new AdapterTablon(getActivity()) : aTablon;
+            tablonList.setAdapter(adapter);
+            tablonList.setOnItemClickListener(adapter);
+            tablonList.setOnScrollListener(this);
+            refreshMessages();
 
-        thisContext = getActivity();
+            thisContext = getActivity();
 
-        // Devolvemos la vista para que se muestre en pantalla.
+            // Devolvemos la vista para que se muestre en pantalla.
 
-        setHasOptionsMenu(true);
+            setHasOptionsMenu(true);
+        } else {
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }
         return rootView;
     }
 

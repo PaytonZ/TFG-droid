@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="PRIMERO"
+        android:text="@string/primero"
         android:theme="@style/buttons_splash" />
 
     <Button
@@ -24,7 +24,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/archivos_boton_primero"
-        android:text="SEGUNDO"
+        android:text="@string/segundo"
 
         android:theme="@style/buttons_splash" />
 
@@ -33,7 +33,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/archivos_boton_segundo"
-        android:text="TERCERO"
+        android:text="@string/tercero"
         android:theme="@style/buttons_splash" />
 
     <Button
@@ -41,7 +41,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/archivos_boton_tercero"
-        android:text="CUARTO"
+        android:text="@string/cuarto"
         android:theme="@style/buttons_splash" />
 
 </RelativeLayout>

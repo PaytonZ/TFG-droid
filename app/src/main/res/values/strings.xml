@@ -50,5 +50,9 @@
     <string name="tablon_star_string_access">Favorite Star</string>
     <string name="lupa_access">Lupa para buscar más facultades</string>
     <string name="ANDROID">Android</string>
+    <string name="primero">PRIMERO</string>
+    <string name="segundo">SEGUNDO</string>
+    <string name="tercero">TERCERO</string>
+    <string name="cuarto">CUARTO</string>
 
 </resources>

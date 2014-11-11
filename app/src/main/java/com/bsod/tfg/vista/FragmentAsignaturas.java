@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterAsignaturas;
@@ -34,10 +34,19 @@ public class FragmentAsignaturas extends Fragment {
 
     private ListView listviewAsignaturas;
     private AdapterAsignaturas adapterAsignaturas;
+    private TextView textViewCurso;
+    private int curso;
+    //http://stackoverflow.com/questions/10716571/avoid-recreating-same-view-when-perform-tab-switching/11914078#11914078
+    private View rootView;
 
+    public static FragmentAsignaturas newInstance(int curso) {
+        FragmentAsignaturas myFragment = new FragmentAsignaturas();
 
-    public FragmentAsignaturas() {
-        // Required empty public constructor
+        Bundle args = new Bundle();
+        args.putInt("curso", curso);
+        myFragment.setArguments(args);
+
+        return myFragment;
     }
 
 
@@ -45,19 +54,38 @@ public class FragmentAsignaturas extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_asignaturas, container, false);
+        if (rootView == null) {
 
-        listviewAsignaturas = (ListView) rootView.findViewById(R.id.listview_asignaturas);
+            curso = getArguments().getInt("curso", 0);
+            rootView = inflater.inflate(R.layout.fragment_asignaturas, container, false);
 
-        final AdapterAsignaturas adapter = (adapterAsignaturas == null) ? adapterAsignaturas = new AdapterAsignaturas(getActivity()) : adapterAsignaturas;
+            listviewAsignaturas = (ListView) rootView.findViewById(R.id.listview_asignaturas);
 
-        listviewAsignaturas.setAdapter(adapter);
-        listviewAsignaturas.setOnItemClickListener(adapter);
+            final AdapterAsignaturas adapter = (adapterAsignaturas == null) ? adapterAsignaturas = new AdapterAsignaturas(getActivity()) : adapterAsignaturas;
+            listviewAsignaturas.setAdapter(adapter);
+            listviewAsignaturas.setOnItemClickListener(adapter);
+            textViewCurso = (TextView) rootView.findViewById(R.id.textViewCurso);
+            switch (curso) {
+                case 1:
+                    textViewCurso.setText(R.string.primero);
+                    break;
+                case 2:
+                    textViewCurso.setText(R.string.segundo);
+                    break;
+                case 3:
+                    textViewCurso.setText(R.string.tercero);
+                    break;
+                case 4:
+                    textViewCurso.setText(R.string.cuarto);
+                    break;
+            }
 
-        getAsignaturas();
+            getAsignaturas();
 
-        Toast.makeText(getActivity(), "WTF", Toast.LENGTH_SHORT).show();
-
+            //Toast.makeText(getActivity(), "WTF", Toast.LENGTH_SHORT).show();
+        } else {
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }
         return rootView;
     }
 
@@ -67,7 +95,7 @@ public class FragmentAsignaturas extends Fragment {
         Session s = Session.getSession();
         params.put("token", s.getToken().getToken());
         params.put("idfaculty", s.getFacultad().getId());
-        params.put("year", 2);
+        params.put("year", curso);
 
         HttpClient.get(Constants.HTTP_GET_SUBJECTS, params, new JsonHttpResponseHandlerCustom(getActivity()) {
             @Override

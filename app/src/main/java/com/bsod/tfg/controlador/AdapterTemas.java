@@ -9,40 +9,39 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.Asignatura;
+import com.bsod.tfg.modelo.Tema;
 import com.bsod.tfg.utils.ViewHolder;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Proudly created by Payton on 06/11/2014.
+ * Proudly created by Payton on 11/11/2014.
  */
-public class AdapterAsignaturas extends BaseAdapter implements AdapterView.OnItemClickListener {
+public class AdapterTemas extends BaseAdapter implements AdapterView.OnItemClickListener {
 
     private static final String TAG = "AdapterTablon";
     private final Context context;
-    private List<Asignatura> asignaturasList = Collections.emptyList();
+    private List<Tema> temaList = Collections.emptyList();
 
 
-    public AdapterAsignaturas(Context context) {
+    public AdapterTemas(Context context) {
         this.context = context;
     }
 
-    public void updateAsignaturas(List<Asignatura> asignaturasList) {
-        this.asignaturasList = asignaturasList;
+    public void updateTemas(List<Tema> temaList) {
+        this.temaList = temaList;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return asignaturasList.size();
+        return temaList.size();
     }
 
     @Override
-    public Asignatura getItem(int position) {
-        return asignaturasList.get(position);
-
+    public Tema getItem(int position) {
+        return temaList.get(position);
     }
 
     @Override
@@ -52,17 +51,16 @@ public class AdapterAsignaturas extends BaseAdapter implements AdapterView.OnIte
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         if (convertView == null) {
 
             //holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.layout_listasignaturas, parent, false);
         }
 
-        TextView asignatura = ViewHolder.get(convertView, R.id.asignatura_item);
-        Asignatura a = getItem(position);
+        TextView tema = ViewHolder.get(convertView, R.id.asignatura_item);
+        Tema t = getItem(position);
 
-        asignatura.setText(a.toString());
+        tema.setText(t.toString());
 
         return convertView;
     }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,18 +60,31 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Log.d(TAG, "CLICKING ASIGNATURA BUTTON");
 
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        Fragment f = new FragmentArchivos();
+        int curso = 0;
+        if (view == buttonFirst) {
+            curso = 1;
+        } else if (view == buttonSecond) {
+            curso = 2;
+        } else if (view == buttonThird) {
+            curso = 3;
+        } else if (view == buttonFourth) {
+            curso = 4;
+        }
 
-        fragmentTransaction.replace(R.id.fragment, f);
-         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.commit();
+        if (curso != 0) {
+
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager
+                    .beginTransaction();
+            Fragment f = FragmentAsignaturas.newInstance(curso);
+
+            fragmentTransaction.replace(R.id.fragment, f, "TFGFragment");
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.commit();
+        }
     }
 
 

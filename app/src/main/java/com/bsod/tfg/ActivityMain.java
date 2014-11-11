@@ -2,14 +2,12 @@ package com.bsod.tfg;
 
 
 import android.app.ActionBar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsod.tfg.controlador.AdapterTab;
-import com.bsod.tfg.modelo.Facultad;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.TopBar;
@@ -36,12 +33,13 @@ import com.bsod.tfg.vista.ViewPagerNonSwipeable;
  * is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
  */
 public class ActivityMain extends FragmentActivity implements
-        android.view.View.OnClickListener , TopBar.TabSelectedListener {
+        android.view.View.OnClickListener, TopBar.TabSelectedListener {
 
     public final static String CURRENT_LOCATION = "com.bsod.tfg.MESSAGE";
     public final static String NEXT_LOCATION = "";
     private static final String TAG = "ActivityMain";
     private String uni_location = null;
+
 
     // Maybe Should be in other package
 
@@ -50,8 +48,11 @@ public class ActivityMain extends FragmentActivity implements
     private ActionBar aBar;
     private TextView location;
     private ImageView searchImage;
+    private TopBar menu;
 
-    private TopBar menu ;
+    private FragmentTablon fTablon;
+    private FragmentChat fChat;
+    private FragmentArchivos fArchivos;
 
 
     @Override
@@ -62,22 +63,20 @@ public class ActivityMain extends FragmentActivity implements
 
         setContentView(R.layout.activity_main);
 
-       // vPager = (ViewPagerNonSwipeable) findViewById(R.id.view_pager);
+        // vPager = (ViewPagerNonSwipeable) findViewById(R.id.view_pager);
         //tAdapter = new AdapterTab(getSupportFragmentManager());
         //aBar = getActionBar();
 
         //Pager.setAdapter(tAdapter);
         // Habilita el modo de navegación por pestañas
-       // aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        // aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         //aBar.setHomeButtonEnabled(true);
         //aBar.setDisplayHomeAsUpEnabled(true);
-
 
         //Añadiendo tabs
         //aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_tablon).setTabListener(this));
         //aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_chat).setTabListener(this));
         //aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_archivos).setTabListener(this));
-
         //vPager.setOnPageChangeListener(this);
 
         location = (TextView) findViewById(R.id.location);
@@ -94,8 +93,11 @@ public class ActivityMain extends FragmentActivity implements
         menu = (TopBar) findViewById(R.id.topBar);
         menu.setTabListener(this);
 
-        menu.setSelectedTab(TopBar.TAB_TABLON);
+        fTablon = new FragmentTablon();
+        fChat = new FragmentChat();
+        fArchivos = new FragmentArchivos();
 
+        menu.setSelectedTab(TopBar.TAB_TABLON);
 
     }
 
@@ -137,60 +139,61 @@ public class ActivityMain extends FragmentActivity implements
 
         return super.onOptionsItemSelected(item);
     }
-/*
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        // Establecer el fragment que se debe mostrar.
-        vPager.setCurrentItem(tab.getPosition());
-        //invalidateOptionsMenu();
-        /* Log.i(TAG, String.valueOf(tab.getPosition()));
-    }
 
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
-    }
-
-    @Override
-    public void onPageScrolled(int i, float v, int i2) {
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    //@Override
-    // Método que cuando se cambia a la página position
-    //public void onPageSelected(int position) {
-        /*String text = "";
-        switch (position) {
-            case 0:
-                text = getString(R.string.tablon);
-                break;
-            case 1:
-                text = getString(R.string.chat);
-                break;
-            case 2:
-                text = getString(R.string.archivos);
-                break;
-            default:
+    /*
+        @Override
+        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+            // Establecer el fragment que se debe mostrar.
+            vPager.setCurrentItem(tab.getPosition());
+            //invalidateOptionsMenu();
+            /* Log.i(TAG, String.valueOf(tab.getPosition()));
         }
-        location.setText(text);
 
-    }
+        @Override
+        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-    @Override
-    public void onPageScrollStateChanged(int i) {
+        }
 
-    }
-*/
+        @Override
+        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+        }
+
+        @Override
+        public void onPageScrolled(int i, float v, int i2) {
+
+        }
+
+        @Override
+        protected void onPause() {
+            super.onPause();
+        }
+
+        //@Override
+        // Método que cuando se cambia a la página position
+        //public void onPageSelected(int position) {
+            /*String text = "";
+            switch (position) {
+                case 0:
+                    text = getString(R.string.tablon);
+                    break;
+                case 1:
+                    text = getString(R.string.chat);
+                    break;
+                case 2:
+                    text = getString(R.string.archivos);
+                    break;
+                default:
+            }
+            location.setText(text);
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+
+        }
+    */
     @Override
     public void onClick(View view) {
         if (view == searchImage) {
@@ -217,30 +220,38 @@ public class ActivityMain extends FragmentActivity implements
 
     @Override
     public void tabSelected(int tab) {
-        FragmentManager fragmentManager = this.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
+
         Fragment f = null;
 
         switch (tab) {
             case TopBar.TAB_TABLON:
-                f = new FragmentTablon();
+                //f = new FragmentTablon();
+                f = fTablon;
                 break;
             case TopBar.TAB_CHAT:
-                f = new FragmentChat();
+                //f = new FragmentChat();
+                f = fChat;
                 break;
             case TopBar.TAB_ARCHIVOS:
-                f = new FragmentArchivos();
+                //f = new FragmentAsignaturas();
+                f = fArchivos;
                 break;
         }
         if (f != null) {
 
-            fragmentTransaction.replace(R.id.fragment, f, "TFGFragment");
-            // fragmentTransaction.addToBackStack(null);
-            fragmentTransaction
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragmentTransaction.commit();
+            replaceFragment(f);
 
         }
+    }
+
+    public void replaceFragment(Fragment f) {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        fragmentTransaction.replace(R.id.fragment, f, "TFGFragment");
+        // fragmentTransaction.addToBackStack(null);
+        fragmentTransaction
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.commit();
     }
 }
