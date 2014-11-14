@@ -49,7 +49,6 @@ public class FragmentAsignaturas extends Fragment {
         return myFragment;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -112,7 +111,7 @@ public class FragmentAsignaturas extends Fragment {
                                 response.get("data").toString(),
                                 TypeFactory.collectionType(
                                         List.class, Asignatura.class));
-                        adapterAsignaturas.updateAsignaturas(listofSubjects);
+                        adapterAsignaturas.update(listofSubjects);
 
                     }
 

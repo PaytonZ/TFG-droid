@@ -21,4 +21,6 @@ public class Constants {
     public static final String HTTP_GET_MESSAGES_BOARD = "getmensajestablon";
     public static final String HTTP_POST_MESSAGES_BOARD = "sendmensajetablon";
     public static final String HTTP_GET_SUBJECTS = "getsubjects";
+    public static final String HTTP_GET_THEMES = "getthemes";
+
 }

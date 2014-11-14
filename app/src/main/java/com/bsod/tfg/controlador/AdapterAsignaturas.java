@@ -1,64 +1,37 @@
 package com.bsod.tfg.controlador;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.Asignatura;
 import com.bsod.tfg.utils.ViewHolder;
-
-import java.util.Collections;
-import java.util.List;
+import com.bsod.tfg.vista.FragmentTemas;
 
 /**
- * Proudly created by Payton on 06/11/2014.
+ * Proudly created by Payton on 14/11/2014.
  */
-public class AdapterAsignaturas extends BaseAdapter implements AdapterView.OnItemClickListener {
-
-    private static final String TAG = "AdapterTablon";
-    private final Context context;
-    private List<Asignatura> asignaturasList = Collections.emptyList();
-
+public class AdapterAsignaturas extends AdapterGeneric<Asignatura> implements AdapterView.OnItemClickListener {
 
     public AdapterAsignaturas(Context context) {
-        this.context = context;
-    }
-
-    public void updateAsignaturas(List<Asignatura> asignaturasList) {
-        this.asignaturasList = asignaturasList;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getCount() {
-        return asignaturasList.size();
-    }
-
-    @Override
-    public Asignatura getItem(int position) {
-        return asignaturasList.get(position);
-
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+        super(context);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-
             //holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.layout_listasignaturas, parent, false);
         }
-
         TextView asignatura = ViewHolder.get(convertView, R.id.asignatura_item);
         Asignatura a = getItem(position);
 
@@ -68,7 +41,24 @@ public class AdapterAsignaturas extends BaseAdapter implements AdapterView.OnIte
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        if (id >= 0) {
+
+            FragmentActivity fa = (FragmentActivity) context;
+            FragmentManager fragmentManager = fa.getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager
+                    .beginTransaction();
+            Fragment f = FragmentTemas.newInstance(getItem(position).getId());
+
+            fragmentTransaction.replace(R.id.fragment, f, "TFGFragment");
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.commit();
+
+        }
+
 
     }
 }
