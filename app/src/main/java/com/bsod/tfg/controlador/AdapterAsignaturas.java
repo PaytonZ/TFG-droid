@@ -49,7 +49,8 @@ public class AdapterAsignaturas extends AdapterGeneric<Asignatura> implements Ad
             FragmentManager fragmentManager = fa.getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager
                     .beginTransaction();
-            Fragment f = FragmentTemas.newInstance(getItem(position).getId());
+            Asignatura a = getItem(position);
+            Fragment f = FragmentTemas.newInstance(a.getId(), a.toString());
 
             fragmentTransaction.replace(R.id.fragment, f, "TFGFragment");
             fragmentTransaction.addToBackStack(null);

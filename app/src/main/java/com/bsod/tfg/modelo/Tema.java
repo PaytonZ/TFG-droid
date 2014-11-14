@@ -14,4 +14,8 @@ public class Tema {
     public String toString() {
         return nombre;
     }
+
+    public int getid() {
+        return id;
+    }
 }

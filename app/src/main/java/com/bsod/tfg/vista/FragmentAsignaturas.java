@@ -81,7 +81,7 @@ public class FragmentAsignaturas extends Fragment {
 
             getAsignaturas();
 
-            //Toast.makeText(getActivity(), "WTF", Toast.LENGTH_SHORT).show();
+
         } else {
             ((ViewGroup) rootView.getParent()).removeView(rootView);
         }

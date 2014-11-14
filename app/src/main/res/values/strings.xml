@@ -54,5 +54,6 @@
     <string name="segundo">SEGUNDO</string>
     <string name="tercero">TERCERO</string>
     <string name="cuarto">CUARTO</string>
+    <string name="title_activity_activity_solve_exam">ActivitySolveExam</string>
 
 </resources>

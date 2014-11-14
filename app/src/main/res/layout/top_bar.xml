@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <View
         android:id="@+id/view1"
@@ -18,7 +18,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/view1"
-        android:background="@drawable/barrafondo" >
+        android:background="@drawable/barrafondo">
 
         <ImageView
             android:id="@+id/imageViewTablon"
