@@ -25,7 +25,8 @@ android {
     defaultConfig {
         applicationId "com.bsod.tabtest"
         minSdkVersion 15
-        targetSdkVersion 20
+        targetSdkVersion 21
+
         versionCode 1
         versionName "1.0"
     }

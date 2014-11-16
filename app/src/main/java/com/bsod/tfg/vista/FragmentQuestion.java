@@ -50,14 +50,11 @@ public class FragmentQuestion extends Fragment {
             ListView listViewExam = (ListView) rootView.findViewById(R.id.listViewExam);
             listViewExam.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             listViewExam.setAdapter(adapter);
+            listViewExam.setOnItemClickListener(adapter);
 
-            ArrayList<String> respuestas = new ArrayList<String>();
-            respuestas.add("paskdjaksd");
-            respuestas.add("paskdggggggjaksd");
-            respuestas.add("paskdjaks345345345d");
-            respuestas.add("pasksdfwsdfsdfdjaksd");
+            adapter.setPregunta(pregunta);
 
-            adapter.update(respuestas);
+
 
 
         }

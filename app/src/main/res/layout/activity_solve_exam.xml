@@ -10,8 +10,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
@@ -21,6 +21,10 @@
         android:padding="10dip"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
+        app:strokeWidth="4dp"
+        app:lineWidth="30dp"
+        app:unselectedColor="#FF888888"
+        app:selectedColor="#ff7d7d"
         />
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
