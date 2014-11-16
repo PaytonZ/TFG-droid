@@ -24,5 +24,9 @@ public class Constants {
     public static final String HTTP_GET_THEMES = "getthemes";
     public static final String HTTP_GET_EXAMS = "getexams";
 
+/* Intent Extras */
+
+    public static final String INTENT_EXTRA_ARRAY_QUESTIONS = "questions";
+
 
 }

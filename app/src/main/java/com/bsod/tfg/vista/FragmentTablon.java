@@ -50,9 +50,6 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
 
     private View rootView;
 
-    public FragmentTablon() {
-        // Required empty public constructor
-    }
 
     public static Fragment newInstance() {
         return new FragmentTablon();
