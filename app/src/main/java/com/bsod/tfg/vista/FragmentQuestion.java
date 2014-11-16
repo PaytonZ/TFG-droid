@@ -14,13 +14,10 @@ import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterExam;
 import com.bsod.tfg.modelo.Pregunta;
 
-import java.util.ArrayList;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentQuestion extends Fragment {
-
 
     private View rootView;
     private AdapterExam adapterExam;
@@ -37,7 +34,7 @@ public class FragmentQuestion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_question, container, false);
             final AdapterExam adapter = (adapterExam == null) ? adapterExam = new AdapterExam(getActivity()) : adapterExam;
@@ -55,12 +52,14 @@ public class FragmentQuestion extends Fragment {
             adapter.setPregunta(pregunta);
 
 
-
-
+        } else {
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
         }
 
         return rootView;
     }
 
-
+    public double correctQuestions() {
+        return adapterExam.correctQuestions();
+    }
 }

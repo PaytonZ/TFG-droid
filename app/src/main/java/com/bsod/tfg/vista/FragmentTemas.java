@@ -117,7 +117,7 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
         params.put("token", Session.getSession().getToken().getToken());
         params.put("subject", idsubject);
         params.put("theme", adapterTemas.getItem(position).getid());
-        params.put("numberofquestions", 2);
+        params.put("numberofquestions", 10);
 
         if (position >= 0) {
             HttpClient.get(Constants.HTTP_GET_EXAMS, params, new JsonHttpResponseHandlerCustom(getActivity()) {

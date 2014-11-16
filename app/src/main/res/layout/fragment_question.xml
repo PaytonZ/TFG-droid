@@ -3,9 +3,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:padding="5dp"
     android:weightSum="6"
-    tools:context="com.bsod.tfg.vista.FragmentExam"
-    android:padding="5dp">
+    tools:context="com.bsod.tfg.vista.FragmentExam">
 
 
     <TextView
@@ -18,31 +18,24 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
         android:layout_margin="2dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_weight="5">
 
         <ListView
             android:id="@+id/listViewExam"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="2dip"
             android:layout_marginBottom="2dip"
-            android:drawSelectorOnTop="false"
+            android:layout_marginTop="2dip"
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
             android:dividerHeight="25dp"
+            android:drawSelectorOnTop="false"
             android:paddingTop="10dp" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="New Text" />
 
 
 </LinearLayout>

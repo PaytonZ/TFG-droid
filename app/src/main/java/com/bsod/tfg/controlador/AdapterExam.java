@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -22,6 +23,8 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
     private final Context context;
     private Pregunta pregunta;
     private int selecteditem = -1;
+    private TextView respuestaCorrecta;
+    private boolean correctionMode = false;
 
     public AdapterExam(Context context) {
         this.context = context;
@@ -66,6 +69,10 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
             convertView = LayoutInflater.from(context).inflate(R.layout.question_layout, parent, false);
         }
         TextView respuesta = ViewHolder.get(convertView, R.id.textViewresponseQuestion);
+
+        if (position == pregunta.getRespuestaCorrecta() - 1) {
+            respuestaCorrecta = respuesta;
+        }
         String a = getItem(position);
 
         respuesta.setText(a);
@@ -81,9 +88,35 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
         ListView lw = ((ListView) adapterView);
-        lw.setItemChecked(position, (position != selecteditem));
-        selecteditem = lw.getCheckedItemPosition();
+        // Entering correction mode
+        if (correctionMode) {
+
+            lw.setChoiceMode(AbsListView.CHOICE_MODE_NONE);
+            lw.setItemChecked(position, false);
+            if (selecteditem != -1)
+                lw.setItemChecked(selecteditem, true);
+
+        } else {
+
+            lw.setItemChecked(position, (position != selecteditem));
+            selecteditem = lw.getCheckedItemPosition();
+        }
+
+    }
+
+    public double correctQuestions() {
+
+        correctionMode = true;
+
+        respuestaCorrecta.setBackgroundColor(context.getResources().getColor((R.color.green_test)));
+        if (selecteditem == -1) {
+            return 0;
+        }
 
 
+        if (selecteditem == pregunta.getRespuestaCorrecta() - 1) {
+            return 1;
+        }
+        return -0.5;
     }
 }

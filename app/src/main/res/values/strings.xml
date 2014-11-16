@@ -10,6 +10,7 @@
     <color name="red2">#91368C</color>
     <color name="black">#4F4B4B</color>
     <color name="white">#FFFFFF</color>
+    <color name="green_test">#458B00</color>
 
     <string name="tablon">Tablón</string>
     <string name="chat">Chat</string>
@@ -36,14 +37,14 @@
     <string name="selecciona_provincia"><![CDATA[<Seleciona una provincia>]]></string>
     <string name="selecciona_universidad"><![CDATA[<<Seleciona Universidad>>]]></string>
     <string name="selecciona_facultad"><![CDATA[<<Seleciona Facultad>>]]></string>
-    <string name="loading">Cargando...</string>
+    <string name="loading">Cargando…</string>
     <string name="passlenght">Al menos 6 caracteres</string>
     <string name="register_bad_parameters"> ¡Psst! ¡Hay algún parámetro que está mal! </string>
     <string name="already_existing_user"> Ya existe un usuario con ese nombre </string>
     <string name="already_existing_email">Ya existe un usuario con ese e-mail</string>
     <string name="successful_register">¡ Te has registrado satisfactoriamente !</string>
     <string name="char150test"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p</string>
-    <string name="tablon_no_results">No hay mensajes aún en este tablón ... Sé el primero en comentar :)</string>
+    <string name="tablon_no_results">No hay mensajes aún en este tablón … Sé el primero en comentar :)</string>
     <string name="tablon_refrescar_mensajes">Actualiza los mensajes del tablón</string>
     <string name="enviar">¡ Enviar !</string>
     <string name="tablon_no_nuevos_mensajes">No hay nuevos mensajes en este tablón</string>
@@ -55,5 +56,9 @@
     <string name="tercero">TERCERO</string>
     <string name="cuarto">CUARTO</string>
     <string name="title_activity_activity_solve_exam">ActivitySolveExam</string>
+    <string name="solvedexamtext">¡ Enhorabuena ! \nHas completado el examen con éxito.\nPulsa este botón para mandar los resultados o revisa las preguntas antes de enviarlas</string>
+    <string name="send_results_text">¡ Enviar Resultados !</string>
+    <string name="your_results">Tus resultados :</string>
+    <string name="your_mark">Tu nota :</string>
 
 </resources>

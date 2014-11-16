@@ -15,11 +15,12 @@ import com.viewpagerindicator.LinePageIndicator;
 
 import java.util.ArrayList;
 
-public class ActivitySolveExam extends FragmentActivity {
+public class ActivitySolveExam extends FragmentActivity implements FragmentFinalExam.CorrectExam {
 
     private ViewPager pager;
     private AdapterFragmentExams adapterFragmentExams;
     private ArrayList<Pregunta> listOfQuestions;
+    private ArrayList<Fragment> fragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +34,14 @@ public class ActivitySolveExam extends FragmentActivity {
         pager = (ViewPager) findViewById(R.id.pager);
 
 
-        ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
+        //ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
+        fragmentList = new ArrayList<Fragment>();
         for (Pregunta p : listOfQuestions) {
             //fragmentList.add(FragmentQuestion.newInstance(p));
             fragmentList.add(FragmentQuestion.newInstance(p));
         }
+        fragmentList.add(FragmentFinalExam.newInstance());
+
         //adapterFragmentExams = new AdapterFragmentExams(getSupportFragmentManager());
         //adapterFragmentExams.setList(fragmentList);
 
@@ -48,9 +52,7 @@ public class ActivitySolveExam extends FragmentActivity {
         LinePageIndicator titleIndicator = (LinePageIndicator) findViewById(R.id.titles);
         titleIndicator.setViewPager(pager);
 
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,5 +74,19 @@ public class ActivitySolveExam extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public double correctQuestions() {
+        double d = 0.0;
+        int size = fragmentList.size() - 1;
+        for (int i = 0; i < size; i++) {
+            FragmentQuestion f = (FragmentQuestion) fragmentList.get(i);
+            d += f.correctQuestions();
+        }
+        if (d < 0) {
+            d = 0.0;
+        }
+        return (d / size) * 10;
     }
 }
