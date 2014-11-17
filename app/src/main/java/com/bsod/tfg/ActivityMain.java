@@ -63,26 +63,9 @@ public class ActivityMain extends FragmentActivity implements
 
         setContentView(R.layout.activity_main);
 
-        // vPager = (ViewPagerNonSwipeable) findViewById(R.id.view_pager);
-        //tAdapter = new AdapterTab(getSupportFragmentManager());
-        //aBar = getActionBar();
-
-        //Pager.setAdapter(tAdapter);
-        // Habilita el modo de navegación por pestañas
-        // aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        //aBar.setHomeButtonEnabled(true);
-        //aBar.setDisplayHomeAsUpEnabled(true);
-
-        //Añadiendo tabs
-        //aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_tablon).setTabListener(this));
-        //aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_chat).setTabListener(this));
-        //aBar.addTab(aBar.newTab().setIcon(R.drawable.ic_tab_archivos).setTabListener(this));
-        //vPager.setOnPageChangeListener(this);
-
         location = (TextView) findViewById(R.id.location);
 
         //Default page selected
-        //onPageSelected(0);
         location.setText(uni_location);
 
         //Search button Stuff
@@ -140,60 +123,6 @@ public class ActivityMain extends FragmentActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-        @Override
-        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-            // Establecer el fragment que se debe mostrar.
-            vPager.setCurrentItem(tab.getPosition());
-            //invalidateOptionsMenu();
-            /* Log.i(TAG, String.valueOf(tab.getPosition()));
-        }
-
-        @Override
-        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
-        }
-
-        @Override
-        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
-        }
-
-        @Override
-        public void onPageScrolled(int i, float v, int i2) {
-
-        }
-
-        @Override
-        protected void onPause() {
-            super.onPause();
-        }
-
-        //@Override
-        // Método que cuando se cambia a la página position
-        //public void onPageSelected(int position) {
-            /*String text = "";
-            switch (position) {
-                case 0:
-                    text = getString(R.string.tablon);
-                    break;
-                case 1:
-                    text = getString(R.string.chat);
-                    break;
-                case 2:
-                    text = getString(R.string.archivos);
-                    break;
-                default:
-            }
-            location.setText(text);
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int i) {
-
-        }
-    */
     @Override
     public void onClick(View view) {
         if (view == searchImage) {
@@ -214,7 +143,7 @@ public class ActivityMain extends FragmentActivity implements
     }
 
     public Fragment getCurrentFragment() {
-        return tAdapter.getItem(aBar.getSelectedTab().getPosition());
+        return fTablon;
     }
 
 

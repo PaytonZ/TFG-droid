@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterExam;
 import com.bsod.tfg.modelo.Pregunta;
+import com.bsod.tfg.modelo.ResponseExamStats;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +50,7 @@ public class FragmentQuestion extends Fragment {
             listViewExam.setAdapter(adapter);
             listViewExam.setOnItemClickListener(adapter);
 
+
             adapter.setPregunta(pregunta);
 
 
@@ -59,7 +61,7 @@ public class FragmentQuestion extends Fragment {
         return rootView;
     }
 
-    public double correctQuestions() {
+    public ResponseExamStats correctQuestions() {
         return adapterExam.correctQuestions();
     }
 }

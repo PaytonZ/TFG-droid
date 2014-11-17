@@ -4,19 +4,25 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterFragmentExams;
 import com.bsod.tfg.modelo.Pregunta;
+import com.bsod.tfg.modelo.ResponseExamStats;
+import com.bsod.tfg.modelo.ResponseExamTotal;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.viewpagerindicator.LinePageIndicator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActivitySolveExam extends FragmentActivity implements FragmentFinalExam.CorrectExam {
 
+    private static final String TAG = "ActivitySolveExam";
     private ViewPager pager;
     private AdapterFragmentExams adapterFragmentExams;
     private ArrayList<Pregunta> listOfQuestions;
@@ -77,16 +83,42 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
     }
 
     @Override
-    public double correctQuestions() {
+    /**
+     * Método que itera cada fragment y obtiene los datos como que respuesta se obtuvo y si se acertó
+     */
+    public ResponseExamTotal correctQuestions() {
+        ResponseExamTotal ret = new ResponseExamTotal();
+
         double d = 0.0;
         int size = fragmentList.size() - 1;
+        ret.setFinalMark(0.0);
+        ret.setNumOfQuestions(size);
+        Map<Integer, Integer> questions = new HashMap<Integer, Integer>();
+        int correct = 0;
+        int failed = 0;
+
         for (int i = 0; i < size; i++) {
             FragmentQuestion f = (FragmentQuestion) fragmentList.get(i);
-            d += f.correctQuestions();
+            ResponseExamStats res = f.correctQuestions();
+            if (res.getValue() < 0) {
+                questions.put(res.getId(), res.getSelectedOption());
+                failed += 1;
+            }
+            if (res.getValue() > 0) {
+                correct += 1;
+            }
+
+
         }
-        if (d < 0) {
-            d = 0.0;
-        }
-        return (d / size) * 10;
+        Log.i(TAG, "Correct answers :" + String.valueOf(correct));
+        Log.i(TAG, "Failed answers :" + String.valueOf(failed));
+
+        double valuePerQuestions = 10.0 / size;
+        Log.i(TAG, "valuePerQuestions val :" + String.valueOf(valuePerQuestions));
+
+        ret.setFinalMark(Math.max((correct * valuePerQuestions) - (failed * (valuePerQuestions / 2)), 0.0));
+        ret.setQuestions(questions);
+        return ret;
+
     }
 }

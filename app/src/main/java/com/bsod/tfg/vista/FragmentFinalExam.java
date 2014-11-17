@@ -8,9 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.bsod.tfg.R;
-import com.bsod.tfg.utils.ProgressDialogCustom;
+import com.bsod.tfg.modelo.ResponseExamTotal;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +22,8 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
     private View rootView;
     private Button buttonSendResults;
     private RatingBar examRating;
+    private TextView textViewMark;
+
 
     public static Fragment newInstance() {
         return new FragmentFinalExam();
@@ -36,6 +39,7 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
             buttonSendResults = (Button) rootView.findViewById(R.id.send_results_button);
             buttonSendResults.setOnClickListener(this);
             examRating = (RatingBar) rootView.findViewById(R.id.exam_rating);
+            textViewMark = (TextView) rootView.findViewById(R.id.textViewMark);
         } else {
             ((ViewGroup) rootView.getParent()).removeView(rootView);
         }
@@ -48,21 +52,22 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
     public void onClick(View view) {
 
         if (view == buttonSendResults) {
-            ProgressDialogCustom.makeDialogLoading(getActivity());
 
-            double f = ((CorrectExam) getActivity()).correctQuestions();
-            examRating.setRating((float) f);
+
+            ResponseExamTotal ret = ((CorrectExam) getActivity()).correctQuestions();
+
+            examRating.setRating((float) ret.getFinalMark() / 2.0f);
             examRating.setVisibility(View.VISIBLE);
             examRating.setIsIndicator(true);
             buttonSendResults.setVisibility(View.INVISIBLE);
+            textViewMark.setText(String.valueOf(ret.getFinalMark()));
 
-            ProgressDialogCustom.dissmissDialog();
 
         }
     }
 
     public interface CorrectExam {
-        double correctQuestions();
+        ResponseExamTotal correctQuestions();
     }
 }
 

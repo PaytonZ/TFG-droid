@@ -42,7 +42,7 @@ public class Statistics {
     }
 
     public String getAndroidVersion() {
-        return "Android + " + Build.VERSION.RELEASE;
+        return "Android " + Build.VERSION.RELEASE;
     }
 
 
