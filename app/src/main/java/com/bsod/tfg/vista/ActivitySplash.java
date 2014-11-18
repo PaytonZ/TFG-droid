@@ -8,44 +8,91 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
+import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
+import com.bsod.tfg.modelo.sesion.Token;
+import com.bsod.tfg.utils.HttpClient;
+import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
+import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
 
 public class ActivitySplash extends Activity implements View.OnClickListener {
 
     private static final String TAG = "ActivitySplash";
     private Button button_registrate;
     private Button button_login;
+    //private ActivitySplash as;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         // Hack taken from http://stackoverflow.com/questions/2776116/how-do-i-dynamically-choose-which-activity-to-launch-when-opening-an-app
-        final Class<? extends Activity> activityClass;
-
         if (Session.getSession().getUser() != null && Session.getSession().getUser().getName() != "") {
-            activityClass = ActivityMain.class;
-            Intent newActivity = new Intent(this, activityClass);
-            // Closing all the Activities from stack
-            newActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            // Add new Flag to start new Activity
-            newActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // Tenemos que comprobar si el token sigue siendo valido , o obligar a volver a logear
 
-            Log.d(TAG, "Login OK! User logged on ... " + Session.getSession().getUser().getName());
-            this.startActivity(newActivity);
+            RequestParams params = new RequestParams();
+            params.put("token", Session.getSession().getToken().getToken());
+            HttpClient.get(Constants.HTTP_RENEW_TOKEN, params, new JsonHttpResponseHandlerCustom(this) {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    int error;
+                    try {
 
+                        final Class<? extends Activity> activityClass;
+                        error = Integer.parseInt(response.get("error").toString());
+                        if (error == 200) {
+                            ObjectMapper mapper = new ObjectMapper();
+                            mapper.registerModule(new JsonOrgModule());
+
+                            Token t = mapper.readValue(response.get("data").toString(), Token.class);
+                            Session.getSession().setToken(t);
+                            Session.persistPreferences();
+
+                            //Starting main activity
+                            activityClass = ActivityMain.class;
+                            Log.d(TAG, "Login OK! User logged on ... " + Session.getSession().getUser().getName());
+
+                        } else // Needs to relog again
+                        {
+                            activityClass = ActivityLogin.class;
+                            Toast.makeText(App.getContext(), "Tu sesión ha expirado, conectate de nuevo ", Toast.LENGTH_SHORT).show();
+                            Session.destroySession();
+                            Log.d(TAG, "Session Expired or Invalid");
+                        }
+
+                        Intent newActivity = new Intent(App.getContext(), activityClass);
+                        // Closing all the Activities from stack
+                        //newActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        // Add new Flag to start new Activity
+                        newActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        App.getContext().startActivity(newActivity);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            });
+
+
+        } else {
+
+            setContentView(R.layout.activity_splash);
+            button_registrate = (Button) findViewById(R.id.splash_registrate_button);
+            button_login = (Button) findViewById(R.id.splash_login_button);
+            button_registrate.setOnClickListener(this);
+            button_login.setOnClickListener(this);
         }
 
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-
-        button_registrate = (Button) findViewById(R.id.splash_registrate_button);
-        button_login = (Button) findViewById(R.id.splash_login_button);
-        button_registrate.setOnClickListener(this);
-        button_login.setOnClickListener(this);
 
     }
 

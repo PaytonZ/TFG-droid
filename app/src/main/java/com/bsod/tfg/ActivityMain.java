@@ -2,6 +2,8 @@ package com.bsod.tfg;
 
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -177,10 +179,37 @@ public class ActivityMain extends FragmentActivity implements
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
+
+        // Cleaning Stack taken from SO -->http://stackoverflow.com/questions/5802141/is-this-the-right-way-to-clean-up-fragment-back-stack-when-leaving-a-deeply-nest
+        fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
         fragmentTransaction.replace(R.id.fragment, f, "TFGFragment");
-        // fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.setCustomAnimations(FragmentTransaction.TRANSIT_ENTER_MASK, FragmentTransaction.TRANSIT_EXIT_MASK);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() > 1) {
+            super.onBackPressed();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("¿ Quieres salir ?")
+                    .setMessage("¿ Estás seguro de que quieres salir de esta fantástica app ?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            Session.destroySession();
+                            ActivityMain.super.onBackPressed();
+                            ActivityMain.super.onBackPressed();
+                        }
+                    }).create().show();
+        }
     }
 }

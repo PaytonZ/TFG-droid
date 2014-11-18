@@ -137,6 +137,7 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
 
                             Intent i = new Intent(getActivity(), ActivitySolveExam.class);
                             i.putExtra(Constants.INTENT_EXTRA_ARRAY_QUESTIONS, listOfQuestions);
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                         }
 

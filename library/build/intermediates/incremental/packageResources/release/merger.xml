@@ -269,6 +269,9 @@
                 <attr
                     name="unselectedColor"
                     format="color" />
+                <attr
+                    name="strokeWidth"
+                    format="dimension" />
 
                 <declare-styleable name="LinePageIndicator" >
 
@@ -291,25 +294,21 @@
                     <!-- View background -->
                     <attr name="android:background" />
                 </declare-styleable>
-
-                <attr
-                    name="strokeWidth"
-                    format="dimension" />
             </file>
             <file
                 path="E:\androidstudio\Tabtest\library\src\main\res\values\vpi__colors.xml"
                 qualifiers="" >
                 <color name="vpi__bright_foreground_holo_dark" >@color/vpi__background_holo_light
                 </color>
-                <color name="vpi__bright_foreground_inverse_holo_light" >@color/vpi__bright_foreground_holo_dark
-                </color>
-                <color name="vpi__background_holo_light" >#fff3f3f3
+                <color name="vpi__bright_foreground_inverse_holo_light" >        @color/vpi__bright_foreground_holo_dark
                 </color>
                 <color name="vpi__bright_foreground_disabled_holo_light" >#ffb2b2b2
                 </color>
+                <color name="vpi__background_holo_light" >#fff3f3f3
+                </color>
                 <color name="vpi__bright_foreground_disabled_holo_dark" >#ff4c4c4c
                 </color>
-                <color name="vpi__bright_foreground_inverse_holo_dark" >@color/vpi__bright_foreground_holo_light
+                <color name="vpi__bright_foreground_inverse_holo_dark" >        @color/vpi__bright_foreground_holo_light
                 </color>
                 <color name="vpi__background_holo_dark" >#ff000000
                 </color>
@@ -319,20 +318,19 @@
             <file
                 path="E:\androidstudio\Tabtest\library\src\main\res\values\vpi__defaults.xml"
                 qualifiers="" >
-                <color name="default_circle_indicator_fill_color" >#FFFFFFFF
-                </color>
-
                 <dimen name="default_circle_indicator_radius" >3dp
                 </dimen>
 
+                <color name="default_circle_indicator_fill_color" >#FFFFFFFF
+                </color>
                 <color name="default_circle_indicator_page_color" >#00000000
                 </color>
 
-                <bool name="default_title_indicator_selected_bold" >
-true
-                </bool>
                 <bool name="default_circle_indicator_snap" >
 false
+                </bool>
+                <bool name="default_title_indicator_selected_bold" >
+true
                 </bool>
 
                 <color name="default_underline_indicator_selected_color" >#FF33B5E5
@@ -410,12 +408,12 @@ true
                 <dimen name="default_title_indicator_footer_line_height" >2dp
                 </dimen>
 
-                <color name="default_title_indicator_footer_color" >#FF33B5E5
-                </color>
-
                 <bool name="default_line_indicator_centered" >
 true
                 </bool>
+
+                <color name="default_title_indicator_footer_color" >#FF33B5E5
+                </color>
             </file>
             <file
                 path="E:\androidstudio\Tabtest\library\src\main\res\values\vpi__styles.xml"

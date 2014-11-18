@@ -15,6 +15,7 @@ public class Constants {
     public final static String HTTP_GET_PROVINCIAS = "getprovincias";
     public final static String HTTP_GET_UNIS = "getunis";
     public final static String HTTP_REGISTER_USER = "registeruser";
+    public final static String HTTP_RENEW_TOKEN = "renewtoken";
     public static final String HTTP_GET_FACULTYS = "getfacultades";
     public static final String HTTP_CHECK_USER = "checkuser";
     public static final String HTTP_CHECK_EMAIL = "checkemail";
