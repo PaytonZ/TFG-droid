@@ -60,5 +60,6 @@
     <string name="send_results_text">¡ Enviar Resultados !</string>
     <string name="your_results">Tus resultados :</string>
     <string name="your_mark">Tu nota :</string>
+    <string name="session_expired">"Tu sesión ha expirado, conectate de nuevo "</string>
 
 </resources>

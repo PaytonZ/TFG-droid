@@ -244,7 +244,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                     editTextPassword.setTransformationMethod(null);
                 } else {
                     if (checkValidity(editTextPassword)) {
-                        editTextPassword.setTextColor(Color.GREEN);
+                        editTextPassword.setTextColor(getResources().getColor(R.color.green_test));
                         editTextPassword.setError(null);
                     } else {
                         editTextPassword.setTextColor(Color.RED);
@@ -256,7 +256,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                 editTextUsuario.setTextColor(Color.BLACK);
             } else {
                 if (checkValidity(editTextUsuario)) {
-                    editTextUsuario.setTextColor(Color.GREEN);
+                    editTextUsuario.setTextColor(getResources().getColor(R.color.green_test));
                     editTextUsuario.setError(null);
                 } else {
                     editTextUsuario.setTextColor(Color.RED);
@@ -268,7 +268,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                 editTextEmail.setTextColor(Color.BLACK);
             } else {
                 if (checkValidity(editTextEmail)) {
-                    editTextEmail.setTextColor(Color.GREEN);
+                    editTextEmail.setTextColor(getResources().getColor(R.color.green_test));
                     editTextUsuario.setError(null);
                 } else {
                     editTextEmail.setTextColor(Color.RED);

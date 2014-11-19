@@ -24,6 +24,7 @@ import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.TopBar;
 import com.bsod.tfg.vista.ActivitySearchUni;
 import com.bsod.tfg.vista.ActivitySettings;
+import com.bsod.tfg.vista.ActivitySplash;
 import com.bsod.tfg.vista.FragmentArchivos;
 import com.bsod.tfg.vista.FragmentChat;
 import com.bsod.tfg.vista.FragmentTablon;
@@ -107,18 +108,13 @@ public class ActivityMain extends FragmentActivity implements
 
             case R.id.action_logout:
                 Session.destroySession();
-
                 Toast.makeText(this, R.string.desconectado, Toast.LENGTH_SHORT).show();
-                /*Intent i = new Intent(this, ActivitySplash.class);
-                // Closing all the Activities from stack
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                // Add new Flag to start new Activity
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-*/
                 Log.d(TAG, "UnLogin OK!");
-                //  this.startActivity(i);
-                finish();
+                Intent intent = new Intent(getApplicationContext(), ActivitySplash.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //intent.putExtra("EXIT", true);
+                startActivity(intent);
+
                 return true;
         }
 
@@ -205,9 +201,12 @@ public class ActivityMain extends FragmentActivity implements
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface arg0, int arg1) {
-                            Session.destroySession();
-                            ActivityMain.super.onBackPressed();
-                            ActivityMain.super.onBackPressed();
+                            //Session.destroySession();
+                            Intent intent = new Intent(getApplicationContext(), ActivitySplash.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("EXIT", true);
+                            startActivity(intent);
+
                         }
                     }).create().show();
         }

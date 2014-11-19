@@ -1,11 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/darker_gray">
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        tools:ignore="UselessParent">
 
         <Button
             android:id="@+id/splash_registrate_button"
@@ -32,7 +35,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="71dp"
-            android:text="Holi :)" />
+            android:text="NameHolder" />
 
     </RelativeLayout>
 

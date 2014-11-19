@@ -96,9 +96,11 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                 User u = new User();
                 u.setName("root");
                 Session.getSession().setUser(u);
-                //Session.getSession().setToken("asihjdajshdjasd");
+                Token t = new Token();
+                t.setToken("");
+                Session.getSession().setToken(t);
                 Facultad i = new Facultad();
-                i.setId(1);
+                i.setId(-1);
                 i.setNombre("Root Access!");
                 Session.getSession().setFacultad(i);
                 Session.persistPreferences();
