@@ -1,6 +1,7 @@
 package com.bsod.tfg.controlador;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,15 +125,12 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
         stats.setId(pregunta.getId());
         // No se seleccionó ninguna opcion
         if (selecteditem == -1) {
-            stats.setSelectedOption(-1);
+            stats.setSelectedOption(0);
             stats.setValue(0.0);
-        }
-        // La respuesta es la correcta
-        if (selecteditem == pregunta.getRespuestaCorrecta() - 1) {
-            stats.setValue(+1.0);
-        } else {//Respuesta incorrecta
+        } else { // Se seleccionó un valor.
             stats.setSelectedOption(selecteditem + 1);
-            stats.setValue(-1.0);
+            Log.i(TAG, String.valueOf(stats.getSelectedOption()));
+            stats.setValue((selecteditem == pregunta.getRespuestaCorrecta() - 1) ? +1.0 : -1.0);
         }
         return stats;
     }

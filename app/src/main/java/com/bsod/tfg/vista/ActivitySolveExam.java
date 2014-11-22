@@ -1,10 +1,13 @@
 package com.bsod.tfg.vista;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,8 +20,7 @@ import com.bsod.tfg.modelo.otros.Constants;
 import com.viewpagerindicator.LinePageIndicator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class ActivitySolveExam extends FragmentActivity implements FragmentFinalExam.CorrectExam {
 
@@ -27,14 +29,17 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
     private AdapterFragmentExams adapterFragmentExams;
     private ArrayList<Pregunta> listOfQuestions;
     private ArrayList<Fragment> fragmentList;
+    private Integer idTest;
+    private Boolean finished = false;
+    private long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         listOfQuestions = (ArrayList<Pregunta>) getIntent().getSerializableExtra(Constants.INTENT_EXTRA_ARRAY_QUESTIONS);
-
-
+        idTest = getIntent().getIntExtra(Constants.INTENT_ID_TEST, -1);
+        Log.i(TAG, "ID TEST ...:" + String.valueOf(idTest));
         setContentView(R.layout.activity_solve_exam);
         //Set the pager with an adapter
         pager = (ViewPager) findViewById(R.id.pager);
@@ -58,6 +63,7 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
         LinePageIndicator titleIndicator = (LinePageIndicator) findViewById(R.id.titles);
         titleIndicator.setViewPager(pager);
 
+        startTime = System.nanoTime();
     }
 
     @Override
@@ -88,37 +94,57 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
      */
     public ResponseExamTotal correctQuestions() {
         ResponseExamTotal ret = new ResponseExamTotal();
-
-        double d = 0.0;
+        long convert = TimeUnit.MILLISECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
+        ret.setTime(convert);
         int size = fragmentList.size() - 1;
         ret.setFinalMark(0.0);
         ret.setNumOfQuestions(size);
-        Map<Integer, Integer> questions = new HashMap<Integer, Integer>();
+        ret.setIdTest(idTest);
+
+        SparseIntArray questions = new SparseIntArray();
         int correct = 0;
         int failed = 0;
 
         for (int i = 0; i < size; i++) {
             FragmentQuestion f = (FragmentQuestion) fragmentList.get(i);
             ResponseExamStats res = f.correctQuestions();
+            questions.put(res.getId(), res.getSelectedOption());
             if (res.getValue() < 0) {
-                questions.put(res.getId(), res.getSelectedOption());
                 failed += 1;
-            }
-            if (res.getValue() > 0) {
+            } else if (res.getValue() > 0) {
                 correct += 1;
             }
-
-
         }
         Log.i(TAG, "Correct answers :" + String.valueOf(correct));
         Log.i(TAG, "Failed answers :" + String.valueOf(failed));
-
+        // Log.i(TAG, "Transcurred Time:" + String.valueOf(convert));
         double valuePerQuestions = 10.0 / size;
-        Log.i(TAG, "valuePerQuestions val :" + String.valueOf(valuePerQuestions));
+        // Log.i(TAG, "valuePerQuestions val :" + String.valueOf(valuePerQuestions));
+
+        finished = true;
 
         ret.setFinalMark(Math.max((correct * valuePerQuestions) - (failed * (valuePerQuestions / 2)), 0.0));
         ret.setQuestions(questions);
         return ret;
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!finished) {
+            new AlertDialog.Builder(this)
+                    .setTitle("¿ Quieres salir ?")
+                    .setMessage("¿ Estás seguro de quieres salir de este test ? \n No se guardará ningún progreso")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            ActivitySolveExam.super.onBackPressed();
+
+                        }
+                    }).create().show();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

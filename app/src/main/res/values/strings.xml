@@ -61,5 +61,7 @@
     <string name="your_results">Tus resultados :</string>
     <string name="your_mark">Tu nota :</string>
     <string name="session_expired">"Tu sesión ha expirado, conectate de nuevo "</string>
+    <string name="exam_send_succesful">Se ha enviado correctamente el Test</string>
+    <string name="exam_send_error">Se produjo un error al enviar el test</string>
 
 </resources>
