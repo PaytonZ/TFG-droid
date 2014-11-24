@@ -18,7 +18,6 @@ import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.ViewHolder;
-import com.bsod.tfg.vista.App;
 import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -109,19 +108,19 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                                 MessageBoard mb = mapper.readValue(response.get("data").toString(), MessageBoard.class);
                                 updateOneMessage(position, mb);
                             } else {
-                                Toast.makeText(App.getContext(), App.getContext().getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
                                 v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
                             }
                         } catch (Exception e) {
                             v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
-                            Toast.makeText(App.getContext(), App.getContext().getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
-                        Toast.makeText(App.getContext(), App.getContext().getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
 
 
                     }
