@@ -63,5 +63,7 @@
     <string name="session_expired">"Tu sesión ha expirado, conectate de nuevo "</string>
     <string name="exam_send_succesful">Se ha enviado correctamente el Test</string>
     <string name="exam_send_error">Se produjo un error al enviar el test</string>
+    <string name="random_number">4564</string>
+    <string name="error_cannot_favorited">No se puede modificar de favoritos en este momento. Inténtelo más tarde.</string>
 
 </resources>

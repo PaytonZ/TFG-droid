@@ -1,7 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/message_board_layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:clickable="false"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
     android:padding="6dip">
 
     <com.makeramen.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -61,5 +65,19 @@
         android:src="@drawable/ic_action_favorite"
 
         />
+
+    <TextView
+        android:id="@+id/message_board_number_of_likes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/message_board_like"
+        android:layout_below="@+id/message_board_text"
+        android:layout_marginTop="6dp"
+        android:layout_toLeftOf="@+id/message_board_like"
+        android:layout_toStartOf="@+id/message_board_like"
+        android:gravity="end"
+        android:numeric="integer"
+        android:text="@string/random_number"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

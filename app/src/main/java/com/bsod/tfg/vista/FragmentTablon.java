@@ -63,6 +63,8 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_tablon, container,
                     false);
+
+
             swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_tablon);
             swipeLayout.setOnRefreshListener(this);
 
@@ -74,8 +76,8 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
             tablonList.setAdapter(adapter);
             tablonList.setOnItemClickListener(adapter);
             tablonList.setOnScrollListener(this);
-            refreshMessages();
 
+            refreshMessages();
             thisContext = getActivity();
 
             // Devolvemos la vista para que se muestre en pantalla.

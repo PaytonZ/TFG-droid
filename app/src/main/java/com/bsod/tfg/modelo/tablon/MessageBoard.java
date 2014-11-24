@@ -18,6 +18,12 @@ public class MessageBoard {
     @JsonProperty("fecha_creacion")
     private long creationDateUnix;
     private Date creationDate;
+    @JsonProperty("num_fav")
+    private int numOfFavs;
+    @JsonProperty("user_favorited")
+    private boolean userFavorited;
+    @JsonProperty("owner")
+    private boolean owner;
 
     //private User user;
     //private Image ...
@@ -70,5 +76,29 @@ public class MessageBoard {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getNumOfFavs() {
+        return numOfFavs;
+    }
+
+    public void setNumOfFavs(int numOfFavs) {
+        this.numOfFavs = numOfFavs;
+    }
+
+    public boolean isUserFavorited() {
+        return userFavorited;
+    }
+
+    public void setUserFavorited(boolean userFavorited) {
+        this.userFavorited = userFavorited;
+    }
+
+    public boolean isOwner() {
+        return owner;
+    }
+
+    public void setOwner(boolean owner) {
+        this.owner = owner;
     }
 }
