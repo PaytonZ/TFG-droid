@@ -19,6 +19,7 @@ import com.bsod.tfg.controlador.AdapterTablon;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.modelo.tablon.MessageBoard;
+import com.bsod.tfg.modelo.tablon.MessageBoardUpdate;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
@@ -91,7 +92,8 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onRefresh() {
-        refreshMessages();
+        //refreshMessages();
+        updateMessages();
     }
 
     @Override
@@ -145,13 +147,49 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         return false;
     }
 
+    private void updateMessages() {
+        RequestParams params = new RequestParams();
+        int elementCount = aTablon.getCount();
+        params.put("token", Session.getSession().getToken().getToken());
+        params.put("idmsgstart", (elementCount == 0) ? 0 : aTablon.getItem(elementCount - 1).getId());
+        params.put("idmsgend", ((elementCount == 0) ? 0 : aTablon.getItem(0).getId()));
+        params.put("idfaculty", Session.getSession().getFacultad().getId());
+
+        HttpClient.get(Constants.HTTP_UPDATE_MESSAGES, params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                int error;
+                try {
+                    error = Integer.parseInt(response.get("error").toString());
+                    if (error == 200) {
+                        ObjectMapper mapper = new ObjectMapper();
+                        mapper.registerModule(new JsonOrgModule());
+                        List<MessageBoardUpdate> listOfMessagesUpdated = mapper.readValue(
+                                response.get("data").toString(),
+                                TypeFactory.collectionType(
+                                        List.class, MessageBoardUpdate.class));
+                        aTablon.updateMessages(listOfMessagesUpdated);
+                        refreshMessages();
+
+                    }
+
+
+                } catch (Exception e) {
+                    swipeLayout.setRefreshing(false);
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     private void refreshMessages() {
+
 
         RequestParams params = new RequestParams();
         params.put("token", Session.getSession().getToken().getToken());
-        params.put("idmessage", ((tablonList.getAdapter()).getCount() == 0) ? 0 : ((AdapterTablon) tablonList.getAdapter()).getItem(0).getId());
+        params.put("idmessage", (aTablon.getCount() == 0) ? 0 : ((AdapterTablon) tablonList.getAdapter()).getItem(0).getId());
         params.put("idfaculty", Session.getSession().getFacultad().getId());
-
         HttpClient.get(Constants.HTTP_GET_MESSAGES_BOARD, params, new JsonHttpResponseHandler() {
 
             @Override
@@ -160,7 +198,6 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                 try {
                     error = Integer.parseInt(response.get("error").toString());
                     if (error == 200) {
-                        //swipeLayout.setRefreshing(true);
                         ObjectMapper mapper = new ObjectMapper();
                         mapper.registerModule(new JsonOrgModule());
                         List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
@@ -168,7 +205,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                                 TypeFactory.collectionType(
                                         List.class, MessageBoard.class));
                         listOfMessages.addAll(0, listOfMessagesUpdated);
-                        ((AdapterTablon) tablonList.getAdapter()).updateMessages(listOfMessages);
+                        ((AdapterTablon) tablonList.getAdapter()).addMessages(listOfMessages);
                         swipeLayout.setRefreshing(false);
 
                     } else {
@@ -178,6 +215,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                         }
                     }
                 } catch (Exception e) {
+                    swipeLayout.setRefreshing(false);
                     e.printStackTrace();
                 }
             }
@@ -208,7 +246,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                                 TypeFactory.collectionType(
                                         List.class, MessageBoard.class));
                         listOfMessages.addAll(0, listOfMessagesUpdated);
-                        ((AdapterTablon) tablonList.getAdapter()).updateMessages(listOfMessages);
+                        aTablon.addMessages(listOfMessages);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

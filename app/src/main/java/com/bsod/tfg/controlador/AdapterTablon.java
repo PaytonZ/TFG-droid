@@ -2,7 +2,6 @@ package com.bsod.tfg.controlador;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.modelo.tablon.MessageBoard;
+import com.bsod.tfg.modelo.tablon.MessageBoardUpdate;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.ViewHolder;
 import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
@@ -48,10 +48,38 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
         notifyDataSetChanged();
     }
 
-    public void updateMessages(List<MessageBoard> messageList) {
+    public void addMessages(List<MessageBoard> messageList) {
         this.messageList = messageList;
         notifyDataSetChanged();
     }
+
+    public void updateMessages(List<MessageBoardUpdate> messages) {
+        for (MessageBoardUpdate mbu : messages) {
+            int id = searchMessage(mbu.getId());
+            if(id != -1 )
+            {
+                if(mbu.isBorrado())
+                {
+                    messageList.remove(id);
+                }
+                else
+                {
+                    MessageBoard mb = getItem(id);
+                    mb.setNumOfFavs(mbu.getNumOfFavs());
+                    mb.setUserFavorited(mbu.isUserFavorited());
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public int searchMessage(int pk) {
+        for (int i = 0; i < messageList.size(); i++) {
+            if (messageList.get(i).getId() == pk) return i;
+        }
+        return -1;
+    }
+
 
     @Override
     public int getCount() {
@@ -82,7 +110,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
         ImageView image = ViewHolder.get(convertView, R.id.message_board_image);
         TextView date = ViewHolder.get(convertView, R.id.message_board_date);
         ImageView like = ViewHolder.get(convertView, R.id.message_board_like);
-        TextView numberOflikes = ViewHolder.get(convertView, R.id.message_board_number_of_likes);
+        final TextView numberOflikes = ViewHolder.get(convertView, R.id.message_board_number_of_likes);
 
 
         like.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +120,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                 final MessageBoard message = getItem(position);
                 // Trick for making it more fluid
                 v.setImageResource(!message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
+                numberOflikes.setText(String.valueOf(!message.isUserFavorited() ? message.getNumOfFavs() + 1 : message.getNumOfFavs() - 1));
 
                 RequestParams params = new RequestParams();
                 params.put("token", Session.getSession().getToken().getToken());
@@ -110,10 +139,12 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                             } else {
                                 Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
                                 v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
+                                numberOflikes.setText(String.valueOf(message.isUserFavorited() ? message.getNumOfFavs() + 1 : message.getNumOfFavs() - 1));
                             }
                         } catch (Exception e) {
                             v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
                             Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
+                            numberOflikes.setText(String.valueOf(message.isUserFavorited() ? message.getNumOfFavs() + 1 : message.getNumOfFavs() - 1));
                         }
                     }
 
@@ -121,6 +152,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
                         Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
+                        numberOflikes.setText(String.valueOf(message.isUserFavorited() ? message.getNumOfFavs() + 1 : message.getNumOfFavs() - 1));
 
 
                     }
@@ -128,6 +160,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                 });
             }
         });
+
         image.setOnClickListener(new View.OnClickListener() {
                                      @Override
                                      public void onClick(View view) {
@@ -145,7 +178,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
 
         title.setText(mb.getUser().getName());
 
-        Log.i(TAG, "message" + mb.getId() + "isfaved" + mb.isUserFavorited());
+        //Log.i(TAG, "message" + mb.getId() + "isfaved" + mb.isUserFavorited());
 
 
         like.setImageResource(mb.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);

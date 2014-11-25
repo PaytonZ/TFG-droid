@@ -9,9 +9,9 @@ import com.loopj.android.http.RequestParams;
  */
 public class HttpClient {
 
-    //private static String BASE_URL = "http://192.168.1.12/";
+    private static String BASE_URL = "http://192.168.1.12/";
     //private static String BASE_URL = "http:/bsodsoftware.me/";
-    private static String BASE_URL = "http://178.62.194.33/";
+    //private static String BASE_URL = "http://178.62.194.33/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
