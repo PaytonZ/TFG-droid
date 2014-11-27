@@ -37,10 +37,12 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
 
     private static final String TAG = "AdapterTablon";
     private final Context context;
+
     private List<MessageBoard> messageList = Collections.emptyList();
 
     public AdapterTablon(Context context) {
         this.context = context;
+
     }
 
     public void updateOneMessage(int id, MessageBoard mb) {
@@ -56,14 +58,10 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
     public void updateMessages(List<MessageBoardUpdate> messages) {
         for (MessageBoardUpdate mbu : messages) {
             int id = searchMessage(mbu.getId());
-            if(id != -1 )
-            {
-                if(mbu.isBorrado())
-                {
+            if (id != -1) {
+                if (mbu.isBorrado()) {
                     messageList.remove(id);
-                }
-                else
-                {
+                } else {
                     MessageBoard mb = getItem(id);
                     mb.setNumOfFavs(mbu.getNumOfFavs());
                     mb.setUserFavorited(mbu.isUserFavorited());
@@ -139,12 +137,12 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                             } else {
                                 Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
                                 v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
-                                numberOflikes.setText(String.valueOf(message.isUserFavorited() ? message.getNumOfFavs() + 1 : message.getNumOfFavs() - 1));
+                                numberOflikes.setText(message.getNumOfFavs());
                             }
                         } catch (Exception e) {
                             v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
                             Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
-                            numberOflikes.setText(String.valueOf(message.isUserFavorited() ? message.getNumOfFavs() + 1 : message.getNumOfFavs() - 1));
+                            numberOflikes.setText(message.getNumOfFavs());
                         }
                     }
 
@@ -152,8 +150,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
                         Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
-                        numberOflikes.setText(String.valueOf(message.isUserFavorited() ? message.getNumOfFavs() + 1 : message.getNumOfFavs() - 1));
-
+                        numberOflikes.setText(message.getNumOfFavs());
 
                     }
 
@@ -164,7 +161,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
         image.setOnClickListener(new View.OnClickListener() {
                                      @Override
                                      public void onClick(View view) {
-                                         Toast.makeText(context, "No toques la imagen!", Toast.LENGTH_SHORT).show();
+                                         //Toast.makeText(context, "No toques la imagen!", Toast.LENGTH_SHORT).show();
                                      }
                                  }
 
@@ -205,7 +202,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT).show();
     }
 
 

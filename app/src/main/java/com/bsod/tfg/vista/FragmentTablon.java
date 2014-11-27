@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterTablon;
@@ -180,6 +181,11 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                     e.printStackTrace();
                 }
             }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Toast.makeText(thisContext, thisContext.getString(R.string.error_update_messages), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -216,8 +222,14 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                     }
                 } catch (Exception e) {
                     swipeLayout.setRefreshing(false);
+                    Toast.makeText(thisContext, thisContext.getString(R.string.error_update_messages), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Toast.makeText(thisContext, thisContext.getString(R.string.error_update_messages), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -250,8 +262,14 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Toast.makeText(thisContext, thisContext.getString(R.string.error_update_messages), Toast.LENGTH_SHORT).show();
                 }
 
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Toast.makeText(thisContext, thisContext.getString(R.string.error_update_messages), Toast.LENGTH_SHORT).show();
             }
 
         });

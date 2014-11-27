@@ -65,5 +65,6 @@
     <string name="exam_send_error">Se produjo un error al enviar el test</string>
     <string name="random_number">4564</string>
     <string name="error_cannot_favorited">No se puede modificar de favoritos en este momento. Inténtelo más tarde.</string>
+    <string name="error_update_messages">No se pueden actualizar los mensajes. Inténtelo más tarde</string>
 
 </resources>

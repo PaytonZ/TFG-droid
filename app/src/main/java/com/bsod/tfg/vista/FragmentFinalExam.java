@@ -77,6 +77,7 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
             params.put("token", Session.getSession().getToken().getToken());
             params.put("time", ret.getTime());
             params.put("idtest", ret.getIdTest());
+            params.put("score", ret.getFinalMark());
             SparseIntArray sa = ret.getQuestions();
             List<PreguntaRespondida> list = new ArrayList<PreguntaRespondida>();
 
@@ -114,7 +115,13 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
 
                             }
                         }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            Toast.makeText(getActivity(), getString(R.string.exam_send_error), Toast.LENGTH_SHORT).show();
+                        }
                     }
+
             );
 
         }
