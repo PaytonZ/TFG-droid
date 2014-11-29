@@ -19,6 +19,7 @@ import com.bsod.tfg.utils.HttpClient;
 import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -58,17 +59,11 @@ public class ActivityMessageDetail extends Activity {
         title.setTypeface(null, Typeface.BOLD);
         message.setText(mb.getMessage());
         numberOflikes.setText(String.valueOf(mb.getNumOfFavs()));
-        // change the icon for Windows and iPhone
-        String s = String.valueOf(message.getText());
-        int wtf = s.hashCode() % 3;
-        if (wtf == 0)
-            image.setImageResource(R.drawable.ic_owned_fire);
-        else if (wtf == 1)
-            image.setImageResource(R.drawable.ic_cthulhu_president);
-        else
-
-        {
-            image.setImageResource(R.drawable.ic_trololol);
+        if (!mb.getUser().getPicImageUrl().equals("")) {
+            ImageLoader im = ImageLoader.getInstance();
+            im.displayImage(Constants.MEDIA_URL + mb.getUser().getPicImageUrl(), image);
+        } else {
+            image.setImageResource(R.drawable.no_image);
         }
 
         like.setOnClickListener(new View.OnClickListener() {

@@ -72,5 +72,9 @@
     <string name="activity_register_label">Regístrate</string>
     <string name="activity_solve_exam_label">Examen</string>
     <string name="activity_message_detail_label">Mensaje</string>
+    <string name="preference_change_image">Cambiar Imagen</string>
+    <string name="title_activity_activity_settings">ActivitySettings</string>
+    <string name="image_uploaded_succesful">La imagen se subió correctamente.</string>
+    <string name="error_image_upload">Hubo un error en la subida de imagen. Inténtelo más tarde.</string>
 
 </resources>

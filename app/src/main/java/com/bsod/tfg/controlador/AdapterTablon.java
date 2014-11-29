@@ -23,6 +23,7 @@ import com.bsod.tfg.vista.ActivityMessageDetail;
 import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -103,14 +104,12 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
             convertView = LayoutInflater.from(context).inflate(R.layout.tablonlayout, parent, false);
         }
 
-
         TextView message = ViewHolder.get(convertView, R.id.message_board_text);
         TextView title = ViewHolder.get(convertView, R.id.message_board_title);
-        ImageView image = ViewHolder.get(convertView, R.id.message_board_image);
+        final ImageView image = ViewHolder.get(convertView, R.id.message_board_image);
         TextView date = ViewHolder.get(convertView, R.id.message_board_date);
         ImageView like = ViewHolder.get(convertView, R.id.message_board_like);
         final TextView numberOflikes = ViewHolder.get(convertView, R.id.message_board_number_of_likes);
-
 
         like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +157,6 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                 });
             }
         });
-
         image.setOnClickListener(new View.OnClickListener() {
                                      @Override
                                      public void onClick(View view) {
@@ -167,7 +165,6 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                                  }
 
         );
-
         MessageBoard mb = getItem(position);
 
         // Formating Date
@@ -181,18 +178,14 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
         title.setTypeface(null, Typeface.BOLD);
         message.setText(mb.getMessage());
         numberOflikes.setText(String.valueOf(mb.getNumOfFavs()));
-        // change the icon for Windows and iPhone
-        String s = String.valueOf(getItem(position));
-        int wtf = s.hashCode() % 3;
-        if (wtf == 0)
-            image.setImageResource(R.drawable.ic_owned_fire);
-        else if (wtf == 1)
-            image.setImageResource(R.drawable.ic_cthulhu_president);
-        else
 
-        {
-            image.setImageResource(R.drawable.ic_trololol);
+        ImageLoader im = ImageLoader.getInstance();
+        if (!mb.getUser().getPicImageUrl().equals("")) {
+            im.displayImage(Constants.MEDIA_URL + mb.getUser().getPicImageUrl(), image);
+        } else {
+            image.setImageResource(R.drawable.no_image);
         }
+
 
         return convertView;
     }

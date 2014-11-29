@@ -37,27 +37,27 @@
         android:id="@+id/message_board_date"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/message_board_title"
+        android:layout_toEndOf="@+id/message_board_image"
+        android:layout_toRightOf="@+id/message_board_image"
         android:gravity="end"
         android:text="asdasd User"
-        android:textSize="20sp"
-        android:layout_below="@+id/message_board_title"
-        android:layout_toRightOf="@+id/message_board_image"
-        android:layout_toEndOf="@+id/message_board_image" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/message_board_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/message_board_image"
+        android:layout_toStartOf="@+id/message_board_like"
         android:ellipsize="start"
         android:paddingEnd="5dip"
         android:paddingStart="5dip"
         android:singleLine="false"
         android:text="@string/char150test"
-        android:textSize="22sp"
-        android:layout_below="@+id/message_board_image"
-        android:layout_toStartOf="@+id/message_board_like"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:textSize="22sp" />
 
     <ImageView
         android:id="@+id/message_board_like"

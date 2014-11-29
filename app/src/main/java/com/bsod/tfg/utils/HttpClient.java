@@ -4,8 +4,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.bsod.tfg.modelo.otros.Constants;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /**
@@ -13,15 +15,18 @@ import com.loopj.android.http.RequestParams;
  */
 public class HttpClient {
 
-    private static String BASE_URL = "http://192.168.1.12/";
-    //private static String BASE_URL = "http:/bsodsoftware.me/";
-    //private static String BASE_URL = "http://178.62.194.33/";
-
     private static AsyncHttpClient client = new AsyncHttpClient();
+
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
 
         client.get(getAbsoluteUrl(url), params, responseHandler);
+
+    }
+
+    public static void get(String url, FileAsyncHttpResponseHandler responseHandler) {
+
+        client.get(getAbsoluteUrl(url), responseHandler);
 
     }
 
@@ -30,9 +35,8 @@ public class HttpClient {
     }
 
     private static String getAbsoluteUrl(String relativeUrl) {
-        return BASE_URL + relativeUrl;
+        return Constants.BASE_URL + relativeUrl;
     }
-
 
     public static boolean isOnline(Context ct) {
         ConnectivityManager cm =

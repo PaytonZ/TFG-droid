@@ -12,6 +12,9 @@ public class User implements Serializable {
     private int idUser;
     @JsonProperty("username")
     private String name;
+    @JsonProperty("image")
+    private String image;
+
 
     public int getIdUser() {
         return idUser;
@@ -28,4 +31,14 @@ public class User implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getPicImageUrl() {
+        return image;
+    }
+
+    public void setPicImageUrl(String picImageUrl) {
+        this.image = picImageUrl;
+    }
+
+
 }

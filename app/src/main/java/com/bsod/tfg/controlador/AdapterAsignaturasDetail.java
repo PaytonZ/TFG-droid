@@ -17,6 +17,7 @@ public class AdapterAsignaturasDetail extends AdapterAsignaturas {
     public AdapterAsignaturasDetail(Context context) {
         super(context);
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

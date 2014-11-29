@@ -6,6 +6,9 @@ import android.content.res.Configuration;
 
 import com.bsod.tfg.modelo.sesion.PreferencesManager;
 import com.bsod.tfg.modelo.sesion.Session;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * Created by Payton on 09/10/2014.
@@ -32,6 +35,23 @@ public class App extends Application {
         PreferencesManager.initializeInstance(applicationContext);
         Session.loadPreferences();
 
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .resetViewBeforeLoading(true)
+
+                .build();
+        ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this)
+                .memoryCacheSize(41943040)
+                .threadPoolSize(10)
+                .defaultDisplayImageOptions(defaultOptions)
+
+                .build();
+        ImageLoader.getInstance().init(imageLoaderConfiguration);
+        //TODO: Cuando la cache funcione bien , quitar eso
+        ImageLoader.getInstance().clearMemoryCache();
+        ImageLoader.getInstance().clearDiskCache();
     }
 
     @Override
