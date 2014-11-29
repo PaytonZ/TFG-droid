@@ -1,6 +1,7 @@
 package com.bsod.tfg.controlador;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.bsod.tfg.modelo.tablon.MessageBoardUpdate;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.ViewHolder;
+import com.bsod.tfg.vista.ActivityMessageDetail;
 import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -42,7 +44,6 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
 
     public AdapterTablon(Context context) {
         this.context = context;
-
     }
 
     public void updateOneMessage(int id, MessageBoard mb) {
@@ -175,11 +176,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
 
         title.setText(mb.getUser().getName());
 
-        //Log.i(TAG, "message" + mb.getId() + "isfaved" + mb.isUserFavorited());
-
-
         like.setImageResource(mb.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
-
 
         title.setTypeface(null, Typeface.BOLD);
         message.setText(mb.getMessage());
@@ -202,7 +199,9 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        //Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(context, ActivityMessageDetail.class);
+        i.putExtra(Constants.INTENT_MESSAGE_DETAIL, getItem(position));
+        context.startActivity(i);
     }
 
 

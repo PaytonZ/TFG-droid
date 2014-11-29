@@ -1,5 +1,9 @@
 package com.bsod.tfg.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -29,5 +33,12 @@ public class HttpClient {
         return BASE_URL + relativeUrl;
     }
 
+
+    public static boolean isOnline(Context ct) {
+        ConnectivityManager cm =
+                (ConnectivityManager) ct.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
 }

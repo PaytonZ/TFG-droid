@@ -1,15 +1,17 @@
 package com.bsod.tfg.modelo.tablon;
 
+
 import com.bsod.tfg.modelo.sesion.User;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Proudly created by Payton on 25/09/2014.
  */
-public class MessageBoard {
+public class MessageBoard implements Serializable {
 
     @JsonProperty("pk")
     private Integer id;
@@ -101,4 +103,6 @@ public class MessageBoard {
     public void setOwner(boolean owner) {
         this.owner = owner;
     }
+
+
 }

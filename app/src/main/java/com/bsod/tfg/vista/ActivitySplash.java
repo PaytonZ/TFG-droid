@@ -1,6 +1,7 @@
 package com.bsod.tfg.vista;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,12 +30,13 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
     private static final String TAG = "ActivitySplash";
     private Button button_registrate;
     private Button button_login;
-    //private ActivitySplash as;
+    private ActivitySplash as;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        as = this;
         if (getIntent().getBooleanExtra("EXIT", false)) {
             finish();
         } else {
@@ -79,7 +81,12 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
                             newActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             App.getContext().startActivity(newActivity);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            //e.printStackTrace();
+                            setContentView(R.layout.activity_splash);
+                            button_registrate = (Button) findViewById(R.id.splash_registrate_button);
+                            button_login = (Button) findViewById(R.id.splash_login_button);
+                            button_registrate.setOnClickListener(as);
+                            button_login.setOnClickListener(as);
                         }
                     }
 

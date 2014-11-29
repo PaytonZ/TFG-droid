@@ -172,10 +172,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                                         List.class, MessageBoardUpdate.class));
                         aTablon.updateMessages(listOfMessagesUpdated);
                         refreshMessages();
-
                     }
-
-
                 } catch (Exception e) {
                     swipeLayout.setRefreshing(false);
                     e.printStackTrace();
@@ -196,6 +193,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         params.put("token", Session.getSession().getToken().getToken());
         params.put("idmessage", (aTablon.getCount() == 0) ? 0 : ((AdapterTablon) tablonList.getAdapter()).getItem(0).getId());
         params.put("idfaculty", Session.getSession().getFacultad().getId());
+
         HttpClient.get(Constants.HTTP_GET_MESSAGES_BOARD, params, new JsonHttpResponseHandler() {
 
             @Override

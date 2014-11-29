@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TFG Test</string>
+    <string name="app_name">UniApp</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Opciones</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -66,5 +66,11 @@
     <string name="random_number">4564</string>
     <string name="error_cannot_favorited">No se puede modificar de favoritos en este momento. Inténtelo más tarde.</string>
     <string name="error_update_messages">No se pueden actualizar los mensajes. Inténtelo más tarde</string>
+    <string name="your_favorite_subjects">Tus asignaturas Favoritas</string>
+    <string name="title_activity_activity_message_detail">ActivityMessageDetail</string>
+    <string name="activity_login_label">Iniciar sesión</string>
+    <string name="activity_register_label">Regístrate</string>
+    <string name="activity_solve_exam_label">Examen</string>
+    <string name="activity_message_detail_label">Mensaje</string>
 
 </resources>

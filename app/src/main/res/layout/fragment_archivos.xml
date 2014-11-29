@@ -1,21 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_archivos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="10">
 
-    <FrameLayout
-        android:id="@+id/layout_archivos1"
+<!--
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/your_favorite_subjects"
+        android:id="@+id/textView_asignaturas_favoritas"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.5"
+        android:textSize="25sp"
+        android:layout_marginTop="5dp"
+        android:autoText="false"
+
+        android:gravity="center|center_vertical" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <ListView
+        android:id="@+id/listview_fav_asignaturas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="133dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="5.18" />
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+-->
     <Button
         android:id="@+id/archivos_boton_primero"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:layout_weight="1"
         android:text="@string/primero"
         android:theme="@style/buttons_splash" />
 
@@ -23,16 +49,15 @@
         android:id="@+id/archivos_boton_segundo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/archivos_boton_primero"
+        android:layout_weight="1"
         android:text="@string/segundo"
-
         android:theme="@style/buttons_splash" />
 
     <Button
         android:id="@+id/archivos_boton_tercero"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/archivos_boton_segundo"
+        android:layout_weight="1"
         android:text="@string/tercero"
         android:theme="@style/buttons_splash" />
 
@@ -40,8 +65,8 @@
         android:id="@+id/archivos_boton_cuarto"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/archivos_boton_tercero"
+        android:layout_weight="1"
         android:text="@string/cuarto"
         android:theme="@style/buttons_splash" />
 
-</RelativeLayout>
+</LinearLayout>
