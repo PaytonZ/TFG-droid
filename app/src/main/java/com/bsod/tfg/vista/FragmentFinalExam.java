@@ -20,11 +20,10 @@ import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
-import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -89,7 +88,7 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
                 list.add(pr);
             }
             ObjectMapper mapper = new ObjectMapper();
-            mapper.registerModule(new JsonOrgModule());
+            //mapper.registerModule(new JsonOrgModule());
             try {
                 params.put("questions", mapper.writeValueAsString(list));
                 Log.i(TAG, mapper.writeValueAsString(list));

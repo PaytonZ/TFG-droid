@@ -2,8 +2,9 @@ package com.bsod.tfg.modelo.tablon;
 
 
 import com.bsod.tfg.modelo.sesion.User;
-
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.bsod.tfg.utils.MessageBoardDeserializer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Date;
 /**
  * Proudly created by Payton on 25/09/2014.
  */
+@JsonDeserialize(using = MessageBoardDeserializer.class)
 public class MessageBoard implements Serializable {
 
     @JsonProperty("pk")

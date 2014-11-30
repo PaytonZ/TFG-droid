@@ -23,13 +23,13 @@ import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.bsod.tfg.modelo.tablon.MessageBoardUpdate;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
-import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.TypeFactory;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -165,11 +165,10 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                     error = Integer.parseInt(response.get("error").toString());
                     if (error == 200) {
                         ObjectMapper mapper = new ObjectMapper();
-                        mapper.registerModule(new JsonOrgModule());
+                        //mapper.registerModule(new JsonOrgModule());
                         List<MessageBoardUpdate> listOfMessagesUpdated = mapper.readValue(
-                                response.get("data").toString(),
-                                TypeFactory.collectionType(
-                                        List.class, MessageBoardUpdate.class));
+                                response.get("data").toString(), new TypeReference<List<MessageBoardUpdate>>() {
+                                });
                         aTablon.updateMessages(listOfMessagesUpdated);
                         refreshMessages();
                     }
@@ -203,11 +202,12 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                     error = Integer.parseInt(response.get("error").toString());
                     if (error == 200) {
                         ObjectMapper mapper = new ObjectMapper();
-                        mapper.registerModule(new JsonOrgModule());
+                        //mapper.registerModule(new JsonOrgModule());
+                        mapper.configure(SerializationFeature.USE_EQUALITY_FOR_OBJECT_ID, true);
+
                         List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
-                                response.get("data").toString(),
-                                TypeFactory.collectionType(
-                                        List.class, MessageBoard.class));
+                                response.get("data").toString(), new TypeReference<List<MessageBoard>>() {
+                                });
                         listOfMessages.addAll(0, listOfMessagesUpdated);
                         ((AdapterTablon) tablonList.getAdapter()).addMessages(listOfMessages);
                         swipeLayout.setRefreshing(false);
@@ -251,10 +251,10 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                     error = Integer.parseInt(response.get("error").toString());
                     if (error == 200) {
                         ObjectMapper mapper = new ObjectMapper();
+                        mapper.configure(SerializationFeature.USE_EQUALITY_FOR_OBJECT_ID, true);
                         List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
-                                response.get("data").toString(),
-                                TypeFactory.collectionType(
-                                        List.class, MessageBoard.class));
+                                response.get("data").toString(), new TypeReference<List<MessageBoard>>() {
+                                });
                         listOfMessages.addAll(0, listOfMessagesUpdated);
                         aTablon.addMessages(listOfMessages);
                     }

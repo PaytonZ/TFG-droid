@@ -22,11 +22,10 @@ import com.bsod.tfg.modelo.sesion.Token;
 import com.bsod.tfg.modelo.sesion.User;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
-import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 
 
@@ -128,7 +127,7 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                             } else {
                                 // TODO: Takes more data from the server and put it here
                                 ObjectMapper mapper = new ObjectMapper();
-                                mapper.registerModule(new JsonOrgModule());
+                                // mapper.registerModule(new JsonOrgModule());
 
                                 Token t = mapper.readValue(response.get("token").toString(), Token.class);
                                 Facultad facultad = mapper.readValue(response.get("faculty").toString(), Facultad.class);

@@ -2,6 +2,8 @@ package com.bsod.tfg.modelo.sesion;
 
 import com.bsod.tfg.modelo.Facultad;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Created by Payton on 09/10/2014.
  * Represents a singleton Instance for the User Session
@@ -13,9 +15,10 @@ public class Session {
     private User user;
     private Token token;
     private Facultad facultad;
+    private ConcurrentHashMap<Integer, User> mapUsers;
 
     private Session() {
-
+        mapUsers = new ConcurrentHashMap<Integer, User>();
     }
 
     private static synchronized void createSession() {
@@ -81,5 +84,13 @@ public class Session {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public ConcurrentHashMap<Integer, User> getMapUsers() {
+        return mapUsers;
+    }
+
+    public void setMapUsers(ConcurrentHashMap<Integer, User> mapUsers) {
+        this.mapUsers = mapUsers;
     }
 }

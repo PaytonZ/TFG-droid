@@ -20,13 +20,12 @@ import com.bsod.tfg.modelo.tablon.MessageBoardUpdate;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.ViewHolder;
 import com.bsod.tfg.vista.ActivityMessageDetail;
-import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -131,18 +130,18 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                             error = Integer.parseInt(response.get("error").toString());
                             if (error == 200) {
                                 ObjectMapper mapper = new ObjectMapper();
-                                mapper.registerModule(new JsonOrgModule());
+                                //mapper.registerModule(new JsonOrgModule());
                                 MessageBoard mb = mapper.readValue(response.get("data").toString(), MessageBoard.class);
                                 updateOneMessage(position, mb);
                             } else {
                                 Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
                                 v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
-                                numberOflikes.setText(message.getNumOfFavs());
+                                numberOflikes.setText(String.valueOf(message.getNumOfFavs()));
                             }
                         } catch (Exception e) {
                             v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
                             Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
-                            numberOflikes.setText(message.getNumOfFavs());
+                            numberOflikes.setText(String.valueOf(message.getNumOfFavs()));
                         }
                     }
 
@@ -150,8 +149,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
                         Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
-                        numberOflikes.setText(message.getNumOfFavs());
-
+                        numberOflikes.setText(String.valueOf(message.getNumOfFavs()));
                     }
 
                 });

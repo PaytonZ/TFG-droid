@@ -1,6 +1,7 @@
 package com.bsod.tfg.modelo.sesion;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
@@ -14,7 +15,6 @@ public class User implements Serializable {
     private String name;
     @JsonProperty("image")
     private String image;
-
 
     public int getIdUser() {
         return idUser;
@@ -40,5 +40,14 @@ public class User implements Serializable {
         this.image = picImageUrl;
     }
 
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof User)) return false;
+        User otherMyClass = (User) other;
+        return otherMyClass.idUser == this.idUser;
+    }
 
 }

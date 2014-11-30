@@ -82,15 +82,14 @@
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="support-v13-20.0.0" level="project" />
-    <orderEntry type="library" exported="" name="jackson-core-asl-1.7.4" level="project" />
-    <orderEntry type="library" exported="" name="jackson-module-json-org-0.9.1" level="project" />
-    <orderEntry type="library" exported="" name="jackson-mapper-asl-1.7.4" level="project" />
+    <orderEntry type="library" exported="" name="jackson-databind-2.4.3" level="project" />
+    <orderEntry type="library" exported="" name="jackson-core-2.4.3" level="project" />
     <orderEntry type="library" exported="" name="roundedimageview-1.3.0" level="project" />
-    <orderEntry type="library" exported="" name="junit-4.8.2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-20.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-20.0.0" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.3" level="project" />
+    <orderEntry type="library" exported="" name="jackson-annotations-2.4.3" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.5" level="project" />
     <orderEntry type="module" module-name="library" exported="" />
   </component>

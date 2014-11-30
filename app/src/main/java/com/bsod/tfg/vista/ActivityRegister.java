@@ -31,12 +31,11 @@ import com.bsod.tfg.utils.EmailChecker;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.bsod.tfg.utils.Statistics;
-import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -305,7 +304,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                             if (error == 200) {
                                 // TODO: Takes more data from the server and put it here
                                 ObjectMapper mapper = new ObjectMapper();
-                                mapper.registerModule(new JsonOrgModule());
+                                //mapper.registerModule(new JsonOrgModule());
 
                                 Token t = mapper.readValue(response.get("token").toString(), Token.class);
                                 Facultad facultad = mapper.readValue(response.get("faculty").toString(), Facultad.class);

@@ -1,6 +1,7 @@
 package com.bsod.tfg.modelo.sesion;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 

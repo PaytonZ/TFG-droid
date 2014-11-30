@@ -18,11 +18,10 @@ import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.modelo.sesion.Token;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
-import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 
 public class ActivitySplash extends Activity implements View.OnClickListener {
@@ -56,7 +55,7 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
                             error = Integer.parseInt(response.get("error").toString());
                             if (error == 200) {
                                 ObjectMapper mapper = new ObjectMapper();
-                                mapper.registerModule(new JsonOrgModule());
+                                //mapper.registerModule(new JsonOrgModule());
 
                                 Token t = mapper.readValue(response.get("data").toString(), Token.class);
                                 Session.getSession().setToken(t);

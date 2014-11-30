@@ -1,6 +1,7 @@
 package com.bsod.tfg.modelo;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Proudly created by Payton on 06/11/2014.

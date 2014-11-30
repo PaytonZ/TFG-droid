@@ -16,13 +16,12 @@ import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.bsod.tfg.utils.HttpClient;
-import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.Header;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -86,7 +85,7 @@ public class ActivityMessageDetail extends Activity {
                             error = Integer.parseInt(response.get("error").toString());
                             if (error == 200) {
                                 ObjectMapper mapper = new ObjectMapper();
-                                mapper.registerModule(new JsonOrgModule());
+                                //mapper.registerModule(new JsonOrgModule());
                                 mb = mapper.readValue(response.get("data").toString(), MessageBoard.class);
 
                             } else {

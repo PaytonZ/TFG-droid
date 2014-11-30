@@ -19,12 +19,11 @@ import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
-import com.fasterxml.jackson.module.jsonorg.JsonOrgModule;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.TypeFactory;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -93,12 +92,11 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
                     if (error == 200) {
                         //swipeLayout.setRefreshing(true);
                         ObjectMapper mapper = new ObjectMapper();
-                        mapper.registerModule(new JsonOrgModule());
+                        //mapper.registerModule(new JsonOrgModule());
 
                         List<Tema> list = mapper.readValue(
-                                response.get("data").toString(),
-                                TypeFactory.collectionType(
-                                        List.class, Tema.class));
+                                response.get("data").toString(), new TypeReference<List<Tema>>() {
+                                });
                         adapterTemas.update(list);
 
                     }
@@ -128,12 +126,12 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
                         error = Integer.parseInt(response.get("error").toString());
                         if (error == 200) {
                             ObjectMapper mapper = new ObjectMapper();
-                            mapper.registerModule(new JsonOrgModule());
+                            //mapper.registerModule(new JsonOrgModule());
 
                             ArrayList<Pregunta> listOfQuestions = mapper.readValue(
-                                    response.get("data").toString(),
-                                    TypeFactory.collectionType(
-                                            List.class, Pregunta.class));
+                                    response.get("data").toString(), new TypeReference<List<Pregunta>>() {
+                                    });
+
                             int idTest = mapper.readValue(response.get("test").toString(), Integer.class);
 
                             Intent i = new Intent(getActivity(), ActivitySolveExam.class);
