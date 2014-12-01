@@ -79,11 +79,12 @@ public class MessageBoardDeserializer extends JsonDeserializer<MessageBoard> {
         mb.setUserFavorited((node.get("user_favorited").booleanValue()));
         mb.setOwner(node.get("owner").booleanValue());
 
-
         int idUser = (Integer) node.get("usuario").get("pk").numberValue();
         User u;
         if (Session.getSession().getMapUsers().containsKey(idUser)) {
             u = Session.getSession().getMapUsers().get(idUser);
+            //String image = node.get("usuario").get("image").asText();
+            //u.setPicImageUrl(image);
         } else {
             String name = node.get("usuario").get("username").asText();
             String image = node.get("usuario").get("image").asText();

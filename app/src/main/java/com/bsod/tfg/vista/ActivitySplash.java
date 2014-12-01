@@ -80,13 +80,24 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
                             newActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             App.getContext().startActivity(newActivity);
                         } catch (Exception e) {
-                            //e.printStackTrace();
+                            Toast.makeText(App.getContext(), getString(R.string.splash_connection_error), Toast.LENGTH_SHORT).show();
                             setContentView(R.layout.activity_splash);
                             button_registrate = (Button) findViewById(R.id.splash_registrate_button);
                             button_login = (Button) findViewById(R.id.splash_login_button);
                             button_registrate.setOnClickListener(as);
                             button_login.setOnClickListener(as);
                         }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+                        Toast.makeText(App.getContext(), getString(R.string.splash_connection_error), Toast.LENGTH_SHORT).show();
+                        setContentView(R.layout.activity_splash);
+                        button_registrate = (Button) findViewById(R.id.splash_registrate_button);
+                        button_login = (Button) findViewById(R.id.splash_login_button);
+                        button_registrate.setOnClickListener(as);
+                        button_login.setOnClickListener(as);
                     }
 
 

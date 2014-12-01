@@ -23,7 +23,7 @@
     <string name="title_activity_activity_login">ActivityLogin</string>
     <string name="usuario">Usuario</string>
     <string name="contraseña">Contraseña</string>
-    <string name="invalid_user_password">Usuario y contraseña no válidos</string>
+    <string name="invalid_user_password">Usuario y/o contraseña no válidos</string>
     <string name="action_logout">Desconectarse</string>
     <string name="desconectado">Te has desconectado correctamente.</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
@@ -76,5 +76,7 @@
     <string name="title_activity_activity_settings">ActivitySettings</string>
     <string name="image_uploaded_succesful">La imagen se subió correctamente.</string>
     <string name="error_image_upload">Hubo un error en la subida de imagen. Inténtelo más tarde.</string>
+    <string name="splash_connection_error">Hay un error con la conexión al servidor... Inténtelo más tarde.</string>
+    <string name="tab_chat_next">Próximamente incluiremos aquí un sistema de chat para que puedas comunicarte con los compañeros de tu facultad o con quien tú quieras :)</string>
 
 </resources>

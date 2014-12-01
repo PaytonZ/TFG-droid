@@ -178,11 +178,11 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
         numberOflikes.setText(String.valueOf(mb.getNumOfFavs()));
 
         ImageLoader im = ImageLoader.getInstance();
-        if (!mb.getUser().getPicImageUrl().equals("")) {
-            im.displayImage(Constants.MEDIA_URL + mb.getUser().getPicImageUrl(), image);
-        } else {
-            image.setImageResource(R.drawable.no_image);
-        }
+        //if (!mb.getUser().getPicImageUrl().equals("")) {
+        im.displayImage(Constants.MEDIA_URL + mb.getUser().getPicImageUrl(), image);
+        //} else {
+        // image.setImageResource(R.drawable.no_image);
+        //}
 
 
         return convertView;

@@ -35,9 +35,7 @@ import java.util.List;
  */
 public class FragmentFinalExam extends Fragment implements View.OnClickListener {
 
-
     private static final String TAG = "FragmentFinalExam";
-
     private View rootView;
     private Button buttonSendResults;
     private RatingBar examRating;
@@ -52,6 +50,7 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_final_exam, container, false);
@@ -104,6 +103,7 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
 
                                     Toast.makeText(getActivity(), getString(R.string.exam_send_succesful), Toast.LENGTH_SHORT).show();
                                     examRating.setRating((float) ret.getFinalMark() / 2.0f);
+                                    examRating.setStepSize(0.25f);
                                     examRating.setVisibility(View.VISIBLE);
                                     examRating.setIsIndicator(true);
                                     buttonSendResults.setVisibility(View.INVISIBLE);
