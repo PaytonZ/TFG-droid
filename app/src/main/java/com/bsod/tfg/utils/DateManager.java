@@ -21,16 +21,16 @@ public class DateManager {
     public static String convertToHumanDate(Date d) {
 
         /**
-        String sent_ago = "Enviado hace ";
-        String segundo = " segundo";
-        String segundos = " segundos";
-        String minuto = " minuto";
-        String minutos = " minutos";
-        String hora = " hora";
-        String horas = " horas";
-        String dia = " día";
-        String dias = " días";
-**/
+         String sent_ago = "Enviado hace ";
+         String segundo = " segundo";
+         String segundos = " segundos";
+         String minuto = " minuto";
+         String minutos = " minutos";
+         String hora = " hora";
+         String horas = " horas";
+         String dia = " día";
+         String dias = " días";
+         **/
 
         String sent_ago = "";
         String segundo = " seg";

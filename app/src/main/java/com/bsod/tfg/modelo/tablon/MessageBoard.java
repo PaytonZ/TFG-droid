@@ -39,6 +39,7 @@ public class MessageBoard implements Serializable {
     public MessageBoard() {
 
     }
+
     public Integer getId() {
         return id;
     }
