@@ -40,6 +40,8 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
     private Button buttonSendResults;
     private RatingBar examRating;
     private TextView textViewMark;
+    private TextView textViewRating;
+    private TextView textViewYourMark;
 
 
     public static Fragment newInstance() {
@@ -58,6 +60,9 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
             buttonSendResults.setOnClickListener(this);
             examRating = (RatingBar) rootView.findViewById(R.id.exam_rating);
             textViewMark = (TextView) rootView.findViewById(R.id.textViewMark);
+            textViewRating = (TextView) rootView.findViewById(R.id.textView_your_rating);
+            textViewYourMark = (TextView) rootView.findViewById(R.id.your_mark);
+
         } else {
             ((ViewGroup) rootView.getParent()).removeView(rootView);
         }
@@ -107,7 +112,10 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
                                     examRating.setVisibility(View.VISIBLE);
                                     examRating.setIsIndicator(true);
                                     buttonSendResults.setVisibility(View.INVISIBLE);
+                                    textViewMark.setVisibility(View.VISIBLE);
                                     textViewMark.setText(String.valueOf(ret.getFinalMark()));
+                                    textViewRating.setVisibility(View.VISIBLE);
+                                    textViewYourMark.setVisibility(View.VISIBLE);
                                 }
                             } catch (Exception e) {
                                 Toast.makeText(getActivity(), getString(R.string.exam_send_error), Toast.LENGTH_SHORT).show();

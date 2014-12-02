@@ -3,6 +3,7 @@ package com.bsod.tfg.modelo.tablon;
 
 import com.bsod.tfg.modelo.sesion.User;
 import com.bsod.tfg.utils.MessageBoardDeserializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -29,16 +30,15 @@ public class MessageBoard implements Serializable {
     @JsonProperty("owner")
     private boolean owner;
 
-    //private User user;
-    //private Image ...
+    @JsonIgnore
+    private String humanReadableDate;
+
     @JsonProperty("usuario")
     private User user;
-
 
     public MessageBoard() {
 
     }
-
     public Integer getId() {
         return id;
     }
@@ -107,4 +107,13 @@ public class MessageBoard implements Serializable {
     }
 
 
+    public String getHumanReadableDate() {
+
+
+        return humanReadableDate;
+    }
+
+    public void setHumanReadableDate(String humanReadableDate) {
+        this.humanReadableDate = humanReadableDate;
+    }
 }

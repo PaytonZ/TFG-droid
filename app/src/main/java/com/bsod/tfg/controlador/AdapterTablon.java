@@ -28,9 +28,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
+
+import static com.bsod.tfg.utils.DateManager.convertToHumanDate;
 
 /**
  * Proudly created by Payton on 25/09/2014.
@@ -166,8 +167,9 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
         MessageBoard mb = getItem(position);
 
         // Formating Date
-        SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yy hh:mm:ss");
-        date.setText(dt.format(mb.getCreationDate()));
+        //SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yy hh:mm:ss");
+        //date.setText(dt.format(mb.getCreationDate()));
+        date.setText(mb.getHumanReadableDate());
 
         title.setText(mb.getUser().getName());
 
@@ -193,6 +195,14 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
         Intent i = new Intent(context, ActivityMessageDetail.class);
         i.putExtra(Constants.INTENT_MESSAGE_DETAIL, getItem(position));
         context.startActivity(i);
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        for (MessageBoard mb : messageList) {
+            mb.setHumanReadableDate(convertToHumanDate(mb.getCreationDate()));
+        }
+        super.notifyDataSetChanged();
     }
 
 

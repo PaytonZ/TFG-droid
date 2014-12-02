@@ -40,6 +40,7 @@
         android:layout_toRightOf="@id/message_board_title"
         android:gravity="end"
         android:text="asdasd User"
+        android:textColor="@android:color/darker_gray"
         android:textSize="14sp" />
 
     <TextView

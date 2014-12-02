@@ -24,8 +24,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-
 public class ActivityMessageDetail extends Activity {
 
     private MessageBoard mb;
@@ -46,13 +44,8 @@ public class ActivityMessageDetail extends Activity {
         ImageView like = (ImageView) findViewById(R.id.message_board_like);
         final TextView numberOflikes = (TextView) findViewById(R.id.message_board_number_of_likes);
 
-
-        // Formating Date
-        SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yy hh:mm:ss");
-        date.setText(dt.format(mb.getCreationDate()));
-
+        date.setText(mb.getHumanReadableDate());
         title.setText(mb.getUser().getName());
-
         like.setImageResource(mb.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
 
         title.setTypeface(null, Typeface.BOLD);
@@ -119,7 +112,7 @@ public class ActivityMessageDetail extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_message_detail, menu);
+        //getMenuInflater().inflate(R.menu.menu_activity_message_detail, menu);
         return true;
     }
 

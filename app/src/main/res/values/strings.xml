@@ -51,10 +51,10 @@
     <string name="tablon_star_string_access">Favorite Star</string>
     <string name="lupa_access">Lupa para buscar más facultades</string>
     <string name="ANDROID">Android</string>
-    <string name="primero">PRIMERO</string>
-    <string name="segundo">SEGUNDO</string>
-    <string name="tercero">TERCERO</string>
-    <string name="cuarto">CUARTO</string>
+    <string name="primero">PRIMER CURSO</string>
+    <string name="segundo">SEGUNDO CURSO</string>
+    <string name="tercero">TERCER CURSO</string>
+    <string name="cuarto">CUARTO CURSO</string>
     <string name="title_activity_activity_solve_exam">ActivitySolveExam</string>
     <string name="solvedexamtext">¡ Enhorabuena ! \nHas completado el examen con éxito.\nPulsa este botón para mandar los resultados o revisa las preguntas antes de enviarlas</string>
     <string name="send_results_text">¡ Enviar Resultados !</string>
@@ -78,5 +78,6 @@
     <string name="error_image_upload">Hubo un error en la subida de imagen. Inténtelo más tarde.</string>
     <string name="splash_connection_error">Hay un error con la conexión al servidor... Inténtelo más tarde.</string>
     <string name="tab_chat_next">Próximamente incluiremos aquí un sistema de chat para que puedas comunicarte con los compañeros de tu facultad o con quien tú quieras :)</string>
+    <string name="activity_settings_name">Tus opciones</string>
 
 </resources>

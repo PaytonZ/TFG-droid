@@ -42,8 +42,15 @@ public class Constants {
 
     /* Intent Extras */
     public static final String INTENT_MESSAGE_DETAIL = "MESSAGE";
+
+    /* Application Settings */
+    public static final int NUM_OF_QUESTIONS_IN_EXAM = 5 ;
+
+   /* Connection Settings - Deploy - Testing */
     //public static String BASE_URL = "http://192.168.1.12/";
     //public static String BASE_URL = "http:/bsodsoftware.me/";
     public static String BASE_URL = "http://178.62.194.33/";
     public static String MEDIA_URL = BASE_URL + "media/";
+
+
 }
