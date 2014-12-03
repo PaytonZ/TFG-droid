@@ -38,9 +38,10 @@ public class FragmentQuestion extends Fragment {
 
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_question, container, false);
-            final AdapterExam adapter = (adapterExam == null) ? adapterExam = new AdapterExam(getActivity()) : adapterExam;
             pregunta = (Pregunta) getArguments().getSerializable(
                     "pregunta");
+
+            final AdapterExam adapter = (adapterExam == null) ? adapterExam = new AdapterExam(getActivity(), pregunta) : adapterExam;
 
             TextView questiontext = (TextView) rootView.findViewById(R.id.textViewExamQuestion);
             questiontext.setText(pregunta.getPregunta());
@@ -51,7 +52,7 @@ public class FragmentQuestion extends Fragment {
             listViewExam.setOnItemClickListener(adapter);
 
 
-            adapter.setPregunta(pregunta);
+            //adapter.setPregunta(pregunta);
 
 
         } else {

@@ -31,7 +31,7 @@ import org.json.JSONObject;
 import java.util.Collections;
 import java.util.List;
 
-import static com.bsod.tfg.utils.DateManager.convertToHumanDate;
+import static com.bsod.tfg.utils.DateManager.convertUnixToHumanDate;
 
 /**
  * Proudly created by Payton on 25/09/2014.
@@ -43,6 +43,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
 
     private List<MessageBoard> messageList = Collections.emptyList();
 
+    //TODO: Cambiar ArrayList por HashMap Más eficiente.
     public AdapterTablon(Context context) {
         this.context = context;
     }
@@ -200,7 +201,7 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
     @Override
     public void notifyDataSetChanged() {
         for (MessageBoard mb : messageList) {
-            mb.setHumanReadableDate(convertToHumanDate(mb.getCreationDate()));
+            mb.setHumanReadableDate(convertUnixToHumanDate(mb.getCreationDateUnix()));
         }
         super.notifyDataSetChanged();
     }

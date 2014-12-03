@@ -21,6 +21,9 @@ public class Pregunta implements Serializable {
     private String respuesta3;
     @JsonProperty("respuesta4")
     private String respuesta4;
+    @JsonProperty("respuesta5")
+    private String respuesta5;
+
     @JsonProperty("respuestaCorrecta")
     private int respuestaCorrecta;
 
@@ -78,5 +81,13 @@ public class Pregunta implements Serializable {
 
     public void setRespuestaCorrecta(int respuestaCorrecta) {
         this.respuestaCorrecta = respuestaCorrecta;
+    }
+
+    public String getRespuesta5() {
+        return respuesta5;
+    }
+
+    public void setRespuesta5(String respuesta5) {
+        this.respuesta5 = respuesta5;
     }
 }

@@ -27,14 +27,16 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
     private TextView respuestaCorrecta;
     private boolean correctionMode = false;
 
-    public AdapterExam(Context context) {
+    public AdapterExam(Context context, Pregunta p) {
         this.context = context;
+        pregunta = p;
     }
 
 
     @Override
     public int getCount() {
-        return 4;
+        // TODO: fix this Horrible hack!!
+        return (pregunta.getRespuesta5().equals("")) ? 4 : 5;
     }
 
     @Override
@@ -54,6 +56,8 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
             case 3:
                 response = pregunta.getRespuesta4();
                 break;
+            case 4:
+                response = pregunta.getRespuesta5();
         }
         return response;
     }
@@ -78,9 +82,7 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
         if (!correctionMode)
             respuesta.setTextColor((position == selecteditem) ? context.getResources().getColor(R.color.white) : context.getResources().getColor(R.color.black));
 
-
         String a = getItem(position);
-
         respuesta.setText(a);
 
         return convertView;
@@ -88,6 +90,7 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
 
     public void setPregunta(Pregunta p) {
         this.pregunta = p;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -119,9 +122,11 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
         correctionMode = true;
 
         ResponseExamStats stats = new ResponseExamStats();
+        if (respuestaCorrecta != null) {
+            respuestaCorrecta.setBackgroundColor(context.getResources().getColor((R.color.green_test)));
+            respuestaCorrecta.setTextColor(context.getResources().getColor(R.color.white));
+        }
 
-        respuestaCorrecta.setBackgroundColor(context.getResources().getColor((R.color.green_test)));
-        respuestaCorrecta.setTextColor(context.getResources().getColor(R.color.white));
         stats.setId(pregunta.getId());
         // No se seleccionó ninguna opcion
         if (selecteditem == -1) {

@@ -1,12 +1,11 @@
 package com.bsod.tfg.utils;
 
-import java.util.Date;
-
 /**
  * Proudly created by Payton on 02/12/2014.
  */
 public class DateManager {
 
+    private static final String TAG = "DateManager";
     private static int SECONDS = 60;
     private static int HOUR = SECONDS * 60;
     private static int DAY = HOUR * 24;
@@ -15,10 +14,10 @@ public class DateManager {
      * Convierte una fecha dada en una diferencia en texto 'humano' , indicando la diferencia entre la fecha y la actual en segundos
      * minutos , horas o días , según sea la diferencia.
      *
-     * @param d
+     * @param date
      * @return
      */
-    public static String convertToHumanDate(Date d) {
+    public static String convertUnixToHumanDate(long date) {
 
         /**
          String sent_ago = "Enviado hace ";
@@ -31,7 +30,7 @@ public class DateManager {
          String dia = " día";
          String dias = " días";
          **/
-
+//TODO: internacinalizar
         String sent_ago = "";
         String segundo = " seg";
         String segundos = " segs";
@@ -41,9 +40,13 @@ public class DateManager {
         String horas = " horas";
         String dia = " d";
         String dias = " d";
+        //long actualUNIXTime =
+        //Date actualDate = new Date();
+        long seconds = Math.abs(date - (System.currentTimeMillis() / 1000L));
+        //Log.i(TAG, "SERVERUNIXTIME : " + String.valueOf(date));
+        //Log.i(TAG, "ACTUALUNIXTIME : " + String.valueOf(actualUNIXTime));
+        //Log.i(TAG, String.valueOf(seconds));
 
-        Date actualDate = new Date();
-        long seconds = (actualDate.getTime() - d.getTime()) / 1000;
         if (seconds == 1) {
             return sent_ago + seconds + segundo;
         } else if (seconds > 1 && seconds <= SECONDS) {

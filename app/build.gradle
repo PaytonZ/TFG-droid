@@ -33,7 +33,7 @@ android {
         applicationId "com.bsod.uniapp"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 6
+        versionCode 7
         versionName "1.0001"
         signingConfig signingConfigs.releaseConfig
     }
