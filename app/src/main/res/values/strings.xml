@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">UniApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Opciones</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <color name="red">#FF6969</color>
+    <color name="red2">#91368C</color>
+    <color name="black">#000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="green_test">#458B00</color>
+
+    <string name="tablon">Tablón</string>
+    <string name="chat">Chat</string>
+    <string name="archivos">Archivos</string>
+    <string name="title_activity_activity_buscar_uni">ActivityBuscarUni</string>
+    <string name="title_activity_activity_splash">ActivitySplash</string>
+    <string name="registrate">Crear mi cuenta</string>
+    <string name="inicia_sesion">Inicia Sesión</string>
+    <string name="title_activity_activity_registrate">ActivityRegistrate</string>
+    <string name="title_activity_activity_login">ActivityLogin</string>
+    <string name="usuario">Usuario</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="invalid_user_password">Usuario y/o contraseña no válidos</string>
+    <string name="action_logout">Desconectarse</string>
+    <string name="desconectado">Te has desconectado correctamente.</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="contraseña_olvidada">¿Olvidaste tu contraseña?</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="localizacion">Provincia</string>
+    <string name="universidad">Universidad</string>
+    <string name="facultad">Facultad</string>
+    <string name="registrarte">Registrarte</string>
+    <string name="disclaimer_registraste">Al pulsar en \'Registrate\' estás aceptando nuestros términos y condiciones de servicio y política de privacidad , vendiendo tu alma al diablo y puede que hasta nos quedemos con tu primer primógenito.</string>
+    <string name="selecciona_provincia"><![CDATA[<Seleciona una provincia>]]></string>
+    <string name="selecciona_universidad"><![CDATA[<<Seleciona Universidad>>]]></string>
+    <string name="selecciona_facultad"><![CDATA[<<Seleciona Facultad>>]]></string>
+    <string name="loading">Cargando…</string>
+    <string name="passlenght">Al menos 6 caracteres</string>
+    <string name="register_bad_parameters"> ¡Psst! ¡Hay algún parámetro que está mal! </string>
+    <string name="already_existing_user"> Ya existe un usuario con ese nombre </string>
+    <string name="already_existing_email">Ya existe un usuario con ese e-mail</string>
+    <string name="successful_register">¡ Te has registrado satisfactoriamente !</string>
+    <string name="char150test"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p</string>
+    <string name="tablon_no_results">No hay mensajes aún en este tablón … Sé el primero en comentar :)</string>
+    <string name="tablon_refrescar_mensajes">Actualiza los mensajes del tablón</string>
+    <string name="enviar">¡ Enviar !</string>
+    <string name="tablon_no_nuevos_mensajes">No hay nuevos mensajes en este tablón</string>
+    <string name="tablon_star_string_access">Favorite Star</string>
+    <string name="lupa_access">Lupa para buscar más facultades</string>
+    <string name="ANDROID">Android</string>
+    <string name="primero">PRIMER CURSO</string>
+    <string name="segundo">SEGUNDO CURSO</string>
+    <string name="tercero">TERCER CURSO</string>
+    <string name="cuarto">CUARTO CURSO</string>
+    <string name="title_activity_activity_solve_exam">ActivitySolveExam</string>
+    <string name="solvedexamtext">¡ Enhorabuena ! \nHas completado el examen con éxito.\nPulsa este botón para mandar los resultados o revisa las preguntas antes de enviarlas</string>
+    <string name="send_results_text">¡ Enviar Resultados !</string>
+    <string name="your_results">Tus resultados :</string>
+    <string name="your_mark">Tu nota :</string>
+    <string name="session_expired">"Tu sesión ha expirado, conectate de nuevo "</string>
+    <string name="exam_send_succesful">Se ha enviado correctamente el Test</string>
+    <string name="exam_send_error">Se produjo un error al enviar el test</string>
+    <string name="random_number">4564</string>
+    <string name="error_cannot_favorited">No se puede modificar de favoritos en este momento. Inténtelo más tarde.</string>
+    <string name="error_update_messages">No se pueden actualizar los mensajes. Inténtelo más tarde</string>
+    <string name="your_favorite_subjects">Tus asignaturas Favoritas</string>
+    <string name="title_activity_activity_message_detail">ActivityMessageDetail</string>
+    <string name="activity_login_label">Iniciar sesión</string>
+    <string name="activity_register_label">Regístrate</string>
+    <string name="activity_solve_exam_label">Examen</string>
+    <string name="activity_message_detail_label">Mensaje</string>
+    <string name="preference_change_image">Cambiar Imagen</string>
+    <string name="title_activity_activity_settings">ActivitySettings</string>
+    <string name="image_uploaded_succesful">La imagen se subió correctamente.</string>
+    <string name="error_image_upload">Hubo un error en la subida de imagen. Inténtelo más tarde.</string>
+    <string name="splash_connection_error">Hay un error con la conexión al servidor... Inténtelo más tarde.</string>
+    <string name="tab_chat_next">Próximamente incluiremos aquí un sistema de chat para que puedas comunicarte con los compañeros de tu facultad o con quien tú quieras :)</string>
+    <string name="activity_settings_name">Tus opciones</string>
+
+</resources>
