@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2">
+
+    <item
+        jar="E:\androidstudio\Tabtest\app\build\intermediates\exploded-aar\com.android.support\support-v13\20.0.0\libs\internal_impl-20.0.0.jar"
+        jumboMode="false" revision="21.1.1" sha1="27bbd3982cdfe4468a9bf99c8c773734a9049e33">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-9a5462306100add0e3ae583a11709c2b33b27004.jar" />
+    </item>
+    <item
+        jar="F:\Mis Documentos\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.4.3\a30ec6f59b6d31b2df06fa73925fda2fc7e84486\jackson-annotations-2.4.3.jar"
+        jumboMode="false" revision="21.1.1" sha1="a30ec6f59b6d31b2df06fa73925fda2fc7e84486">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\jackson-annotations-2.4.3-c7e3ca810d4f950d3287285a166f2c33a5286c9e.jar" />
+    </item>
+    <item
+        jar="F:\Mis Documentos\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.4.3\feff63199be7b8f495c2f3e2096dcb6bd5e5b0b3\jackson-databind-2.4.3.jar"
+        jumboMode="false" revision="21.1.1" sha1="feff63199be7b8f495c2f3e2096dcb6bd5e5b0b3">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\jackson-databind-2.4.3-b0f753270103ec87be59ee4dcae31d279fce6409.jar" />
+    </item>
+    <item
+        jar="E:\androidstudio\Tabtest\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false" revision="21.1.1" sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-3b6b15d4ee6bb75e35da572e322d171c66342f4e.jar" />
+    </item>
+    <item
+        jar="E:\androidstudio\Tabtest\app\build\intermediates\exploded-aar\Tabtest\library\unspecified\classes.jar"
+        jumboMode="false" revision="21.1.1" sha1="81551d255d87a0ab694d424a3c4824193587478f">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\classes-2e4666aee5171c3465cd98ad90330c99f2147238.jar" />
+    </item>
+    <item
+        jar="F:\Mis Documentos\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.3\a85588bec3e2c4584d593d3f15df1677321bca72\universal-image-loader-1.9.3.jar"
+        jumboMode="false" revision="21.1.1" sha1="a85588bec3e2c4584d593d3f15df1677321bca72">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.3-670ffbb964d875037fde2f903fe47765963b1bef.jar" />
+    </item>
+    <item
+        jar="F:\Mis Documentos\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3\5fc52c41ef0239d1093a1eb7c3697036183677ce\gson-2.3.jar"
+        jumboMode="false" revision="21.1.1" sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\gson-2.3-6892d7fdd9754cdaa43bf9bab2fe915b09fcc3f8.jar" />
+    </item>
+    <item
+        jar="E:\androidstudio\Tabtest\app\build\intermediates\exploded-aar\com.android.support\support-v13\20.0.0\classes.jar"
+        jumboMode="false" revision="21.1.1" sha1="e128103d5281ddd26195a7f980b36d0d005a4e56">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\classes-f5a3ceb3e0b1eeadb53256ad8f2045b3b4be69cb.jar" />
+    </item>
+    <item
+        jar="E:\programas\android-studio-sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false" revision="21.1.1" sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-a7f5626f9aab01683613cd9d8cd4cbc42cdb6951.jar" />
+    </item>
+    <item
+        jar="F:\Mis Documentos\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.4.3\4cb3dbb0c2f75b51aa7543c53252989785a0c609\jackson-core-2.4.3.jar"
+        jumboMode="false" revision="21.1.1" sha1="4cb3dbb0c2f75b51aa7543c53252989785a0c609">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\jackson-core-2.4.3-512f8a8e23057ebbdead8a015430ab5a2094ec86.jar" />
+    </item>
+    <item
+        jar="F:\Mis Documentos\.gradle\caches\modules-2\files-2.1\com.loopj.android\android-async-http\1.4.5\77bf7cacf9cefe19dc105e5425d2eb1bb5285881\android-async-http-1.4.5.jar"
+        jumboMode="false" revision="21.1.1" sha1="77bf7cacf9cefe19dc105e5425d2eb1bb5285881">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\android-async-http-1.4.5-640f310b4adf12e4cd21b6e99fc8b61e995b7fa9.jar" />
+    </item>
+    <item
+        jar="E:\androidstudio\Tabtest\app\build\intermediates\exploded-aar\com.makeramen\roundedimageview\1.3.0\classes.jar"
+        jumboMode="false" revision="21.1.1" sha1="3812f89e64ae0e865df72574ffe7c5a516e1cc91">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\classes-55cbf8a009b7815d640d5be771036b7903d36942.jar" />
+    </item>
+    <item
+        jar="E:\androidstudio\Tabtest\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false" revision="21.1.1" sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex
+            dex="E:\androidstudio\Tabtest\app\build\intermediates\pre-dexed\debug\classes-18e606b12077bf42c928534bd00bee6a27ecdaa4.jar" />
+    </item>
+
+</items>

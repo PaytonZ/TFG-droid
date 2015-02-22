@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="2dp"
+    tools:context="com.bsod.tfg.vista.archivos.FragmentFinalExam">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center"
+        android:text="@string/solvedexamtext" />
+
+    <Button
+        android:id="@+id/send_results_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/send_results_text" />
+
+    <TextView
+        android:id="@+id/textView_your_rating"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_results"
+        android:visibility="invisible" />
+
+    <RatingBar
+        android:id="@+id/exam_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:rating="0"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/your_mark"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_mark"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textViewMark"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:visibility="invisible" />
+
+</LinearLayout>
+<!-- From: file:/E:/androidstudio/Tabtest/app/src/main/res/layout/fragment_final_exam.xml -->

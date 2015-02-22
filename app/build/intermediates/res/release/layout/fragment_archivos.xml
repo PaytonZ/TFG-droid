@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_archivos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/layout_archivos1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+    <Button
+        android:id="@+id/archivos_boton_primero"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/primero"
+        android:theme="@style/buttons_splash" />
+
+    <Button
+        android:id="@+id/archivos_boton_segundo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/archivos_boton_primero"
+        android:text="@string/segundo"
+
+        android:theme="@style/buttons_splash" />
+
+    <Button
+        android:id="@+id/archivos_boton_tercero"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/archivos_boton_segundo"
+        android:text="@string/tercero"
+        android:theme="@style/buttons_splash" />
+
+    <Button
+        android:id="@+id/archivos_boton_cuarto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/archivos_boton_tercero"
+        android:text="@string/cuarto"
+        android:theme="@style/buttons_splash" />
+
+</RelativeLayout><!-- From: file:/E:/androidstudio/Tabtest/app/src/main/res/layout/fragment_archivos.xml -->
