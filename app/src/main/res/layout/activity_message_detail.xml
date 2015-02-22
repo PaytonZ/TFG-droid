@@ -84,4 +84,15 @@
         android:text="@string/random_number"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <ImageView
+        android:id="@+id/message_board_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/tablon_star_string_access"
+        android:src="@drawable/ic_action_remove"
+        android:layout_below="@+id/message_board_text"
+        android:layout_toRightOf="@+id/message_board_title"
+        android:layout_toEndOf="@+id/message_board_title"
+        android:visibility="invisible" />
+
 </RelativeLayout>

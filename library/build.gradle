@@ -1,23 +1,23 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 20
+    compileSdkVersion 21
     buildToolsVersion "19.1.0"
 
     defaultConfig {
-        applicationId "com.viewpagerindicator"
+        //applicationId "com.viewpagerindicator"
         minSdkVersion 15
-        targetSdkVersion 20
+        targetSdkVersion 21
     }
 
     buildTypes {
         release {
-            runProguard false
+            //runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:18.+'
+    compile 'com.android.support:support-v4:21.0.3'
 }

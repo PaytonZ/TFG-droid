@@ -116,6 +116,10 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
 
     }
 
+    public int getSelectedTab() {
+        return selectedTab;
+    }
+
 
     public interface TabSelectedListener {
         public void tabSelected(int tab);

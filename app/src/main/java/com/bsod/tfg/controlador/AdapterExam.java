@@ -36,7 +36,13 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
     @Override
     public int getCount() {
         // TODO: fix this Horrible hack!!
-        return (pregunta.getRespuesta5().equals("")) ? 4 : 5;
+        int count = 0;
+        if (!pregunta.getRespuesta1().equals("")) count++;
+        if (!pregunta.getRespuesta2().equals("")) count++;
+        if (!pregunta.getRespuesta3().equals("")) count++;
+        if (!pregunta.getRespuesta4().equals("")) count++;
+        if (!pregunta.getRespuesta5().equals("")) count++;
+        return count;
     }
 
     @Override

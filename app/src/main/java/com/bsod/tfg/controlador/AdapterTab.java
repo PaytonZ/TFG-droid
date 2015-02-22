@@ -5,9 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
-import com.bsod.tfg.vista.FragmentArchivos;
-import com.bsod.tfg.vista.FragmentChat;
-import com.bsod.tfg.vista.FragmentTablon;
+import com.bsod.tfg.vista.archivos.FragmentArchivos;
+import com.bsod.tfg.vista.chat.FragmentChat;
+import com.bsod.tfg.vista.tablon.FragmentTablon;
 
 /**
  * Created by Payton on 23/09/2014.

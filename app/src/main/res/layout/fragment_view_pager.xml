@@ -2,15 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bsod.tfg.vista.FragmentViewPager">
+    tools:context="com.bsod.tfg.vista.otros.FragmentViewPager">
 
-    <com.bsod.tfg.vista.ViewPagerNonSwipeable
+    <com.bsod.tfg.vista.otros.ViewPagerNonSwipeable
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-    </com.bsod.tfg.vista.ViewPagerNonSwipeable>
+    </com.bsod.tfg.vista.otros.ViewPagerNonSwipeable>
 
 
 </FrameLayout>

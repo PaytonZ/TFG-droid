@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="2dp"
-    tools:context="com.bsod.tfg.vista.FragmentFinalExam">
+    tools:context="com.bsod.tfg.vista.archivos.FragmentFinalExam">
 
 
     <TextView

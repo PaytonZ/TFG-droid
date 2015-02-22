@@ -1,4 +1,4 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.bsod.tfg.vista.ActivityRegister">
+    tools:context="com.bsod.tfg.vista.login.ActivityRegister">
 
 </menu>

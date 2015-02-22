@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.Asignatura;
 import com.bsod.tfg.utils.ViewHolder;
-import com.bsod.tfg.vista.FragmentTemas;
+import com.bsod.tfg.vista.archivos.FragmentTemas;
 
 /**
  * Proudly created by Payton on 14/11/2014.

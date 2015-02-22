@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme">
         <activity
-            android:name="com.bsod.tfg.vista.ActivitySplash"
+            android:name=".vista.login.ActivitySplash"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -27,7 +27,7 @@
             android:name="com.bsod.tfg.ActivityMain"
             android:label="@string/app_name" />
         <activity
-            android:name="com.bsod.tfg.vista.ActivitySearchUni"
+            android:name=".vista.otros.ActivitySearchUni"
             android:label="@string/title_activity_activity_buscar_uni"
             android:launchMode="singleTop">
             <intent-filter>
@@ -39,24 +39,24 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name="com.bsod.tfg.vista.ActivityRegister"
+            android:name=".vista.login.ActivityRegister"
             android:label="@string/activity_register_label"
-            android:parentActivityName="com.bsod.tfg.vista.ActivitySplash">
+            android:parentActivityName=".vista.login.ActivitySplash">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bsod.tfg.vista.ActivitySplash" />
+                android:value=".vista.login.ActivitySplash" />
         </activity>
         <activity
-            android:name="com.bsod.tfg.vista.ActivityLogin"
+            android:name=".vista.login.ActivityLogin"
             android:label="@string/activity_login_label"
-            android:parentActivityName="com.bsod.tfg.vista.ActivitySplash">
+            android:parentActivityName=".vista.login.ActivitySplash">
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bsod.tfg.vista.ActivitySplash" />
+                android:value=".vista.login.ActivitySplash" />
         </activity>
         <activity
-            android:name="com.bsod.tfg.vista.ActivitySettings"
+            android:name=".vista.otros.ActivitySettings"
             android:label="@string/activity_settings_name"
             android:parentActivityName="com.bsod.tfg.ActivityMain">
             <meta-data
@@ -64,7 +64,7 @@
                 android:value="com.bsod.tfg.ActivityMain" />
         </activity>
         <activity
-            android:name="com.bsod.tfg.vista.ActivitySolveExam"
+            android:name=".vista.archivos.ActivitySolveExam"
             android:label="@string/activity_solve_exam_label"
             android:parentActivityName="com.bsod.tfg.ActivityMain">
             <meta-data
@@ -72,7 +72,7 @@
                 android:value="com.bsod.tfg.ActivityMain" />
         </activity>
         <activity
-            android:name="com.bsod.tfg.vista.ActivityMessageDetail"
+            android:name=".vista.tablon.ActivityMessageDetail"
             android:label="@string/activity_message_detail_label"
             android:parentActivityName="com.bsod.tfg.ActivityMain">
             <meta-data

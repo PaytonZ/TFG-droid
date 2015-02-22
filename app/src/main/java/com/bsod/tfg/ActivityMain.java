@@ -22,13 +22,13 @@ import com.bsod.tfg.controlador.AdapterTab;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.TopBar;
-import com.bsod.tfg.vista.ActivitySearchUni;
-import com.bsod.tfg.vista.ActivitySettings;
-import com.bsod.tfg.vista.ActivitySplash;
-import com.bsod.tfg.vista.FragmentArchivos;
-import com.bsod.tfg.vista.FragmentChat;
-import com.bsod.tfg.vista.FragmentTablon;
-import com.bsod.tfg.vista.ViewPagerNonSwipeable;
+import com.bsod.tfg.vista.archivos.FragmentArchivos;
+import com.bsod.tfg.vista.chat.FragmentChat;
+import com.bsod.tfg.vista.login.ActivitySplash;
+import com.bsod.tfg.vista.otros.ActivitySearchUni;
+import com.bsod.tfg.vista.otros.ActivitySettings;
+import com.bsod.tfg.vista.otros.ViewPagerNonSwipeable;
+import com.bsod.tfg.vista.tablon.FragmentTablon;
 
 /**
  * Actividad Principal que contiene las pestañas
@@ -133,6 +133,10 @@ public class ActivityMain extends FragmentActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "onActivityResult");
+        getCurrentFragment().onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK && requestCode == Constants.UNI_SELECTED) {
             if (data.hasExtra(NEXT_LOCATION)) {
                 location.setText(data.getExtras().getString(NEXT_LOCATION));
@@ -141,7 +145,22 @@ public class ActivityMain extends FragmentActivity implements
     }
 
     public Fragment getCurrentFragment() {
-        return fTablon;
+        Fragment f = null;
+        switch (menu.getSelectedTab()) {
+            case TopBar.TAB_TABLON:
+                f = fTablon;
+                break;
+            case TopBar.TAB_CHAT:
+                f = fChat;
+                break;
+
+            case TopBar.TAB_ARCHIVOS:
+                f = fArchivos;
+                break;
+        }
+        return f;
+
+
     }
 
 

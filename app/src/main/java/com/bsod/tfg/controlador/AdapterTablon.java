@@ -1,12 +1,10 @@
 package com.bsod.tfg.controlador;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +17,6 @@ import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.bsod.tfg.modelo.tablon.MessageBoardUpdate;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.ViewHolder;
-import com.bsod.tfg.vista.ActivityMessageDetail;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -29,6 +26,7 @@ import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.bsod.tfg.utils.DateManager.convertUnixToHumanDate;
@@ -36,12 +34,13 @@ import static com.bsod.tfg.utils.DateManager.convertUnixToHumanDate;
 /**
  * Proudly created by Payton on 25/09/2014.
  */
-public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClickListener {
+public class AdapterTablon extends BaseAdapter {
 
     private static final String TAG = "AdapterTablon";
     private final Context context;
 
     private List<MessageBoard> messageList = Collections.emptyList();
+
 
     //TODO: Cambiar ArrayList por HashMap Más eficiente.
     public AdapterTablon(Context context) {
@@ -191,12 +190,6 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
         return convertView;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Intent i = new Intent(context, ActivityMessageDetail.class);
-        i.putExtra(Constants.INTENT_MESSAGE_DETAIL, getItem(position));
-        context.startActivity(i);
-    }
 
     @Override
     public void notifyDataSetChanged() {
@@ -207,6 +200,15 @@ public class AdapterTablon extends BaseAdapter implements AdapterView.OnItemClic
     }
 
 
+    public void deleteMessage(int pk) {
+        int id = searchMessage(pk);
+        if (id != -1) {
+            messageList.remove(id);
+            notifyDataSetChanged();
+
+        }
+
+    }
 }
 
 
