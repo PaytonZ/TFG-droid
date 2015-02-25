@@ -7,6 +7,8 @@ public class Constants {
 
     public final static int UNI_SELECTED = 201;
     public static final int INTENT_MESSAGE_DELETED = 202;
+    public static final int INTENT_CHANGE_PASSWORD = 203;
+
     public final static String USER = "user";
 
     /*
@@ -18,10 +20,14 @@ public class Constants {
     public final static String HTTP_GET_UNIS = "getunis";
     public final static String HTTP_REGISTER_USER = "registeruser";
     public static final String HTTP_GET_FACULTYS = "getfacultades";
+    public static final String HTTP_GET_ALL_FACULTYS = "getallfacultys";
+
     public static final String HTTP_CHECK_USER = "checkuser";
     public static final String HTTP_CHECK_EMAIL = "checkemail";
     /* USER STUFF */
     public static final String HTTP_UPLOAD_IMAGE = "uploadimageuser";
+    public static final String HTTP_CHANGE_PASSWORD = "changepassword";
+
     /* TABLON */
     public static final String HTTP_GET_MESSAGES_BOARD = "getmensajestablon";
     public static final String HTTP_POST_MESSAGES_BOARD = "sendmensajetablon";
@@ -49,11 +55,10 @@ public class Constants {
     /* Application Settings */
     public static final int NUM_OF_QUESTIONS_IN_EXAM = 20;
 
-
     /* Connection Settings - Deploy - Testing */
-    //public static String BASE_URL = "http://192.168.1.12/";
+    public static String BASE_URL = "http://192.168.1.12/";
     //public static String BASE_URL = "http:/bsodsoftware.me/";
-    public static String BASE_URL = "http://178.62.194.33/";
+    //public static String BASE_URL = "http://178.62.194.33/";
     public static String MEDIA_URL = BASE_URL + "media/";
 
 

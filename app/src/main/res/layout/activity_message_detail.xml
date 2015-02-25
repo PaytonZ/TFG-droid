@@ -14,11 +14,11 @@
         android:layout_height="70dip"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher"
-        app:border_color="@color/white"
-        app:border_width="0dip"
-        app:corner_radius="30dip"
-        app:mutate_background="true"
-        app:oval="false" />
+        app:riv_border_color="@color/white"
+        app:riv_border_width="0dip"
+        app:riv_corner_radius="30dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="false" />
 
     <TextView
         android:id="@+id/message_board_title"

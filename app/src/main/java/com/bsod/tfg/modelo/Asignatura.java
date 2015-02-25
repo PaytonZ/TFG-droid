@@ -13,6 +13,8 @@ public class Asignatura {
     private String nombre;
     @JsonProperty("abreviatura")
     private String abreviatura;
+    @JsonProperty("user_favorited")
+    private Boolean user_favorited;
 
 
     public int getId() {
@@ -41,5 +43,13 @@ public class Asignatura {
 
     public String toString() {
         return getNombre() + " (" + getAbreviatura() + ')';
+    }
+
+    public Boolean getUser_favorited() {
+        return user_favorited;
+    }
+
+    public void setUser_favorited(Boolean user_favorited) {
+        this.user_favorited = user_favorited;
     }
 }

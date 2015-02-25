@@ -45,6 +45,7 @@ public class FragmentSettings extends PreferenceFragment implements Preference.O
     private static final int IMAGE_SELECTED = 200;
     private static final String TAG = "FragmentSettings";
     private Preference changeImage;
+    private Preference changePassword;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,11 @@ public class FragmentSettings extends PreferenceFragment implements Preference.O
 
         changeImage = findPreference("change_image");
         changeImage.setOnPreferenceClickListener(this);
+
+        changePassword = findPreference("change_password");
+        changePassword.setOnPreferenceClickListener(this);
+
+
     }
 
 
@@ -148,6 +154,9 @@ public class FragmentSettings extends PreferenceFragment implements Preference.O
             Intent i = new Intent(Intent.ACTION_PICK);
             i.setType("image/*");
             startActivityForResult(i, IMAGE_SELECTED);
+        } else if (preference == changePassword) {
+            Intent i = new Intent(getActivity(), ActivityChangePassword.class);
+            startActivityForResult(i, Constants.INTENT_CHANGE_PASSWORD);
         }
         return true;
     }

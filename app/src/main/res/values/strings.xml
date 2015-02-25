@@ -73,11 +73,15 @@
     <string name="activity_solve_exam_label">Examen</string>
     <string name="activity_message_detail_label">Mensaje</string>
     <string name="preference_change_image">Cambiar Imagen</string>
+    <string name="preference_change_password">Cambiar Password</string>
     <string name="title_activity_activity_settings">ActivitySettings</string>
     <string name="image_uploaded_succesful">La imagen se subió correctamente.</string>
     <string name="error_image_upload">Hubo un error en la subida de imagen. Inténtelo más tarde.</string>
-    <string name="splash_connection_error">Hay un error con la conexión al servidor... Inténtelo más tarde.</string>
+    <string name="splash_connection_error">Hay un error con la conexión al servidor… Inténtelo más tarde.</string>
     <string name="tab_chat_next">Próximamente incluiremos aquí un sistema de chat para que puedas comunicarte con los compañeros de tu facultad o con quien tú quieras :)</string>
     <string name="activity_settings_name">Tus opciones</string>
+    <string name="title_activity_activity_change_password">ActivityChangePassword</string>
+    <string name="new_password_repeat">Contraseña Nueva (repetir)</string>
+    <string name="change_password">Cambiar Contraseña</string>
 
 </resources>

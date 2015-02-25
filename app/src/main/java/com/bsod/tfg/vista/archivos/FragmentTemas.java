@@ -4,10 +4,12 @@ package com.bsod.tfg.vista.archivos;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,7 +34,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentTemas extends Fragment implements AdapterView.OnItemClickListener {
+public class FragmentTemas extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private ListView listviewTemas;
     private View rootView;
@@ -40,13 +42,16 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
     private int idsubject;
     private String nameOfSubject;
     private TextView textViewTema;
+    private ImageView favStar;
+    private Boolean isFavorited;
 
-    public static FragmentTemas newInstance(int tema, String nameOfSubject) {
+    public static FragmentTemas newInstance(int tema, String nameOfSubject, Boolean is_favorited) {
         FragmentTemas myFragment = new FragmentTemas();
 
         Bundle args = new Bundle();
         args.putInt("idsubject", tema);
         args.putString("nameOfSubject", nameOfSubject);
+        args.putBoolean("isFavorited", is_favorited);
         myFragment.setArguments(args);
 
         return myFragment;
@@ -69,6 +74,9 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
             textViewTema = (TextView) rootView.findViewById(R.id.textViewTema);
             textViewTema.setText(nameOfSubject);
 
+            favStar = (ImageView) rootView.findViewById(R.id.favoriteAsignatura);
+            favStar.setImageResource((isFavorited)? R.drawable.ic_action_important_pushed :R.drawable.ic_action_important);
+            favStar.setOnClickListener(this);
             getTemas();
 
         } else {
@@ -149,6 +157,37 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
 
             });
 
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == favStar) {
+            RequestParams params = new RequestParams();
+            params.put("token", Session.getSession().getToken().getToken());
+            params.put("subject", idsubject);
+            HttpClient.get(Constants.HTTP_FAV_SUBJECT, params, new JsonHttpResponseHandlerCustom(getActivity()) {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    int error;
+                    try {
+                        error = Integer.parseInt(response.get("error").toString());
+                        if (error == 200) {
+
+                            isFavorited^=true;
+                            favStar.setImageResource((isFavorited)? R.drawable.ic_action_important_pushed :R.drawable.ic_action_important);
+                        }
+
+                    } catch (Exception e) {
+
+                    }
+
+                }
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+                }
+
+            });
         }
     }
 }

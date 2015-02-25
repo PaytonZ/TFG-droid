@@ -83,7 +83,12 @@ public class ActivitySearchUni extends Activity {
                                 adapter.notifyDataSetChanged();
                                 view.setAlpha(1);*/
                                 itemSelected = item;
-                                finish();
+                                // Prepare data intent
+                                Intent data = new Intent();
+                                data.putExtra(ActivityMain.NEXT_LOCATION, itemSelected);
+                                // Activity finished ok, return the data
+                                setResult(RESULT_OK, data);
+
                             }
                         });
             }
@@ -126,11 +131,7 @@ public class ActivitySearchUni extends Activity {
 
     @Override
     public void finish() {
-        // Prepare data intent
-        Intent data = new Intent();
-        data.putExtra(ActivityMain.NEXT_LOCATION, itemSelected);
-        // Activity finished ok, return the data
-        setResult(RESULT_OK, data);
+
         super.finish();
     }
 

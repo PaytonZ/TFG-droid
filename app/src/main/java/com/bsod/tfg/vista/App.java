@@ -36,17 +36,14 @@ public class App extends Application {
         Session.loadPreferences();
 
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .resetViewBeforeLoading(true)
-
                 .build();
         ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this)
                 .memoryCacheSize(41943040)
                 .threadPoolSize(10)
                 .defaultDisplayImageOptions(defaultOptions)
-
                 .build();
         ImageLoader.getInstance().init(imageLoaderConfiguration);
         //TODO: Cuando la cache funcione bien , quitar eso
