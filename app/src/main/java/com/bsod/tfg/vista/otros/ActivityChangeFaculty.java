@@ -7,23 +7,19 @@ import android.view.MenuItem;
 
 import com.bsod.tfg.R;
 
-public class ActivitySettings extends Activity {
+public class ActivityChangeFaculty extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_settings);
-        // Display the fragment as the main content.
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new FragmentSettings())
-                .commit();
+        setContentView(R.layout.activity_change_faculty);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_settings, menu);
+        getMenuInflater().inflate(R.menu.menu_activity_change_faculty, menu);
         return true;
     }
 

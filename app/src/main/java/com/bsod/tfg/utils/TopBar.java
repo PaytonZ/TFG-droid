@@ -93,6 +93,15 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
 
     }
 
+    public void setTabListener(TabSelectedListener l) {
+        listenerTab = l;
+
+    }
+
+    public int getSelectedTab() {
+        return selectedTab;
+    }
+
     public void setSelectedTab(int idtab) {
         switch (idtab) {
             case TAB_TABLON:
@@ -109,15 +118,6 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
                 listenerTab.tabSelected(TAB_ARCHIVOS);
                 break;
         }
-    }
-
-    public void setTabListener(TabSelectedListener l) {
-        listenerTab = l;
-
-    }
-
-    public int getSelectedTab() {
-        return selectedTab;
     }
 
 

@@ -5,16 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/layout_archivos1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
-
     <Button
         android:id="@+id/archivos_boton_primero"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/primero"
         android:theme="@style/buttons_splash" />
@@ -24,6 +21,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/archivos_boton_primero"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:text="@string/segundo"
 
         android:theme="@style/buttons_splash" />
@@ -33,6 +32,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/archivos_boton_segundo"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:text="@string/tercero"
         android:theme="@style/buttons_splash" />
 
@@ -41,7 +42,28 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/archivos_boton_tercero"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:text="@string/cuarto"
         android:theme="@style/buttons_splash" />
+
+    <ListView
+        android:id="@+id/listview_fav_asignaturas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/archivos_boton_cuarto"
+        android:layout_centerHorizontal="true"
+        android:padding="6dp"
+        android:text="@string/your_favorite_subjects" />
 
 </RelativeLayout>

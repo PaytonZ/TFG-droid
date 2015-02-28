@@ -87,7 +87,7 @@ public class ActivityChangePassword extends Activity implements View.OnClickList
                                 Toast.makeText(context, "¡ Cambio de contraseña ERRÓNEO! ", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
-
+                            e.printStackTrace();
                         }
                     }
                 });

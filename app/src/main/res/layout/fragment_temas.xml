@@ -12,12 +12,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="20sp"
+            android:layout_toLeftOf="@+id/favoriteAsignatura"
+            android:layout_toStartOf="@+id/favoriteAsignatura"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/char150test"
-            android:layout_toLeftOf="@+id/favoriteAsignatura"
-            android:layout_toStartOf="@+id/favoriteAsignatura" />
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/favoriteAsignatura"
@@ -26,8 +26,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/ic_action_important"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_action_important" />
 
     </RelativeLayout>
 

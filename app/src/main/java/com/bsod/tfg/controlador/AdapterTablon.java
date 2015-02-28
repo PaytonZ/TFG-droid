@@ -26,7 +26,6 @@ import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import static com.bsod.tfg.utils.DateManager.convertUnixToHumanDate;

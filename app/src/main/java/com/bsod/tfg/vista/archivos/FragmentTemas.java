@@ -1,6 +1,7 @@
 package com.bsod.tfg.vista.archivos;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,9 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.AdapterTemas;
+import com.bsod.tfg.modelo.Asignatura;
 import com.bsod.tfg.modelo.Pregunta;
 import com.bsod.tfg.modelo.Tema;
 import com.bsod.tfg.modelo.otros.Constants;
@@ -23,6 +26,7 @@ import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -36,6 +40,7 @@ import java.util.List;
  */
 public class FragmentTemas extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
+    private final String TAG = "FragmentTemas";
     private ListView listviewTemas;
     private View rootView;
     private AdapterTemas adapterTemas;
@@ -44,6 +49,7 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
     private TextView textViewTema;
     private ImageView favStar;
     private Boolean isFavorited;
+    private Context context;
 
     public static FragmentTemas newInstance(int tema, String nameOfSubject, Boolean is_favorited) {
         FragmentTemas myFragment = new FragmentTemas();
@@ -63,8 +69,11 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
         // Inflate the layout for this fragment
         if (rootView == null) {
 
+            context = getActivity();
+
             idsubject = getArguments().getInt("idsubject", 0);
             nameOfSubject = getArguments().getString("nameOfSubject", "");
+            isFavorited = getArguments().getBoolean("isFavorited", false);
             rootView = inflater.inflate(R.layout.fragment_temas, container, false);
 
             listviewTemas = (ListView) rootView.findViewById(R.id.listview_temas);
@@ -75,7 +84,7 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
             textViewTema.setText(nameOfSubject);
 
             favStar = (ImageView) rootView.findViewById(R.id.favoriteAsignatura);
-            favStar.setImageResource((isFavorited)? R.drawable.ic_action_important_pushed :R.drawable.ic_action_important);
+            favStar.setImageResource((isFavorited) ? R.drawable.ic_action_important_pushed : R.drawable.ic_action_important);
             favStar.setOnClickListener(this);
             getTemas();
 
@@ -166,25 +175,40 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
             RequestParams params = new RequestParams();
             params.put("token", Session.getSession().getToken().getToken());
             params.put("subject", idsubject);
-            HttpClient.get(Constants.HTTP_FAV_SUBJECT, params, new JsonHttpResponseHandlerCustom(getActivity()) {
+            HttpClient.get(Constants.HTTP_FAV_SUBJECT, params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     int error;
                     try {
                         error = Integer.parseInt(response.get("error").toString());
                         if (error == 200) {
+                            ObjectMapper mapper = new ObjectMapper();
+                            Asignatura a = mapper.readValue(response.get("data").toString(), Asignatura.class);
+                            isFavorited = a.getUser_favorited();
+                            favStar.setImageResource((isFavorited) ? R.drawable.ic_action_important_pushed : R.drawable.ic_action_important);
 
-                            isFavorited^=true;
-                            favStar.setImageResource((isFavorited)? R.drawable.ic_action_important_pushed :R.drawable.ic_action_important);
+                        } else {
+                            Toast.makeText(context, "Hubo un error al intentar añadir a favoritos esta asignatura... Inténtalo más tarde", Toast.LENGTH_SHORT).show();
+                            favStar.setImageResource((isFavorited) ? R.drawable.ic_action_important_pushed : R.drawable.ic_action_important);
                         }
 
                     } catch (Exception e) {
-
+                        Toast.makeText(context, "Hubo un error al intentar añadir a favoritos esta asignatura... Inténtalo más tarde", Toast.LENGTH_SHORT).show();
+                        favStar.setImageResource((isFavorited) ? R.drawable.ic_action_important_pushed : R.drawable.ic_action_important);
+                        Log.i(TAG, e.toString());
                     }
 
                 }
+
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
 
+                    Toast.makeText(context, "Hubo un error al intentar añadir a favoritos esta asignatura... Inténtalo más tarde", Toast.LENGTH_SHORT).show();
+                    favStar.setImageResource((isFavorited) ? R.drawable.ic_action_important_pushed : R.drawable.ic_action_important);
+                }
+
+                public void onFailure(int status, Header[] h, String s, Throwable t) {
+                    Toast.makeText(context, "Hubo un error al intentar añadir a favoritos esta asignatura... Inténtalo más tarde", Toast.LENGTH_SHORT).show();
+                    favStar.setImageResource((isFavorited) ? R.drawable.ic_action_important_pushed : R.drawable.ic_action_important);
                 }
 
             });

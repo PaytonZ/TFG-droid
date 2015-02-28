@@ -35,7 +35,7 @@ public class Constants {
     public static final String HTTP_UPDATE_MESSAGES = "updatemessages";
     public static final String HTTP_DELETE_MESSAGE = "deletemessage";
     /* ARCHIVOS */
-    public static final String HTTP_FAV_SUBJECT = "addfavsubject";
+    public static final String HTTP_FAV_SUBJECT = "favoritesubject";
     public static final String HTTP_GET_FAV_SUBJECTS = "getfavsubjects";
     public static final String HTTP_GET_SUBJECTS = "getsubjects";
     public static final String HTTP_GET_THEMES = "getthemes";

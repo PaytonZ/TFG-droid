@@ -41,11 +41,11 @@ import java.io.FileNotFoundException;
  */
 public class FragmentSettings extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
-
     private static final int IMAGE_SELECTED = 200;
     private static final String TAG = "FragmentSettings";
     private Preference changeImage;
     private Preference changePassword;
+    private Preference changeFaculty;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,9 @@ public class FragmentSettings extends PreferenceFragment implements Preference.O
 
         changePassword = findPreference("change_password");
         changePassword.setOnPreferenceClickListener(this);
+
+        changeFaculty = findPreference("change_faculty");
+        changeFaculty.setOnPreferenceClickListener(this);
 
 
     }
@@ -157,6 +160,9 @@ public class FragmentSettings extends PreferenceFragment implements Preference.O
         } else if (preference == changePassword) {
             Intent i = new Intent(getActivity(), ActivityChangePassword.class);
             startActivityForResult(i, Constants.INTENT_CHANGE_PASSWORD);
+        } else if (preference == changeFaculty) {
+            Intent i = new Intent(getActivity(), ActivityChangeFaculty.class);
+            startActivity(i);
         }
         return true;
     }
