@@ -1,113 +1,123 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        style="@style/registertext"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/usuario">
+        android:orientation="vertical"
+        android:weightSum="1">
 
-    </TextView>
+        <TextView
+            style="@style/registertext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/usuario">
 
-    <EditText
-        android:id="@+id/register_usuario"
-        style="@style/register"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
+        </TextView>
 
-    <TextView
-        style="@style/registertext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/email">
+        <EditText
+            android:id="@+id/register_usuario"
+            style="@style/register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
 
-    </TextView>
+        <TextView
+            style="@style/registertext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/email">
 
-    <EditText
-        android:id="@+id/register_email"
-        style="@style/register"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
+        </TextView>
+
+        <EditText
+            android:id="@+id/register_email"
+            style="@style/register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
 
 
-    <TextView
-        style="@style/registertext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/contraseña"></TextView>
+        <TextView
+            style="@style/registertext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contraseña" />
 
-    <EditText
-        android:id="@+id/register_password"
-        style="@style/register"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/register_password"
+            style="@style/register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
 
-    <TextView
-        style="@style/registertext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/localizacion">
+        <TextView
+            style="@style/registertext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/localizacion">
 
-    </TextView>
+        </TextView>
 
-    <Spinner
-        android:id="@+id/spinnerlocation"
-        style="@style/registertext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/spinnerlocation"
+            style="@style/registertext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        style="@style/registertext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/universidad">
+        <TextView
+            style="@style/registertext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/universidad">
 
-    </TextView>
+        </TextView>
 
-    <Spinner
-        android:id="@+id/spinneruniversidad"
-        style="@style/registertext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/spinneruniversidad"
+            style="@style/registertext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        style="@style/registertext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/facultad"></TextView>
+        <TextView
+            style="@style/registertext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/facultad" />
 
-    <Spinner
-        android:id="@+id/spinnerfacultad"
-        style="@style/registertext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/spinnerfacultad"
+            style="@style/registertext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/registar_button"
-        style="@style/registertext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/registrarte" />
+        <Button
+            android:id="@+id/registar_button"
+            style="@style/registertext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/registrarte" />
 
-    <TextView
-        android:id="@+id/disclaimer"
-        style="@style/registertext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:text="@string/disclaimer_registraste" />
+        <TextView
+            android:id="@+id/disclaimer"
+            style="@style/registertext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="@string/disclaimer_registraste" />
 
-</LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

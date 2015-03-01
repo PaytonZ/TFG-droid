@@ -29,6 +29,8 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import static com.bsod.tfg.utils.MeasureUtils.setListViewHeightBasedOnChildren;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -43,6 +45,7 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
     private Button buttonFourth;
     private ListView listViewAsignaturasFavoritas;
     private AdapterAsignaturasDetail adapter;
+    private View rootView;
 
     public FragmentArchivos() {
         // Required empty public constructor
@@ -56,29 +59,36 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_archivos, container,
-                false);
 
-        buttonFirst = (Button) rootView.findViewById(R.id.archivos_boton_primero);
-        buttonSecond = (Button) rootView.findViewById(R.id.archivos_boton_segundo);
-        buttonThird = (Button) rootView.findViewById(R.id.archivos_boton_tercero);
-        buttonFourth = (Button) rootView.findViewById(R.id.archivos_boton_cuarto);
+        if (rootView == null) {
+            // Inflate the layout for this fragment
+            rootView = inflater.inflate(R.layout.fragment_archivos, container,
+                    false);
 
-        listViewAsignaturasFavoritas = (ListView) rootView.findViewById(R.id.listview_fav_asignaturas);
+            buttonFirst = (Button) rootView.findViewById(R.id.archivos_boton_primero);
+            buttonSecond = (Button) rootView.findViewById(R.id.archivos_boton_segundo);
+            buttonThird = (Button) rootView.findViewById(R.id.archivos_boton_tercero);
+            buttonFourth = (Button) rootView.findViewById(R.id.archivos_boton_cuarto);
 
-        adapter = new AdapterAsignaturasDetail(getActivity());
-        listViewAsignaturasFavoritas.setAdapter(adapter);
-        listViewAsignaturasFavoritas.setOnItemClickListener(adapter);
+            listViewAsignaturasFavoritas = (ListView) rootView.findViewById(R.id.listview_fav_asignaturas);
 
-        //getAsignaturas();
-        getFavSubjects();
+            adapter = new AdapterAsignaturasDetail(getActivity());
+            listViewAsignaturasFavoritas.setAdapter(adapter);
+            listViewAsignaturasFavoritas.setOnItemClickListener(adapter);
 
-        buttonFirst.setOnClickListener(this);
-        buttonSecond.setOnClickListener(this);
-        buttonThird.setOnClickListener(this);
-        buttonFourth.setOnClickListener(this);
+            getFavSubjects();
+            setListViewHeightBasedOnChildren(listViewAsignaturasFavoritas);
 
+            buttonFirst.setOnClickListener(this);
+            buttonSecond.setOnClickListener(this);
+            buttonThird.setOnClickListener(this);
+            buttonFourth.setOnClickListener(this);
+        } else {
+            getFavSubjects();
+            setListViewHeightBasedOnChildren(listViewAsignaturasFavoritas);
+
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }
         return rootView;
     }
 
@@ -108,8 +118,6 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             fragmentTransaction.commit();
         }
-
-
     }
 
     private void getFavSubjects() {
@@ -140,35 +148,4 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
 
     }
 
-    private void getAsignaturas() {
-        RequestParams params = new RequestParams();
-        Session s = Session.getSession();
-        params.put("token", s.getToken().getToken());
-        params.put("idfaculty", s.getFacultad().getId());
-        params.put("year", 2);
-
-        HttpClient.get(Constants.HTTP_GET_SUBJECTS, params, new JsonHttpResponseHandlerCustom(getActivity()) {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                int error;
-                try {
-                    error = Integer.parseInt(response.get("error").toString());
-                    if (error == 200) {
-                        //swipeLayout.setRefreshing(true);
-                        ObjectMapper mapper = new ObjectMapper();
-                        //mapper.registerModule(new JsonOrgModule());
-
-                        List<Asignatura> listofSubjects = mapper.readValue(
-                                response.get("data").toString(), new TypeReference<List<Asignatura>>() {
-                                });
-                        adapter.update(listofSubjects);
-
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 }

@@ -2,6 +2,7 @@ package com.bsod.tfg.utils;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +20,7 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
     public static final int TAB_TABLON = 1;
     public static final int TAB_CHAT = 2;
     public static final int TAB_ARCHIVOS = 3;
+    private static final String TAG = "TopBar";
 
     private int selectedTab;
 
@@ -26,7 +28,7 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
     private ImageView chat;
     private ImageView archivos;
 
-
+    private long timeLastTabChange;
     private Context context;
     private TabSelectedListener listenerTab = null;
 
@@ -34,6 +36,7 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
     public TopBar(Context context) {
         this(context, null);
         this.context = context;
+        timeLastTabChange = System.currentTimeMillis();
     }
 
     public TopBar(Context context, AttributeSet attrs) {
@@ -54,18 +57,38 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
     }
 
     @Override
+    /** Onclick del tab , si se cambia rapidamente de TAB , se produce una excepcion.
+     * Solución realizada : se incluye un delay de entre cambio de pestaña para evitar dicho error
+     */
     public void onClick(View view) {
 
-        if (view == tablon) {
-            markTab(TAB_TABLON);
-            listenerTab.tabSelected(TAB_TABLON);
-        } else if (view == chat) {
-            markTab(TAB_CHAT);
-            listenerTab.tabSelected(TAB_CHAT);
-        } else if (view == archivos) {
-            markTab(TAB_ARCHIVOS);
-            listenerTab.tabSelected(TAB_ARCHIVOS);
+        boolean operationOK = false;
+        int tab_changed = -1;
+
+        if (view == tablon && selectedTab != TAB_TABLON) {
+            operationOK = true;
+            tab_changed = TAB_TABLON;
+        } else if (view == chat && selectedTab != TAB_CHAT) {
+            operationOK = true;
+            tab_changed = TAB_CHAT;
+        } else if (view == archivos && selectedTab != TAB_ARCHIVOS) {
+            operationOK = true;
+            tab_changed = TAB_ARCHIVOS;
         }
+
+        if (operationOK) {
+
+            long time = System.currentTimeMillis() - timeLastTabChange;
+            Log.d(TAG, "Tiempo de cambio entre pestañas : " + time);
+            if (time > 300){
+                markTab(tab_changed);
+                listenerTab.tabSelected(tab_changed);
+                timeLastTabChange = System.currentTimeMillis();
+            }else{
+                Log.d(TAG, "Estas cambiando demasiado rapido de tabs ... ");
+            }
+        }
+
 
     }
 

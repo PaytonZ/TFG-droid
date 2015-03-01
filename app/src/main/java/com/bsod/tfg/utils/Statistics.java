@@ -18,14 +18,14 @@ public class Statistics {
      */
     public String getResolution(Context ct) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager wm = (WindowManager) ct.getSystemService(Context.WINDOW_SERVICE); // the results will be higher than using the activity context object or the getWindowManager() shortcut
+        WindowManager wm = (WindowManager) ct.getSystemService(Context.WINDOW_SERVICE);
+        // the results will be higher than using the activity context object or the getWindowManager() shortcut
         wm.getDefaultDisplay().getMetrics(displayMetrics);
         int screenWidth = displayMetrics.widthPixels;
         int screenHeight = displayMetrics.heightPixels;
 
         return screenWidth + "x" + screenHeight;
     }
-
     /**
      * Devuelve el nombre del modelo del dispositivo
      *
@@ -40,11 +40,9 @@ public class Statistics {
             return capitalize(manufacturer) + " " + model;
         }
     }
-
     public String getAndroidVersion() {
         return "Android " + Build.VERSION.RELEASE;
     }
-
 
     private String capitalize(String s) {
         if (s == null || s.length() == 0) {
