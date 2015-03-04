@@ -1,4 +1,4 @@
-package com.bsod.tfg.controlador;
+package com.bsod.tfg.controlador.archivos;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bsod.tfg.R;
+import com.bsod.tfg.controlador.archivos.AdapterAsignaturas;
 import com.bsod.tfg.modelo.Asignatura;
 import com.bsod.tfg.utils.ViewHolder;
 

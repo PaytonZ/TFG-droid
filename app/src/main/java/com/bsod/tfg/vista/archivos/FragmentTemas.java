@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsod.tfg.R;
-import com.bsod.tfg.controlador.AdapterTemas;
+import com.bsod.tfg.controlador.archivos.AdapterTemas;
 import com.bsod.tfg.modelo.Asignatura;
 import com.bsod.tfg.modelo.Pregunta;
 import com.bsod.tfg.modelo.Tema;

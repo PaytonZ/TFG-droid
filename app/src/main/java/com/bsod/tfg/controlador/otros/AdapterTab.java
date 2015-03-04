@@ -1,4 +1,4 @@
-package com.bsod.tfg.controlador;
+package com.bsod.tfg.controlador.otros;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

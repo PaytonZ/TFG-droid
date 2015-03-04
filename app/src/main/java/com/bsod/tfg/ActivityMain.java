@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bsod.tfg.controlador.AdapterTab;
+import com.bsod.tfg.controlador.otros.AdapterTab;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.TopBar;
@@ -42,39 +42,29 @@ public class ActivityMain extends FragmentActivity implements
     public final static String NEXT_LOCATION = "";
     private static final String TAG = "ActivityMain";
     private String uni_location = null;
-
-
     // Maybe Should be in other package
-
     private ViewPagerNonSwipeable vPager;
     private AdapterTab tAdapter;
     private ActionBar aBar;
     private TextView location;
     private ImageView searchImage;
     private TopBar menu;
-
     private FragmentTablon fTablon;
     private FragmentChat fChat;
     private FragmentArchivos fArchivos;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         uni_location = Session.getSession().getFacultad().getNombre();
-
         setContentView(R.layout.activity_main);
-
         location = (TextView) findViewById(R.id.location);
-
         //Default page selected
         location.setText(uni_location);
-
         //Search button Stuff
         searchImage = (ImageView) findViewById(R.id.searchbutton);
         searchImage.setOnClickListener(this);
-
 
         menu = (TopBar) findViewById(R.id.topBar);
         menu.setTabListener(this);
@@ -161,7 +151,6 @@ public class ActivityMain extends FragmentActivity implements
 
 
     }
-
 
     @Override
     public void tabSelected(int tab) {

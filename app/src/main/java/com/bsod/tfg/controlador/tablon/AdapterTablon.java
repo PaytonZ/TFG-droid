@@ -1,4 +1,4 @@
-package com.bsod.tfg.controlador;
+package com.bsod.tfg.controlador.tablon;
 
 import android.content.Context;
 import android.graphics.Typeface;

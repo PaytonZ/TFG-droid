@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bsod.tfg.R;
-import com.bsod.tfg.controlador.AdapterFragmentExams;
+import com.bsod.tfg.controlador.archivos.AdapterFragmentExams;
 import com.bsod.tfg.modelo.Pregunta;
 import com.bsod.tfg.modelo.ResponseExamStats;
 import com.bsod.tfg.modelo.ResponseExamTotal;

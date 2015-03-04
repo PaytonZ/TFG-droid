@@ -4,15 +4,72 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.bsod.tfg.R;
+import com.bsod.tfg.modelo.FacultadRegistro;
+import com.bsod.tfg.modelo.GenericType;
+import com.bsod.tfg.modelo.ProvinciaRegistro;
+import com.bsod.tfg.modelo.UniversidadRegistro;
+import com.bsod.tfg.modelo.otros.Constants;
+import com.bsod.tfg.utils.HttpClient;
+import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
+import com.loopj.android.http.RequestParams;
 
-public class ActivityChangeFaculty extends Activity {
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ActivityChangeFaculty extends Activity implements AdapterView.OnItemSelectedListener, View.OnFocusChangeListener, View.OnClickListener {
+
+    private Spinner spinnerProvincias;
+    private Spinner spinnerUniversidad;
+    private Spinner spinnerFacultad;
+    private ActivityChangeFaculty thisactivity = this;
+
+    private ArrayList<GenericType> listOfProvincias = new ArrayList<GenericType>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_faculty);
+
+        spinnerProvincias = (Spinner) findViewById(R.id.spinnerlocation);
+        spinnerUniversidad = (Spinner) findViewById(R.id.spinneruniversidad);
+        spinnerFacultad = (Spinner) findViewById(R.id.spinnerfacultad);
+
+        RequestParams params = new RequestParams();
+        HttpClient.get(Constants.HTTP_GET_PROVINCIAS, params, new JsonHttpResponseHandlerCustom(this) {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        // If the response is JSONObject instead of expected JSONArray
+                        try {
+
+                            int error = Integer.parseInt(response.get("error").toString());
+                            if (error == 200) {
+
+                                processJSONData(response, listOfProvincias, ProvinciaRegistro.class);
+                                spinnerProvincias.setAdapter(new ArrayAdapter<>(thisactivity, android.R.layout.simple_spinner_item, listOfProvincias));
+                                spinnerProvincias.setOnItemSelectedListener(thisactivity);
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+
+                    }
+                }
+
+        );
     }
 
 
@@ -36,5 +93,109 @@ public class ActivityChangeFaculty extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Function used to decode the JSON , because Provincia , Universidad and Facultad has id and name
+     *
+     * @param result
+     * @param listOfObjects
+     * @throws org.json.JSONException
+     */
+    private void processJSONData(JSONObject result, List<GenericType> listOfObjects, Class<? extends GenericType> obj) throws Exception {
+
+        GenericType generic = obj.newInstance();
+        generic.setName(generic.selectOneText());
+        generic.setId(-1);
+        listOfObjects.add(generic);
+        JSONArray genericData = (JSONArray) result.get("data");
+        for (int i = 0; i < genericData.length(); i++) {
+            generic = obj.newInstance();
+            JSONObject genericObject = (JSONObject) genericData.get(i);
+            //JSONObject data = genericObject.getJSONObject("fields");
+            generic.setName(genericObject.getString("nombre"));
+            generic.setId(genericObject.getInt("pk"));
+            listOfObjects.add(generic);
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+        if (adapterView == spinnerProvincias) {
+            //Toast.makeText(this, adapterView.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+
+            ProvinciaRegistro p = (ProvinciaRegistro) adapterView.getItemAtPosition(position);
+            if (p.getId() > 0) {
+                RequestParams params = new RequestParams();
+                params.add("id", p.getId().toString());
+                final ArrayList<GenericType> listOfUniversitys = new ArrayList<GenericType>();
+                HttpClient.get(Constants.HTTP_GET_UNIS, params, new JsonHttpResponseHandlerCustom(this) {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        try {
+                            int error = Integer.parseInt(response.get("error").toString());
+
+                            if (error == 200) {
+                                // ObjectMapper om = new ObjectMapper();
+                                //JsonNode o = om.valueToTree(response);
+                                processJSONData(response, listOfUniversitys, UniversidadRegistro.class);
+                                //new ObjectMapper().readValue(o, Universidad.class);
+                            }
+                            spinnerUniversidad.setAdapter(new ArrayAdapter<GenericType>(thisactivity, android.R.layout.simple_spinner_item, listOfUniversitys));
+                            spinnerUniversidad.setOnItemSelectedListener(thisactivity);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+            }
+        } else {
+
+            if (adapterView == spinnerUniversidad) {
+                UniversidadRegistro u = (UniversidadRegistro) adapterView.getItemAtPosition(position);
+                if (u.getId() > 0) {
+                    RequestParams params = new RequestParams();
+                    params.add("id", u.getId().toString());
+                    final ArrayList<GenericType> listOfFacultys = new ArrayList<>();
+                    HttpClient.get(Constants.HTTP_GET_FACULTYS, params, new JsonHttpResponseHandlerCustom(this) {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            try {
+                                int error = Integer.parseInt(response.get("error").toString());
+
+                                if (error == 200) {
+                                    processJSONData(response, listOfFacultys, FacultadRegistro.class);
+                                }
+                                spinnerFacultad.setAdapter(new ArrayAdapter<>(thisactivity, android.R.layout.simple_spinner_item, listOfFacultys));
+                                spinnerFacultad.setOnItemSelectedListener(thisactivity);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+
     }
 }

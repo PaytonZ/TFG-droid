@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bsod.tfg.R;
-import com.bsod.tfg.controlador.AdapterTablon;
+import com.bsod.tfg.controlador.tablon.AdapterTablon;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.modelo.tablon.MessageBoard;

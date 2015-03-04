@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
-import com.bsod.tfg.controlador.AdapterBuscarUni;
+import com.bsod.tfg.controlador.otros.AdapterBuscarUni;
 
 import java.util.ArrayList;
 

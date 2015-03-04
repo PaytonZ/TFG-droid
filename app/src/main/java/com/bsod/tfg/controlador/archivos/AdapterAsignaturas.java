@@ -1,4 +1,4 @@
-package com.bsod.tfg.controlador;
+package com.bsod.tfg.controlador.archivos;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.bsod.tfg.R;
+import com.bsod.tfg.controlador.otros.AdapterGeneric;
 import com.bsod.tfg.modelo.Asignatura;
 import com.bsod.tfg.utils.ViewHolder;
 import com.bsod.tfg.vista.archivos.FragmentTemas;

@@ -85,5 +85,9 @@
     <string name="new_password_repeat">Contraseña Nueva (repetir)</string>
     <string name="change_password">Cambiar Contraseña</string>
     <string name="title_activity_activity_change_faculty">ActivityChangeFaculty</string>
+    <string name="message_hint">Escribe algo ... ;)</string>
+    <string name="send">Enviar</string>
+    <string name="profile_me">Mi foto de perfil</string>
+    <string name="profile_other">Foto de perfil de usuario</string>
 
 </resources>
