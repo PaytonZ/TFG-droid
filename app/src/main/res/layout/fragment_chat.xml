@@ -32,7 +32,7 @@
             android:gravity="top"
             android:hint="@string/message_hint"
             android:imeOptions="actionSend"
-            android:inputType="textShortMessage" />
+            android:inputType="textEmailAddress" />
 
         <Button
             android:id="@+id/send_button_chat"

@@ -83,8 +83,7 @@ public class SocketChat {
                         e.printStackTrace();
                     }
                 }
-                if (connected && state.equals(Constants.CHAT_STATE_CHAT))
-                {
+                if (connected && state.equals(Constants.CHAT_STATE_CHAT)) {
                     socketOutput.println(jo.toString());
                 }
 
@@ -94,6 +93,14 @@ public class SocketChat {
 
     }
 
+    public JSONObject recieve() throws Exception {
+        Log.d(TAG, "Socket.Recieve");
+        String response = null;
+        if (connected && state.equals(Constants.CHAT_STATE_CHAT)) {
+            response = socketInput.readLine();
+        }
+        return (response == null) ? null : new JSONObject(response);
+    }
 
     private void showToast(final Context context, final String message) {
         new Handler(context.getMainLooper()).post(new Runnable() {
@@ -139,6 +146,7 @@ public class SocketChat {
                 String room = params[2];
                 socket = new Socket(host, port);
                 socket.setTcpNoDelay(true);
+                socket.setKeepAlive(true);
                 socketOutput = new PrintWriter(socket.getOutputStream(),
                         true);
                 socketInput = new BufferedReader(new InputStreamReader(
@@ -148,14 +156,14 @@ public class SocketChat {
                 String response;
                 response = socketInput.readLine();
                 jo = new JSONObject(response);
-                Log.i(TAG, "jo.get(\"state\") : " + jo.get("state").toString());
+                // Log.i(TAG, "jo.get(\"state\") : " + jo.get("state").toString());
                 if (jo.get("state").toString().equals(Constants.CHAT_STATE_REGISTER)) {
                     Log.i(TAG, "SI estas en modo de registro.");
                     jo = new JSONObject();
                     jo.put("token", Session.getSession().getToken().getToken());
                     jo.put("room", room);
 
-                    Log.i(TAG, "REGISTRO :" + jo.toString());
+                    // Log.i(TAG, "REGISTRO :" + jo.toString());
                     socketOutput.println(jo.toString());
 
                     response = socketInput.readLine();

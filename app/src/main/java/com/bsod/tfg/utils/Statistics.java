@@ -26,6 +26,7 @@ public class Statistics {
 
         return screenWidth + "x" + screenHeight;
     }
+
     /**
      * Devuelve el nombre del modelo del dispositivo
      *
@@ -40,6 +41,7 @@ public class Statistics {
             return capitalize(manufacturer) + " " + model;
         }
     }
+
     public String getAndroidVersion() {
         return "Android " + Build.VERSION.RELEASE;
     }

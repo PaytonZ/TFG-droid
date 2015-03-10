@@ -46,29 +46,24 @@ public class Constants {
     public final static String HTTP_RENEW_TOKEN = "renewtoken";
     public static final String INTENT_EXTRA_ARRAY_QUESTIONS = "questions";
     public static final String INTENT_ID_TEST = "idtest";
-
-    /* CHAT STUFF */
-    public static String CHAT_STATE_REGISTER = "REGISTER";
-    public static String CHAT_STATE_DISCONNECTED = "DISCONNECTED";
-    public static String CHAT_STATE_CHAT = "CHAT";
-
-    public static int CHAT_PORT = 8000;
-
     /* Intent Extras */
     public static final String INTENT_MESSAGE_DETAIL = "MESSAGE";
     public static final String INTENT_EXTRA_DELETED_MESSAGE = "INTENT_EXTRA_DELETED_MESSAGE";
     public static final String INTENT_EXTRA_DELETED_MESSAGE_ID = "INTENT_EXTRA_DELETED_MESSAGE_ID";
-
     /* Application Settings */
     public static final int NUM_OF_QUESTIONS_IN_EXAM = 20;
-
+    /* CHAT STUFF */
+    public static String CHAT_STATE_REGISTER = "REGISTER";
+    public static String CHAT_STATE_DISCONNECTED = "DISCONNECTED";
+    public static String CHAT_STATE_CHAT = "CHAT";
+    public static int CHAT_PORT = 8000;
     /* Connection Settings - Deploy - Testing */
     //public static String BASE_URL = "http://192.168.1.12/";
     //public static String BASE_URL = "http:/bsodsoftware.me/";
-    public static String SERVER_IP = "192.168.1.12";
-    //public static String SERVER_IP = "178.62.194.33";
+    //public static String SERVER_IP = "192.168.1.12";
+    public static String SERVER_IP = "178.62.194.33";
     public static String BASE_URL = "http://".concat(SERVER_IP).concat("/");
-    public static String MEDIA_URL = BASE_URL .concat("media/");
+    public static String MEDIA_URL = BASE_URL.concat("media/");
 
 
 }

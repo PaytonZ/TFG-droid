@@ -80,11 +80,11 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
 
             long time = System.currentTimeMillis() - timeLastTabChange;
             Log.d(TAG, "Tiempo de cambio entre pestañas : " + time);
-            if (time > 300){
+            if (time > 300) {
                 markTab(tab_changed);
                 listenerTab.tabSelected(tab_changed);
                 timeLastTabChange = System.currentTimeMillis();
-            }else{
+            } else {
                 Log.d(TAG, "Estas cambiando demasiado rapido de tabs ... ");
             }
         }

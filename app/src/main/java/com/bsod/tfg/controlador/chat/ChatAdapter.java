@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.chat.MessageChat;
+import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.utils.ViewHolder;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -21,9 +23,7 @@ import java.util.List;
 public class ChatAdapter extends ArrayAdapter<MessageChat> {
 
     private int mUserId;
-    private ImageView imageLeft;
-    private ImageView imageRight;
-    private TextView body;
+
 
     public ChatAdapter(Context context, int userId, List<MessageChat> messages) {
         super(context, 0, messages);
@@ -36,11 +36,10 @@ public class ChatAdapter extends ArrayAdapter<MessageChat> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.chat_item, parent, false);
         }
-
-
-        imageLeft = ViewHolder.get(convertView, R.id.ivProfileLeft);
-        imageRight = ViewHolder.get(convertView, R.id.ivProfileRight);
-        body = ViewHolder.get(convertView, R.id.tvBody);
+        TextView name = ViewHolder.get(convertView, R.id.chat_name);
+        ImageView imageLeft = ViewHolder.get(convertView, R.id.ivProfileLeft);
+        ImageView imageRight = ViewHolder.get(convertView, R.id.ivProfileRight);
+        TextView body = ViewHolder.get(convertView, R.id.tvBody);
 
         final MessageChat message = getItem(position);
 
@@ -51,14 +50,20 @@ public class ChatAdapter extends ArrayAdapter<MessageChat> {
             imageRight.setVisibility(View.VISIBLE);
             imageLeft.setVisibility(View.GONE);
             body.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+            name.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
         } else {
             imageLeft.setVisibility(View.VISIBLE);
             imageRight.setVisibility(View.GONE);
             body.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+            name.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
         }
-        //final ImageView profileView = isMe ? imageRight : imageLeft;
+        final ImageView profileView = isMe ? imageRight : imageLeft;
+        ImageLoader im = ImageLoader.getInstance();
+        //if (!mb.getUser().getPicImageUrl().equals("")) {
+        im.displayImage(Constants.MEDIA_URL + "pic_image_" + message.getUserId() + ".jpg", profileView);
 
         body.setText(message.getMessage());
+        name.setText("<".concat(message.getUserName()).concat(">"));
         return convertView;
     }
 }
