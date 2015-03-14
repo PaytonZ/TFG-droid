@@ -2,17 +2,26 @@ package com.bsod.tfg.modelo.sesion;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
 /**
  * Proudly created by Payton on 26/10/2014.
  */
+@DatabaseTable(tableName = "user")
 public class User implements Serializable {
+
+    @DatabaseField(columnName = "idUser", index = true , id=true)
     @JsonProperty("pk")
     private int idUser;
+
+    @DatabaseField(columnName = "name")
     @JsonProperty("username")
     private String name;
+
+    @DatabaseField(columnName = "image")
     @JsonProperty("image")
     private String image;
 

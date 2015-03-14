@@ -6,6 +6,8 @@ import com.bsod.tfg.utils.MessageBoardDeserializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,19 +16,36 @@ import java.util.Date;
  * Proudly created by Payton on 25/09/2014.
  */
 @JsonDeserialize(using = MessageBoardDeserializer.class)
+@DatabaseTable(tableName = "MessageBoard")
 public class MessageBoard implements Serializable {
 
+    @DatabaseField(generatedId = true)
+    protected long id_db;
+
     @JsonProperty("pk")
+    @DatabaseField(columnName = "id", index = true)
     private Integer id;
+
+    @DatabaseField(columnName = "message")
     @JsonProperty("texto")
     private String message;
+
+    @DatabaseField(columnName = "creationDateUnix")
     @JsonProperty("fecha_creacion")
     private long creationDateUnix;
+
+    @DatabaseField(columnName = "creationDate")
     private Date creationDate;
+
+    @DatabaseField(columnName = "numOfFavs")
     @JsonProperty("num_fav")
     private int numOfFavs;
+
+    @DatabaseField(columnName = "userFavorited")
     @JsonProperty("user_favorited")
     private boolean userFavorited;
+
+    @DatabaseField(columnName = "owner")
     @JsonProperty("owner")
     private boolean owner;
 
@@ -34,6 +53,7 @@ public class MessageBoard implements Serializable {
     private String humanReadableDate;
 
     @JsonProperty("usuario")
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, foreignAutoCreate = true, columnName = "usuario")
     private User user;
 
     public MessageBoard() {

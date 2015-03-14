@@ -1,0 +1,71 @@
+#
+# generated on 2015/03/14 01:59:48
+#
+# --table-start--
+dataClass=com.bsod.tfg.modelo.tablon.MessageBoard
+tableName=MessageBoard
+# --table-fields-start--
+# --field-start--
+fieldName=id_db
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=id
+columnName=id
+indexName=MessageBoard_id_idx
+# --field-end--
+# --field-start--
+fieldName=message
+columnName=message
+# --field-end--
+# --field-start--
+fieldName=creationDateUnix
+columnName=creationDateUnix
+# --field-end--
+# --field-start--
+fieldName=creationDate
+columnName=creationDate
+# --field-end--
+# --field-start--
+fieldName=numOfFavs
+columnName=numOfFavs
+# --field-end--
+# --field-start--
+fieldName=userFavorited
+columnName=userFavorited
+# --field-end--
+# --field-start--
+fieldName=owner
+columnName=owner
+# --field-end--
+# --field-start--
+fieldName=user
+columnName=usuario
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.bsod.tfg.modelo.sesion.User
+tableName=user
+# --table-fields-start--
+# --field-start--
+fieldName=idUser
+columnName=idUser
+id=true
+indexName=user_idUser_idx
+# --field-end--
+# --field-start--
+fieldName=name
+columnName=name
+# --field-end--
+# --field-start--
+fieldName=image
+columnName=image
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

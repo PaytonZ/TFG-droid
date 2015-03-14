@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 public class ActivityMessageDetail extends Activity implements View.OnClickListener {
 
+    private static final String TAG = "ActivityMessageDetail";
     private MessageBoard mb;
     private Context context;
     private ImageView borrado;
@@ -170,10 +172,12 @@ public class ActivityMessageDetail extends Activity implements View.OnClickListe
                                             finish();
 
                                         } else {
+                                            Log.d(TAG, "error genérico al borrar el mensaje".concat(". Respuesta del servidor:").concat(response.toString()));
                                             Toast.makeText(context, "Hubo un error al borrar el mensaje, inténtelo más tarde.", Toast.LENGTH_SHORT).show();
 
                                         }
                                     } catch (Exception e) {
+                                        Log.d(TAG, e.toString());
                                         Toast.makeText(context, "Hubo un error al borrar el mensaje, inténtelo más tarde.", Toast.LENGTH_SHORT).show();
 
 
@@ -182,6 +186,7 @@ public class ActivityMessageDetail extends Activity implements View.OnClickListe
 
                                 @Override
                                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                    Log.d(TAG, errorResponse.toString());
                                     Toast.makeText(context, "Hubo un error al borrar el mensaje, inténtelo más tarde.", Toast.LENGTH_SHORT).show();
 
 

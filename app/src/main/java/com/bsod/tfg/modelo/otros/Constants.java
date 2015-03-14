@@ -14,7 +14,7 @@ public class Constants {
     /*
      * HTTP FUNCTIONS NAMES
      */
-    // Login and register
+    /* LOGIN AND REGISTER*/
     public final static String HTTP_LOGIN_USER = "loginuser";
     public final static String HTTP_GET_PROVINCIAS = "getprovincias";
     public final static String HTTP_GET_UNIS = "getunis";
@@ -52,6 +52,9 @@ public class Constants {
     public static final String INTENT_EXTRA_DELETED_MESSAGE_ID = "INTENT_EXTRA_DELETED_MESSAGE_ID";
     /* Application Settings */
     public static final int NUM_OF_QUESTIONS_IN_EXAM = 20;
+    /* Local SQLITE */
+    public static final String DB_NAME = "database.sqlite";
+    public static final int DATABASE_VERSION = 1;
     /* CHAT STUFF */
     public static String CHAT_STATE_REGISTER = "REGISTER";
     public static String CHAT_STATE_DISCONNECTED = "DISCONNECTED";
@@ -60,8 +63,8 @@ public class Constants {
     /* Connection Settings - Deploy - Testing */
     //public static String BASE_URL = "http://192.168.1.12/";
     //public static String BASE_URL = "http:/bsodsoftware.me/";
-    //public static String SERVER_IP = "192.168.1.12";
-    public static String SERVER_IP = "178.62.194.33";
+    public static String SERVER_IP = "192.168.1.12";
+    // public static String SERVER_IP = "178.62.194.33";
     public static String BASE_URL = "http://".concat(SERVER_IP).concat("/");
     public static String MEDIA_URL = BASE_URL.concat("media/");
 

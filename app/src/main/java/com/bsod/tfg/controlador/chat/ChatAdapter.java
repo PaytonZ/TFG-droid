@@ -15,6 +15,7 @@ import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.utils.ViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -24,12 +25,10 @@ public class ChatAdapter extends ArrayAdapter<MessageChat> {
 
     private int mUserId;
 
-
     public ChatAdapter(Context context, int userId, List<MessageChat> messages) {
         super(context, 0, messages);
         this.mUserId = userId;
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -61,9 +60,10 @@ public class ChatAdapter extends ArrayAdapter<MessageChat> {
         ImageLoader im = ImageLoader.getInstance();
         //if (!mb.getUser().getPicImageUrl().equals("")) {
         im.displayImage(Constants.MEDIA_URL + "pic_image_" + message.getUserId() + ".jpg", profileView);
+        Calendar now = Calendar.getInstance();
 
         body.setText(message.getMessage());
-        name.setText("<".concat(message.getUserName()).concat(">"));
+        name.setText("<".concat(message.getUserName()).concat("> ").concat(String.valueOf(now.get(Calendar.HOUR_OF_DAY)).concat(":").concat(String.valueOf(now.get(Calendar.MINUTE)))));
         return convertView;
     }
 }

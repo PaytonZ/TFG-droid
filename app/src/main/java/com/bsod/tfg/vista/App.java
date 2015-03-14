@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 
+import com.bsod.tfg.controlador.bbdd.DataBaseHelper;
 import com.bsod.tfg.modelo.sesion.PreferencesManager;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -49,6 +50,8 @@ public class App extends Application {
         //TODO: Cuando la cache funcione bien , quitar eso
         ImageLoader.getInstance().clearMemoryCache();
         ImageLoader.getInstance().clearDiskCache();
+
+        DataBaseHelper.getInstance(this);
     }
 
     @Override

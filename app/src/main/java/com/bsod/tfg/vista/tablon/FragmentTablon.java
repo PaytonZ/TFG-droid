@@ -20,9 +20,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bsod.tfg.R;
+import com.bsod.tfg.controlador.bbdd.DataBaseHelper;
 import com.bsod.tfg.controlador.tablon.AdapterTablon;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
+import com.bsod.tfg.modelo.sesion.User;
 import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.bsod.tfg.modelo.tablon.MessageBoardUpdate;
 import com.bsod.tfg.utils.HttpClient;
@@ -30,13 +32,15 @@ import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -48,13 +52,13 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     private SwipeRefreshLayout swipeLayout;
     private ListView tablonList;
     private ActionBar aBar;
-    private List<MessageBoard> listOfMessages = new ArrayList<MessageBoard>();
     private Context thisContext;
     private int mLastFirstVisibleItem;
     private boolean mIsScrollingUp;
     private AdapterTablon aTablon;
-
     private View rootView;
+    private Dao<MessageBoard, Integer> daoMessageBoard;
+    private Dao<User, Integer> daoUsers;
 
 
     public static Fragment newInstance() {
@@ -70,7 +74,6 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
             rootView = inflater.inflate(R.layout.fragment_tablon, container,
                     false);
 
-
             swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_tablon);
             swipeLayout.setOnRefreshListener(this);
 
@@ -83,7 +86,33 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
             tablonList.setOnItemClickListener(this);
             tablonList.setOnScrollListener(this);
 
-            refreshMessages();
+            new Thread() {
+                @Override
+                public void run() {
+                    DataBaseHelper db = DataBaseHelper.getInstance();
+                    try {
+                        daoMessageBoard = db.getDAOMessageBoard();
+                        daoUsers = db.getDAOUser();
+                        final List<MessageBoard> list = daoMessageBoard.query(daoMessageBoard.queryBuilder().orderBy("id", false).prepare());
+                        Log.i(TAG, "Existen ".concat(String.valueOf(list.size())).concat(" mensajes en la base de datos local."));
+                        for (MessageBoard mb : list) {
+                            daoUsers.refresh(mb.getUser());
+                        }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((AdapterTablon) tablonList.getAdapter()).addMessages(list);
+                                refreshMessages();
+                            }
+                        });
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+
+
             thisContext = getActivity();
 
             // Devolvemos la vista para que se muestre en pantalla.
@@ -170,11 +199,31 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                     if (error == 200) {
                         ObjectMapper mapper = new ObjectMapper();
                         //mapper.registerModule(new JsonOrgModule());
-                        List<MessageBoardUpdate> listOfMessagesUpdated = mapper.readValue(
+                        final List<MessageBoardUpdate> listOfMessagesUpdated = mapper.readValue(
                                 response.get("data").toString(), new TypeReference<List<MessageBoardUpdate>>() {
                                 });
                         aTablon.updateMessages(listOfMessagesUpdated);
+
+                        new Thread() {
+                            @Override
+                            public void run() {
+
+                                for (MessageBoardUpdate mbu : listOfMessagesUpdated) {
+                                    if (mbu.isBorrado()) {
+                                        try {
+                                            DeleteBuilder<MessageBoard, Integer> db = daoMessageBoard.deleteBuilder();
+                                            db.where().eq("id", mbu.getId());
+                                            db.delete();
+                                        } catch (SQLException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }
+                        }.start();
+
                         refreshMessages();
+
                     }
                 } catch (Exception e) {
                     swipeLayout.setRefreshing(false);
@@ -212,9 +261,16 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                         List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
                                 response.get("data").toString(), new TypeReference<List<MessageBoard>>() {
                                 });
-                        listOfMessages.addAll(0, listOfMessagesUpdated);
-                        ((AdapterTablon) tablonList.getAdapter()).addMessages(listOfMessages);
+                        //listOfMessages.addAll(0, listOfMessagesUpdated);
+                        ((AdapterTablon) tablonList.getAdapter()).addMessages(listOfMessagesUpdated);
                         swipeLayout.setRefreshing(false);
+
+
+                        for (MessageBoard mb : aTablon.getMessageList()) {
+                            daoMessageBoard.createOrUpdate(mb);
+                            daoUsers.createIfNotExists(mb.getUser());
+                        }
+
 
                     } else {
                         if (error == 201) {
@@ -259,8 +315,13 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                         List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
                                 response.get("data").toString(), new TypeReference<List<MessageBoard>>() {
                                 });
-                        listOfMessages.addAll(0, listOfMessagesUpdated);
-                        aTablon.addMessages(listOfMessages);
+                        //listOfMessagesUpdated.addAll(0, listOfMessagesUpdated);
+                        aTablon.addMessages(listOfMessagesUpdated);
+                        for (MessageBoard mb : listOfMessagesUpdated) {
+                            daoMessageBoard.createOrUpdate(mb);
+                            daoUsers.createIfNotExists(mb.getUser());
+                        }
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -290,8 +351,18 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
         if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == Constants.INTENT_MESSAGE_DELETED) {
-                aTablon.deleteMessage(data.getIntExtra(Constants.INTENT_EXTRA_DELETED_MESSAGE_ID, -1));
+                int id_msg = data.getIntExtra(Constants.INTENT_EXTRA_DELETED_MESSAGE_ID, -1);
+                Log.d(TAG, "Deleting message with ID: ".concat(String.valueOf(id_msg)));
+                aTablon.deleteMessage(id_msg);
                 Toast.makeText(thisContext, "Mensaje borrado correctamente", Toast.LENGTH_SHORT).show();
+                try {
+                    DeleteBuilder<MessageBoard, Integer> db = daoMessageBoard.deleteBuilder();
+                    db.where().eq("id", id_msg);
+                    db.delete();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
 
             }
         }

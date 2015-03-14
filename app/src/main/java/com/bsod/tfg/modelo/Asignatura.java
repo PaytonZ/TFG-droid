@@ -3,10 +3,12 @@ package com.bsod.tfg.modelo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Proudly created by Payton on 06/11/2014.
  */
-public class Asignatura {
+public class Asignatura implements Serializable {
     @JsonProperty("pk")
     private int id;
     @JsonProperty("nombre")

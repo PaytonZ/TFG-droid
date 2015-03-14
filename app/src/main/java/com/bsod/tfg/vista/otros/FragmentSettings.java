@@ -59,8 +59,8 @@ public class FragmentSettings extends PreferenceFragment implements Preference.O
         changePassword = findPreference("change_password");
         changePassword.setOnPreferenceClickListener(this);
 
-        changeFaculty = findPreference("change_faculty");
-        changeFaculty.setOnPreferenceClickListener(this);
+        //      changeFaculty = findPreference("change_faculty");
+//        changeFaculty.setOnPreferenceClickListener(this);
 
 
     }

@@ -6,10 +6,12 @@ package com.bsod.tfg.modelo;
 
 import android.util.SparseIntArray;
 
+import java.io.Serializable;
+
 /**
  * Clase que encapusla un resultado final de un examen
  */
-public class ResponseExamTotal {
+public class ResponseExamTotal implements Serializable {
 
     private int idTest;
     private double finalMark;

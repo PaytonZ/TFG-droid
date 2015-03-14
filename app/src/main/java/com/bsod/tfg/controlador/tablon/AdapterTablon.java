@@ -25,7 +25,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.bsod.tfg.utils.DateManager.convertUnixToHumanDate;
@@ -37,11 +37,8 @@ public class AdapterTablon extends BaseAdapter {
 
     private static final String TAG = "AdapterTablon";
     private final Context context;
+    private List<MessageBoard> messageList = new ArrayList<>();
 
-    private List<MessageBoard> messageList = Collections.emptyList();
-
-
-    //TODO: Cambiar ArrayList por HashMap Más eficiente.
     public AdapterTablon(Context context) {
         this.context = context;
     }
@@ -51,8 +48,13 @@ public class AdapterTablon extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    /**
+     * Añade una lista de mensajes pasada por parámetro
+     *
+     * @param messageList
+     */
     public void addMessages(List<MessageBoard> messageList) {
-        this.messageList = messageList;
+        this.messageList.addAll(0, messageList);
         notifyDataSetChanged();
     }
 
@@ -207,6 +209,10 @@ public class AdapterTablon extends BaseAdapter {
 
         }
 
+    }
+
+    public List<MessageBoard> getMessageList() {
+        return messageList;
     }
 }
 

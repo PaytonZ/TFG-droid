@@ -2,11 +2,13 @@ package com.bsod.tfg.modelo.chat;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Proudly created by Payton on 04/03/2015.
  */
 
-public class MessageChat {
+public class MessageChat implements Serializable {
     @JsonProperty("message")
     private String message;
     @JsonProperty("user_id")

@@ -4,10 +4,12 @@ package com.bsod.tfg.modelo;
  * Proudly created by Payton on 17/11/2014.
  */
 
+import java.io.Serializable;
+
 /**
  * Clase encargada de encapulsar las respuestas de las distintas preguntas
  */
-public class ResponseExamStats {
+public class ResponseExamStats implements Serializable {
     private double value;
     private int id;
     private int selectedOption;

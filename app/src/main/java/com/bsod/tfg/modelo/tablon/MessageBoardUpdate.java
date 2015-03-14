@@ -3,10 +3,12 @@ package com.bsod.tfg.modelo.tablon;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Proudly created by Payton on 25/11/2014.
  */
-public class MessageBoardUpdate {
+public class MessageBoardUpdate implements Serializable {
     @JsonProperty("pk")
     private Integer id;
     @JsonProperty("num_fav")
