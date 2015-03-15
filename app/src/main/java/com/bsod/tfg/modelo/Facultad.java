@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Proudly created by Payton on 04/11/2014.
  */
-public class Facultad  implements Serializable {
+public class Facultad implements Serializable {
 
     @JsonProperty("pk")
     private int id;

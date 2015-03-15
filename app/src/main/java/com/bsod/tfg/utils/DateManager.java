@@ -1,5 +1,10 @@
 package com.bsod.tfg.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Proudly created by Payton on 02/12/2014.
  */
@@ -30,7 +35,7 @@ public class DateManager {
          String dia = " día";
          String dias = " días";
          **/
-//TODO: internacinalizar
+        //TODO: internacinalizar
         String sent_ago = "";
         String segundo = " seg";
         String segundos = " segs";
@@ -65,6 +70,18 @@ public class DateManager {
             return sent_ago + Math.round(seconds / (DAY)) + dias;
         }
 
+    }
+
+    /**
+     * Dado un timestamp , lo transforma a formato HH:ss
+     *
+     * @param time
+     * @return
+     */
+    public static String toHoursandMinutes(Long time) throws ParseException {
+        Date date = new Date(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        return sdf.format(date);
     }
 
 

@@ -3,6 +3,7 @@ package com.bsod.tfg.controlador.bbdd;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.bsod.tfg.modelo.chat.ChatServerBean;
 import com.bsod.tfg.modelo.sesion.User;
 import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.j256.ormlite.dao.Dao;
@@ -48,6 +49,8 @@ public class DataBaseHelperImp extends DataBaseHelper {
         try {
             TableUtils.createTable(connectionSource, MessageBoard.class);
             TableUtils.createTable(connectionSource, User.class);
+            TableUtils.createTable(connectionSource, ChatServerBean.class);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,6 +92,17 @@ public class DataBaseHelperImp extends DataBaseHelper {
         Dao<User, Integer> result = null;
         try {
             result = DaoManager.createDao(connectionSource, User.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public Dao<ChatServerBean, Integer> getDAOChatServer() {
+        Dao<ChatServerBean, Integer> result = null;
+        try {
+            result = DaoManager.createDao(connectionSource, ChatServerBean.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -21,13 +21,11 @@ public class Constants {
     public final static String HTTP_REGISTER_USER = "registeruser";
     public static final String HTTP_GET_FACULTYS = "getfacultades";
     public static final String HTTP_GET_ALL_FACULTYS = "getallfacultys";
-
     public static final String HTTP_CHECK_USER = "checkuser";
     public static final String HTTP_CHECK_EMAIL = "checkemail";
     /* USER STUFF */
     public static final String HTTP_UPLOAD_IMAGE = "uploadimageuser";
     public static final String HTTP_CHANGE_PASSWORD = "changepassword";
-
     /* TABLON */
     public static final String HTTP_GET_MESSAGES_BOARD = "getmensajestablon";
     public static final String HTTP_POST_MESSAGES_BOARD = "sendmensajetablon";
@@ -48,16 +46,18 @@ public class Constants {
     public static final String INTENT_ID_TEST = "idtest";
     /* Intent Extras */
     public static final String INTENT_MESSAGE_DETAIL = "MESSAGE";
-    public static final String INTENT_EXTRA_DELETED_MESSAGE = "INTENT_EXTRA_DELETED_MESSAGE";
+    public static final String INTENT_CHAT_ROOM = "INTENT_CHAT_ROOM";
     public static final String INTENT_EXTRA_DELETED_MESSAGE_ID = "INTENT_EXTRA_DELETED_MESSAGE_ID";
+    public static final String TFG_FRAGMENT = "TFGFragment";
+    public static final String CHAT_BROADCAST = "CHAT_BROADCAST";
+    public static final String CHAT_SERVER_EXTRA = "CHAT_SERVER_EXTRA";
     /* Application Settings */
     public static final int NUM_OF_QUESTIONS_IN_EXAM = 20;
     /* Local SQLITE */
     public static final String DB_NAME = "database.sqlite";
     public static final int DATABASE_VERSION = 1;
+
     /* CHAT STUFF */
-    public static String CHAT_STATE_REGISTER = "REGISTER";
-    public static String CHAT_STATE_DISCONNECTED = "DISCONNECTED";
     public static String CHAT_STATE_CHAT = "CHAT";
     public static int CHAT_PORT = 8000;
     /* Connection Settings - Deploy - Testing */

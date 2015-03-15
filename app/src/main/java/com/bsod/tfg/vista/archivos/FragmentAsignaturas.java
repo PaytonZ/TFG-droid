@@ -40,11 +40,9 @@ public class FragmentAsignaturas extends Fragment {
 
     public static FragmentAsignaturas newInstance(int curso) {
         FragmentAsignaturas myFragment = new FragmentAsignaturas();
-
         Bundle args = new Bundle();
         args.putInt("curso", curso);
         myFragment.setArguments(args);
-
         return myFragment;
     }
 
@@ -77,9 +75,7 @@ public class FragmentAsignaturas extends Fragment {
                     textViewCurso.setText(R.string.cuarto);
                     break;
             }
-
             getAsignaturas();
-
 
         } else {
             ((ViewGroup) rootView.getParent()).removeView(rootView);
@@ -110,9 +106,7 @@ public class FragmentAsignaturas extends Fragment {
                                 response.get("data").toString(), new TypeReference<List<Asignatura>>() {
                                 });
                         adapterAsignaturas.update(listofSubjects);
-
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

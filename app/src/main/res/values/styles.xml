@@ -6,7 +6,7 @@
 
         <!-- Set AppCompat’s color theming attrs -->
         <item name="colorPrimary">@color/red</item>
-    <item name="colorPrimaryDark">@color/red2</item>
+        <item name="colorPrimaryDark">@color/red2</item>
     </style>
 
     <style name="locationtext">

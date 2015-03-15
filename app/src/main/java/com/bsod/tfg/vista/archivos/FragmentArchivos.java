@@ -3,8 +3,6 @@ package com.bsod.tfg.vista.archivos;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +15,7 @@ import com.bsod.tfg.controlador.archivos.AdapterAsignaturasDetail;
 import com.bsod.tfg.modelo.Asignatura;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
+import com.bsod.tfg.utils.FragmentReplace;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -35,6 +34,7 @@ import static com.bsod.tfg.utils.MeasureUtils.setListViewHeightBasedOnChildren;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentArchivos extends Fragment implements View.OnClickListener {
+
 
     private static final String TAG = "FragmentArchivos";
     private TextView mainText;
@@ -107,16 +107,7 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
         }
         if (curso != 0) {
 
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager
-                    .beginTransaction();
-            Fragment f = FragmentAsignaturas.newInstance(curso);
-
-            fragmentTransaction.replace(R.id.fragment, f, "TFGFragment");
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragmentTransaction.commit();
+            FragmentReplace.replaceFragment(getActivity(), FragmentAsignaturas.newInstance(curso));
         }
     }
 

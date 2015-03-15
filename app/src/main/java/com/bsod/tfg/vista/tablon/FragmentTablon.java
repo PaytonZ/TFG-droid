@@ -321,20 +321,17 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                             daoMessageBoard.createOrUpdate(mb);
                             daoUsers.createIfNotExists(mb.getUser());
                         }
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(thisContext, thisContext.getString(R.string.error_update_messages), Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Toast.makeText(thisContext, thisContext.getString(R.string.error_update_messages), Toast.LENGTH_SHORT).show();
             }
-
         });
     }
 

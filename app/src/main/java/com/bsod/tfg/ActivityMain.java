@@ -1,7 +1,6 @@
 package com.bsod.tfg;
 
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bsod.tfg.controlador.otros.AdapterTab;
+import com.bsod.tfg.controlador.chat.ChatService;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.TopBar;
@@ -27,7 +26,6 @@ import com.bsod.tfg.vista.chat.FragmentChat;
 import com.bsod.tfg.vista.login.ActivitySplash;
 import com.bsod.tfg.vista.otros.ActivitySearchUni;
 import com.bsod.tfg.vista.otros.ActivitySettings;
-import com.bsod.tfg.vista.otros.ViewPagerNonSwipeable;
 import com.bsod.tfg.vista.tablon.FragmentTablon;
 
 /**
@@ -41,22 +39,23 @@ public class ActivityMain extends FragmentActivity implements
     public final static String CURRENT_LOCATION = "com.bsod.tfg.MESSAGE";
     public final static String NEXT_LOCATION = "";
     private static final String TAG = "ActivityMain";
+
     private String uni_location = null;
     // Maybe Should be in other package
-    private ViewPagerNonSwipeable vPager;
-    private AdapterTab tAdapter;
-    private ActionBar aBar;
     private TextView location;
     private ImageView searchImage;
     private TopBar menu;
     private FragmentTablon fTablon;
     private FragmentChat fChat;
     private FragmentArchivos fArchivos;
+    private ChatService chatService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        startService(new Intent(this, ChatService.class));
+        super.onCreate(savedInstanceState);
         uni_location = Session.getSession().getFacultad().getNombre();
         setContentView(R.layout.activity_main);
         location = (TextView) findViewById(R.id.location);
@@ -186,7 +185,7 @@ public class ActivityMain extends FragmentActivity implements
         // Cleaning Stack taken from SO -->http://stackoverflow.com/questions/5802141/is-this-the-right-way-to-clean-up-fragment-back-stack-when-leaving-a-deeply-nest
         fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        fragmentTransaction.replace(R.id.fragment, f, "TFGFragment");
+        fragmentTransaction.replace(R.id.fragment, f, Constants.TFG_FRAGMENT);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -218,4 +217,5 @@ public class ActivityMain extends FragmentActivity implements
                     }).create().show();
         }
     }
+
 }

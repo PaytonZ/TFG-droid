@@ -4,13 +4,17 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bsod.tfg.modelo.chat.ChatClientBean;
+import com.bsod.tfg.modelo.chat.ChatClientEnum;
+import com.bsod.tfg.modelo.chat.ChatServerBean;
+import com.bsod.tfg.modelo.chat.ChatServerEnum;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -35,26 +39,27 @@ public class SocketChat {
     private BufferedReader socketInput;
     private String state;
     private Socket socket;
-
+    private TextView connectionStatus;
 
     public SocketChat() {
         socket = null;
         socketOutput = null;
-        connected = false;
+        setConnected(false);
         state = "";
     }
 
 
     public void connect(Context context, String room) {
         new ConnectTask(context).execute(Constants.SERVER_IP, String.valueOf(Constants.CHAT_PORT), room);
+
     }
 
     public void disconnect(Context context) {
-        if (connected) {
+        if (isConnected()) {
             try {
                 socketOutput.close();
                 socket.close();
-                connected = false;
+                setConnected(false);
             } catch (IOException e) {
                 showToast(context, "Couldn't get I/O for the connection");
                 Log.e(TAG, e.getMessage());
@@ -63,19 +68,12 @@ public class SocketChat {
     }
 
 
-    public void send(final String message, final String room) {
+    public void send(final ChatClientBean csb) {
         new Thread(new Runnable() {
             public void run() {
                 int trys = 0;
-                JSONObject jo = new JSONObject();
-                try {
-                    jo.put("message", message);
-                    jo.put("room", room);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-                while (!connected && !state.equals(Constants.CHAT_STATE_CHAT) && trys < 3) {
+                while (!isConnected() && !state.equals(Constants.CHAT_STATE_CHAT) && trys < 3) {
                     try {
                         trys++;
                         sleep(1000);
@@ -83,8 +81,15 @@ public class SocketChat {
                         e.printStackTrace();
                     }
                 }
-                if (connected && state.equals(Constants.CHAT_STATE_CHAT)) {
-                    socketOutput.println(jo.toString());
+                if (isConnected()) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    try {
+                        Log.d(TAG, "socket.send : ".concat(mapper.writeValueAsString(csb)));
+                        socketOutput.println(mapper.writeValueAsString(csb));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                    socketOutput.flush();
                 }
 
             }
@@ -93,13 +98,13 @@ public class SocketChat {
 
     }
 
-    public JSONObject recieve() throws Exception {
-        Log.d(TAG, "Socket.Recieve");
+    public String recieve() throws Exception {
+        Log.d(TAG, "Socket.recieve()");
         String response = null;
-        if (connected && state.equals(Constants.CHAT_STATE_CHAT)) {
+        if (isConnected()) {
             response = socketInput.readLine();
         }
-        return (response == null) ? null : new JSONObject(response);
+        return response;
     }
 
     private void showToast(final Context context, final String message) {
@@ -112,6 +117,14 @@ public class SocketChat {
         });
     }
 
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
+
     private class ConnectTask extends AsyncTask<String, Void, Void> {
 
         private Context context;
@@ -122,16 +135,17 @@ public class SocketChat {
 
         @Override
         protected void onPreExecute() {
-            showToast(context, "Connecting..");
+            //showToast(context, "Connecting..");
+            //connectionStatus.setText("Conectando...");
             super.onPreExecute();
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            if (connected) {
-                showToast(context, "Connection successfull");
+            if (isConnected()) {
+                //connectionStatus.setText("Conectado");
             } else {
-                showToast(context, "Connection NOT SUCESFUL ;X");
+                //connectionStatus.setText("Desconectado");
             }
 
             super.onPostExecute(result);
@@ -145,38 +159,27 @@ public class SocketChat {
                 int port = Integer.parseInt(params[1]);
                 String room = params[2];
                 socket = new Socket(host, port);
-                socket.setTcpNoDelay(true);
-                socket.setKeepAlive(true);
-                socketOutput = new PrintWriter(socket.getOutputStream(),
-                        true);
-                socketInput = new BufferedReader(new InputStreamReader(
-                        new BufferedInputStream(new DataInputStream(
-                                socket.getInputStream()))));
-                JSONObject jo;
-                String response;
-                response = socketInput.readLine();
-                jo = new JSONObject(response);
-                // Log.i(TAG, "jo.get(\"state\") : " + jo.get("state").toString());
-                if (jo.get("state").toString().equals(Constants.CHAT_STATE_REGISTER)) {
-                    Log.i(TAG, "SI estas en modo de registro.");
-                    jo = new JSONObject();
-                    jo.put("token", Session.getSession().getToken().getToken());
-                    jo.put("room", room);
 
-                    // Log.i(TAG, "REGISTRO :" + jo.toString());
-                    socketOutput.println(jo.toString());
+                if (socket.isConnected()) {
+                    socket.setTcpNoDelay(true);
+                    socket.setKeepAlive(true);
+                    socketOutput = new PrintWriter(socket.getOutputStream(),
+                            true);
+                    socketInput = new BufferedReader(new InputStreamReader(
+                            new BufferedInputStream(new DataInputStream(
+                                    socket.getInputStream()))));
 
-                    response = socketInput.readLine();
-
-                    jo = new JSONObject(response);
-                    Log.i(TAG, "REGISTRO RESPUESTA:" + jo.toString());
-                    if (Integer.valueOf(jo.get("error").toString()) == 200) {
-                        connected = true;
-                        state = String.valueOf(jo.get("state"));
-                        Log.i(TAG, "REGISTRO RESPUESTA: state " + jo.toString());
-                    }
-                } else {
-                    Log.i(TAG, "No estas en modo de registro.");
+                    ChatClientBean clb = new ChatClientBean();
+                    clb.setType(ChatClientEnum.LOGIN);
+                    clb.setToken(Session.getSession().getToken().getToken());
+                    clb.setRoom(room);
+                    ObjectMapper mapper = new ObjectMapper();
+                    Log.d(TAG, "Mensaje de registro al chat : ".concat(mapper.writeValueAsString(clb)));
+                    socketOutput.println(mapper.writeValueAsString(clb));
+                    socketOutput.flush();
+                    String response = socketInput.readLine();
+                    ChatServerBean csb = mapper.readValue(response, ChatServerBean.class);
+                    setConnected((csb.getType() == ChatServerEnum.STATUS));
                 }
 
             } catch (UnknownHostException e) {

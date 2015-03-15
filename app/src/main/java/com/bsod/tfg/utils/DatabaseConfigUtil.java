@@ -1,5 +1,6 @@
 package com.bsod.tfg.utils;
 
+import com.bsod.tfg.modelo.chat.ChatServerBean;
 import com.bsod.tfg.modelo.sesion.User;
 import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
  */
 public class DatabaseConfigUtil extends OrmLiteConfigUtil {
     private static final Class<?>[] classes = new Class[]{
-            MessageBoard.class , User.class
+            MessageBoard.class, User.class, ChatServerBean.class
     };
 
     public static void main(String[] args) throws SQLException, IOException {

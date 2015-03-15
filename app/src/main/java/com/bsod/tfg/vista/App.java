@@ -2,9 +2,11 @@ package com.bsod.tfg.vista;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 
 import com.bsod.tfg.controlador.bbdd.DataBaseHelper;
+import com.bsod.tfg.controlador.chat.ChatService;
 import com.bsod.tfg.modelo.sesion.PreferencesManager;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -52,6 +54,7 @@ public class App extends Application {
         ImageLoader.getInstance().clearDiskCache();
 
         DataBaseHelper.getInstance(this);
+
     }
 
     @Override

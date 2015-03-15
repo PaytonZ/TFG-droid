@@ -1,5 +1,5 @@
 #
-# generated on 2015/03/14 01:59:48
+# generated on 2015/03/15 04:30:54
 #
 # --table-start--
 dataClass=com.bsod.tfg.modelo.tablon.MessageBoard
@@ -65,6 +65,35 @@ columnName=name
 # --field-start--
 fieldName=image
 columnName=image
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.bsod.tfg.modelo.chat.ChatServerBean
+tableName=ChatServerBean
+# --table-fields-start--
+# --field-start--
+fieldName=id_db
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=type
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=userId
+# --field-end--
+# --field-start--
+fieldName=room
+# --field-end--
+# --field-start--
+fieldName=message
+# --field-end--
+# --field-start--
+fieldName=time
 # --field-end--
 # --table-fields-end--
 # --table-end--

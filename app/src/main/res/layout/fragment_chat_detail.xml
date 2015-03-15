@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:padding="@dimen/android_standard_padding">
+
+    <ListView
+        android:id="@+id/listViewChat"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llSend"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:transcriptMode="alwaysScroll"
+        android:layout_below="@+id/chat_detail_room_name" />
+
+    <RelativeLayout
+        android:id="@+id/llSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff">
+
+        <EditText
+            android:id="@+id/edittext_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/send_button_chat"
+            android:layout_toLeftOf="@+id/send_button_chat"
+            android:gravity="top"
+            android:hint="@string/message_hint"
+            android:imeOptions="actionSend"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/send_button_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical|right"
+            android:text="@string/send"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/chat_detail_room_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;nombre_sala>"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

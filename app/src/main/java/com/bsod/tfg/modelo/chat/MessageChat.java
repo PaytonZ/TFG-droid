@@ -1,5 +1,6 @@
 package com.bsod.tfg.modelo.chat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -17,6 +18,9 @@ public class MessageChat implements Serializable {
     private String userName;
     @JsonProperty("room")
     private String room;
+
+    @JsonIgnore
+    private String date;
 
     public String getMessage() {
         return message;
@@ -48,5 +52,13 @@ public class MessageChat implements Serializable {
 
     public void setRoom(String room) {
         this.room = room;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
