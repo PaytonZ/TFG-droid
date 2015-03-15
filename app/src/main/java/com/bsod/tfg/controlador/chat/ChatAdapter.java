@@ -54,7 +54,7 @@ public class ChatAdapter extends ArrayAdapter<MessageChat> {
             imageLeft.setVisibility(View.VISIBLE);
             imageRight.setVisibility(View.GONE);
             body.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-            name.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+            name.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
         }
         final ImageView profileView = isMe ? imageRight : imageLeft;
         ImageLoader im = ImageLoader.getInstance();

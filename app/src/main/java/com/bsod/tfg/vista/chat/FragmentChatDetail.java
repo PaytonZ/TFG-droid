@@ -140,12 +140,6 @@ public class FragmentChatDetail extends Fragment implements View.OnClickListener
                             e.printStackTrace();
                         }
                         chatAdapter.add(mc);
-                      /*  getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                            }
-                        });*/
                     }
                     DeleteBuilder<ChatServerBean, Integer> db = daochatServer.deleteBuilder();
                     db.where().eq("room", roomName.getIdRoom());

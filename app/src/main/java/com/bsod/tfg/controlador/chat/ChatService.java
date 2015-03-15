@@ -28,11 +28,11 @@ public class ChatService extends Service {
         return isRunning;
     }
 
-    public static void sendMessage(ChatClientBean csb) throws Exception {
+    public static void sendMessage(ChatClientBean ccb) throws Exception {
         if (socket == null) {
             throw new Exception("Attempting to use a invalid socket.");
         } else {
-            socket.send(csb);
+            socket.send(ccb);
         }
     }
 
@@ -43,6 +43,7 @@ public class ChatService extends Service {
 
     private void reconnectAttempt() {
         Log.d(TAG, "Reconnecting Attempt");
+        socket = null;
         getApplicationContext().startService(new Intent(this, ChatService.class));
     }
 
@@ -89,6 +90,7 @@ public class ChatService extends Service {
 
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
+                    reconnectAttempt();
                 }
             }
         }).start();

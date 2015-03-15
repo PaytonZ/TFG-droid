@@ -89,5 +89,6 @@
     <string name="send">Enviar</string>
     <string name="profile_me">Mi foto de perfil</string>
     <string name="profile_other">Foto de perfil de usuario</string>
+    <string name="crear_nueva_sala">Crear Nueva Sala</string>
 
 </resources>
