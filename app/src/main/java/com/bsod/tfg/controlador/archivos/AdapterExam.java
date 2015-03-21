@@ -11,8 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.Pregunta;
-import com.bsod.tfg.modelo.ResponseExamStats;
+import com.bsod.tfg.modelo.archivos.Pregunta;
+import com.bsod.tfg.modelo.archivos.ResponseExamStats;
 import com.bsod.tfg.utils.ViewHolder;
 
 /**

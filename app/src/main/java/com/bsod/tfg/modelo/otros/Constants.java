@@ -14,6 +14,7 @@ public class Constants {
     /*
      * HTTP FUNCTIONS NAMES
      */
+
     /* LOGIN AND REGISTER*/
     public final static String HTTP_LOGIN_USER = "loginuser";
     public final static String HTTP_GET_PROVINCIAS = "getprovincias";
@@ -39,6 +40,9 @@ public class Constants {
     public static final String HTTP_GET_THEMES = "getthemes";
     public static final String HTTP_GET_EXAMS = "getexams";
     public static final String HTTP_SEND_EXAMS = "sendresults";
+    /* STATS */
+    public static final String HTTP_GENERATE_EXAM_STATS = "generateuserstats";
+
     /* OTHERS */
     public final static String HTTP_DOWNLOAD_MEDIA = "media/";
     public final static String HTTP_RENEW_TOKEN = "renewtoken";
@@ -64,7 +68,7 @@ public class Constants {
     //public static String BASE_URL = "http://192.168.1.12/";
     //public static String BASE_URL = "http:/bsodsoftware.me/";
     public static String SERVER_IP = "192.168.1.12";
-    // public static String SERVER_IP = "178.62.194.33";
+    //public static String SERVER_IP = "178.62.194.33";
     public static String BASE_URL = "http://".concat(SERVER_IP).concat("/");
     public static String MEDIA_URL = BASE_URL.concat("media/");
 

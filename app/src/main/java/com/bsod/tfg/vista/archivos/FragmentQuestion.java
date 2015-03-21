@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.archivos.AdapterExam;
-import com.bsod.tfg.modelo.Pregunta;
-import com.bsod.tfg.modelo.ResponseExamStats;
+import com.bsod.tfg.modelo.archivos.Pregunta;
+import com.bsod.tfg.modelo.archivos.ResponseExamStats;
 
 /**
  * A simple {@link Fragment} subclass.

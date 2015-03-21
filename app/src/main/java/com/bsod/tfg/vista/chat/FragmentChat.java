@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
     private ListView listOfChats;
     private HashMap<String, Fragment> fragmentList = new HashMap<>();
     private ButtonFloat buttonFloat;
+    private boolean isPaused;
 
     public FragmentChat() {
         // Required empty public constructor
@@ -65,8 +67,8 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
             buttonFloat = (ButtonFloat) rootView.findViewById(R.id.buttonFloat);
             buttonFloat.setBackgroundColor(getResources().getColor(R.color.red));
             buttonFloat.setOnClickListener(this);
-
             final String startingRoom = String.valueOf(Session.getSession().getFacultad().getId());
+            isPaused = false;
 
             new Handler().postDelayed(new Runnable() {
                 public void run() {
@@ -107,6 +109,7 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
                         });
 
                     }
+                    checkConnection();
                 }
             }, 200);
 
@@ -115,6 +118,45 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
             ((ViewGroup) rootView.getParent()).removeView(rootView);
         }
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isPaused = true;
+    }
+
+    public void onResume() {
+        super.onResume();
+        isPaused = false;
+    }
+
+    private void checkConnection() {
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                if (!isPaused) {
+                    Log.d(TAG, "Comprobando la conexión con el sistema de chat...");
+                    if (ChatService.isConnected()) {
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                connectionStatus.setText("Conectado");
+                            }
+                        });
+                    } else {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                connectionStatus.setText("Desconectado");
+                            }
+                        });
+
+                    }
+                }
+                checkConnection();
+            }
+        }, 30 * 1000);
     }
 
     @Override
@@ -138,7 +180,6 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
         if (view == buttonFloat) {
 
             final EditText input = new EditText(getActivity());
-
             new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.crear_nueva_sala)
                             //.setMessage("s")

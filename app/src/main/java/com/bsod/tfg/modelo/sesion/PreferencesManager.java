@@ -3,7 +3,7 @@ package com.bsod.tfg.modelo.sesion;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.bsod.tfg.modelo.Facultad;
+import com.bsod.tfg.modelo.universidades.Facultad;
 import com.google.gson.Gson;
 
 /**

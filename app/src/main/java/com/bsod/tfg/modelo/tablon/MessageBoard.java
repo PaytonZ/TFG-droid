@@ -83,8 +83,6 @@ public class MessageBoard implements Serializable {
 
     public void setCreationDateUnix(long creationDateUnix) {
         this.creationDateUnix = creationDateUnix;
-
-
     }
 
     public Date getCreationDate() {
@@ -129,8 +127,6 @@ public class MessageBoard implements Serializable {
 
 
     public String getHumanReadableDate() {
-
-
         return humanReadableDate;
     }
 

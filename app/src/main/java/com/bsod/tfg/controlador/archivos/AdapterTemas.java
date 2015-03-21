@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.otros.AdapterGeneric;
-import com.bsod.tfg.modelo.Tema;
+import com.bsod.tfg.modelo.archivos.Tema;
 import com.bsod.tfg.utils.ViewHolder;
 
 /**

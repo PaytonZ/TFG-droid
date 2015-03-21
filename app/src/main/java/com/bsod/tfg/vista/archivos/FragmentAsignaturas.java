@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.archivos.AdapterAsignaturas;
-import com.bsod.tfg.modelo.Asignatura;
+import com.bsod.tfg.modelo.archivos.Asignatura;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.HttpClient;

@@ -22,6 +22,7 @@ import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.TopBar;
 import com.bsod.tfg.vista.archivos.FragmentArchivos;
+import com.bsod.tfg.vista.archivos.FragmentEstadisticas;
 import com.bsod.tfg.vista.chat.FragmentChat;
 import com.bsod.tfg.vista.login.ActivitySplash;
 import com.bsod.tfg.vista.otros.ActivitySearchUni;
@@ -158,16 +159,14 @@ public class ActivityMain extends FragmentActivity implements
 
         switch (tab) {
             case TopBar.TAB_TABLON:
-                //f = new FragmentTablon();
                 f = fTablon;
                 break;
             case TopBar.TAB_CHAT:
-                //f = new FragmentChat();
                 f = fChat;
                 break;
             case TopBar.TAB_ARCHIVOS:
-                //f = new FragmentAsignaturas();
-                f = fArchivos;
+                //f = fArchivos; //FIXME: esto solo es para la prueba shur!
+                f = new FragmentEstadisticas();
                 break;
         }
         if (f != null) {

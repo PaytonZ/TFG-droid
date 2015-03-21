@@ -1,6 +1,6 @@
 package com.bsod.tfg.modelo.sesion;
 
-import com.bsod.tfg.modelo.Facultad;
+import com.bsod.tfg.modelo.universidades.Facultad;
 
 import java.util.concurrent.ConcurrentHashMap;
 

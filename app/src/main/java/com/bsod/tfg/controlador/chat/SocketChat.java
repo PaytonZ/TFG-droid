@@ -128,7 +128,6 @@ public class SocketChat {
     private class ConnectTask extends AsyncTask<String, Void, Void> {
 
         private Context context;
-
         public ConnectTask(Context context) {
             this.context = context;
         }
@@ -147,7 +146,6 @@ public class SocketChat {
             } else {
                 //connectionStatus.setText("Desconectado");
             }
-
             super.onPostExecute(result);
         }
 
@@ -183,14 +181,14 @@ public class SocketChat {
                 }
 
             } catch (UnknownHostException e) {
-                showToast(context, "Don't know about host: " + Constants.BASE_URL + ":" + Constants.CHAT_PORT);
+               /* showToast(context, "Don't know about host: " + Constants.BASE_URL + ":" + Constants.CHAT_PORT);*/
                 Log.e(TAG, "UnknownHostException" + e.getMessage());
             } catch (IOException e) {
-                showToast(context, "Couldn't get I/O for the connection to: " + Constants.BASE_URL + ":" + Constants.CHAT_PORT);
+                /*  showToast(context, "Couldn't get I/O for the connection to: " + Constants.BASE_URL + ":" + Constants.CHAT_PORT); /*/
                 Log.e(TAG, "IOException" + e.getMessage());
 
             } catch (Exception e) {
-                showToast(context, "Other error connection CHAT SOCKET");
+               /* showToast(context, "Other error connection CHAT SOCKET");*/
                 Log.e(TAG, "Exception " + e.getMessage());
             }
 

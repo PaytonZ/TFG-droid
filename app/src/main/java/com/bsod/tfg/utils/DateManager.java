@@ -84,6 +84,10 @@ public class DateManager {
         return sdf.format(date);
     }
 
+    public static String toDayMonthYear(Date d) {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yy", Locale.getDefault());
+        return format.format(d);
+    }
 
 }
 

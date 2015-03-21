@@ -13,9 +13,9 @@ import android.view.MenuItem;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.archivos.AdapterFragmentExams;
-import com.bsod.tfg.modelo.Pregunta;
-import com.bsod.tfg.modelo.ResponseExamStats;
-import com.bsod.tfg.modelo.ResponseExamTotal;
+import com.bsod.tfg.modelo.archivos.Pregunta;
+import com.bsod.tfg.modelo.archivos.ResponseExamStats;
+import com.bsod.tfg.modelo.archivos.ResponseExamTotal;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.viewpagerindicator.LinePageIndicator;
 

@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.Facultad;
+import com.bsod.tfg.modelo.universidades.Facultad;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.modelo.sesion.Token;
@@ -148,6 +148,7 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
                             e.printStackTrace();
                         }
                     }
+
                 });
             }
         }

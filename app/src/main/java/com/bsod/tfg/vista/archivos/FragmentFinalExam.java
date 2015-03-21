@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.PreguntaRespondida;
-import com.bsod.tfg.modelo.ResponseExamTotal;
+import com.bsod.tfg.modelo.archivos.PreguntaRespondida;
+import com.bsod.tfg.modelo.archivos.ResponseExamTotal;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.HttpClient;

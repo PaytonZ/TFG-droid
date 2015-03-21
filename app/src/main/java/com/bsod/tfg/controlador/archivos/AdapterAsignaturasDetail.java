@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.Asignatura;
+import com.bsod.tfg.modelo.archivos.Asignatura;
 import com.bsod.tfg.utils.ViewHolder;
 
 /**

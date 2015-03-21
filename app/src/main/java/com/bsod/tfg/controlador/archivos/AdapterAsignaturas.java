@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.otros.AdapterGeneric;
-import com.bsod.tfg.modelo.Asignatura;
+import com.bsod.tfg.modelo.archivos.Asignatura;
 import com.bsod.tfg.utils.FragmentReplace;
 import com.bsod.tfg.utils.ViewHolder;
 import com.bsod.tfg.vista.archivos.FragmentTemas;

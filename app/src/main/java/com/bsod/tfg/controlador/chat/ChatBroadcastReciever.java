@@ -25,6 +25,25 @@ public class ChatBroadcastReciever extends BroadcastReceiver {
             Dao<ChatServerBean, Integer> daochatServer = DataBaseHelper.getInstance().getDAOChatServer();
             daochatServer.create((ChatServerBean) intent.getSerializableExtra(Constants.CHAT_SERVER_EXTRA));
             Log.i(TAG, "Mensaje persistido en BBDD");
+/*
+            Context ctx = App.getContext();
+            NotificationManager mNotificationManager = (NotificationManager)
+                    App.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+            PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,
+                    new Intent(ctx, ActivityMain.class), 0);
+
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(App.getContext())
+                    .setSmallIcon(R.drawable.ic_launcher)
+                    .setContentTitle("Esto es una prueba")
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(App.getContext().getString(R.string.app_name)))
+                    .setContentText(App.getContext().getString(R.string.app_name))
+                    .setAutoCancel(true);
+
+            mBuilder.setContentIntent(contentIntent);
+            mNotificationManager.notify(1, mBuilder.build());
+*/
         } catch (SQLException e) {
             e.printStackTrace();
         }

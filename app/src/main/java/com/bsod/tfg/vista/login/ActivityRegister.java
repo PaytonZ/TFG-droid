@@ -18,11 +18,11 @@ import android.widget.Toast;
 
 import com.bsod.tfg.ActivityMain;
 import com.bsod.tfg.R;
-import com.bsod.tfg.modelo.Facultad;
-import com.bsod.tfg.modelo.FacultadRegistro;
-import com.bsod.tfg.modelo.GenericType;
-import com.bsod.tfg.modelo.ProvinciaRegistro;
-import com.bsod.tfg.modelo.UniversidadRegistro;
+import com.bsod.tfg.modelo.universidades.Facultad;
+import com.bsod.tfg.modelo.universidades.FacultadRegistro;
+import com.bsod.tfg.modelo.universidades.GenericType;
+import com.bsod.tfg.modelo.universidades.ProvinciaRegistro;
+import com.bsod.tfg.modelo.universidades.UniversidadRegistro;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.modelo.sesion.Token;

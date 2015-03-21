@@ -22,6 +22,7 @@ public class ChatService extends Service {
     private static boolean isRunning = false;
     // Random number generator
     private static SocketChat socket;
+    private int numberOfAttemps = 0;
     // Binder given to clients
 
     public static boolean isConnected() {
@@ -42,9 +43,14 @@ public class ChatService extends Service {
     }
 
     private void reconnectAttempt() {
-        Log.d(TAG, "Reconnecting Attempt");
-        socket = null;
-        getApplicationContext().startService(new Intent(this, ChatService.class));
+
+        final ChatService cs = this;
+        Log.d(TAG, "Reconnecting Attempt Number ".concat(String.valueOf(numberOfAttemps)));
+
+        getApplicationContext().startService(new Intent(cs, ChatService.class));
+        numberOfAttemps++;
+
+
     }
 
     @Override
@@ -52,9 +58,12 @@ public class ChatService extends Service {
         Log.d(TAG, "Chat Service started");
         if (socket == null) {
             socket = new SocketChat();
-            socket.connect(getApplicationContext(), String.valueOf(Session.getSession().getFacultad().getId()));
-            startListening();
+        } else {
+            socket.disconnect(getApplicationContext());
         }
+        socket.connect(getApplicationContext(), String.valueOf(Session.getSession().getFacultad().getId()));
+        startListening();
+
         return START_STICKY;
     }
 
@@ -85,12 +94,12 @@ public class ChatService extends Service {
                         startListening();
                     } else {
                         Log.e(TAG, "El servicio de chat no se ha iniciado con normalidad");
-                        reconnectAttempt();
+                        if (numberOfAttemps < 3) reconnectAttempt();
                     }
 
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
-                    reconnectAttempt();
+                    if (numberOfAttemps < 3) reconnectAttempt();
                 }
             }
         }).start();
@@ -105,6 +114,7 @@ public class ChatService extends Service {
             csb = mapper.readValue(message, ChatServerBean.class);
         } catch (IOException e) {
             e.printStackTrace();
+            if (numberOfAttemps < 3) reconnectAttempt();
         }
         intent.putExtra(Constants.CHAT_SERVER_EXTRA, csb);
         sendBroadcast(intent);

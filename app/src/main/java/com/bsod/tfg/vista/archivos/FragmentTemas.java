@@ -17,9 +17,9 @@ import android.widget.Toast;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.archivos.AdapterTemas;
-import com.bsod.tfg.modelo.Asignatura;
-import com.bsod.tfg.modelo.Pregunta;
-import com.bsod.tfg.modelo.Tema;
+import com.bsod.tfg.modelo.archivos.Asignatura;
+import com.bsod.tfg.modelo.archivos.Pregunta;
+import com.bsod.tfg.modelo.archivos.Tema;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.HttpClient;
