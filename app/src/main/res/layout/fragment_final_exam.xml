@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="2dp"
+    android:padding="@dimen/android_standard_padding"
     tools:context="com.bsod.tfg.vista.archivos.FragmentFinalExam">
 
 

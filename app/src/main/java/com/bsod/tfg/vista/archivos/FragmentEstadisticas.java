@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -55,13 +54,12 @@ public class FragmentEstadisticas extends Fragment {
         // Inflate the layout for this fragment
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_estadisticas, container, false);
-            final LinearLayout l = (LinearLayout) rootView.findViewById(R.id.fragment_estadisticas_layout);
             final PieChart chart_stats_answers = (PieChart) rootView.findViewById(R.id.chart_answers);
+            chart_stats_answers.setDescription("");
             final LineChart chart_mark = (LineChart) rootView.findViewById(R.id.chart_mark);
+            chart_mark.setDescription("");
             context = getActivity();
             RequestParams params = new RequestParams();
-
-
             params.put("token", Session.getSession().getToken().getToken());
 
             HttpClient.get(Constants.HTTP_GENERATE_EXAM_STATS, params, new JsonHttpResponseHandlerCustom(getActivity()) {
@@ -74,6 +72,11 @@ public class FragmentEstadisticas extends Fragment {
                             //swipeLayout.setRefreshing(true);
                             ObjectMapper mapper = new ObjectMapper();
                             EstadisticasGlobalTest egt = mapper.readValue(response.get("data").toString(), EstadisticasGlobalTest.class);
+                            /* Tabla de Nota media y Tiempo Medio */
+                            TableLayout table_average = (TableLayout) rootView.findViewById(R.id.table_average);
+                            createRowTableAverage(table_average, "Nota Media", String.valueOf(egt.getAverageMark()));
+                            createRowTableAverage(table_average, "Tiempo Medio (segundos)", String.valueOf(egt.getAverageTime() / 1000));
+                            /* Gráfico circular de estadísticas de acierto */
                             ArrayList<Entry> responseData = new ArrayList<>();
                             responseData.add(new Entry(egt.getAverageCorrect(), 0));
                             responseData.add(new Entry(egt.getAverageFailed(), 1));
@@ -98,18 +101,41 @@ public class FragmentEstadisticas extends Fragment {
                             pd.setValueTextColor(getResources().getColor(R.color.white));
                             chart_stats_answers.setData(pd);
                             chart_stats_answers.invalidate();
-
-                            LineData ld = new LineData();
-                            responseData = new ArrayList<>();
+                            /* Gráfico lineal de fecha y nota */
+                            ArrayList<Entry> notasEntry = new ArrayList<>();
+                            ArrayList<Entry> aciertosEntry = new ArrayList<>();
+                            ArrayList<Entry> fallosEntry = new ArrayList<>();
+                            ArrayList<Entry> noContestadasEntry = new ArrayList<>();
                             ArrayList<String> xVals = new ArrayList<>();
+
+
                             int lenght = egt.getEstadisticasTests().length;
                             for (int i = 0; i < lenght; i++) {
-                                responseData.add(new Entry(egt.getEstadisticasTests()[i].getNota(), i));
+                                notasEntry.add(new Entry(egt.getEstadisticasTests()[i].getNota(), i));
+                                aciertosEntry.add(new Entry(egt.getEstadisticasTests()[i].getAcertadas(), i));
+                                fallosEntry.add(new Entry(egt.getEstadisticasTests()[i].getFalladas(), i));
+                                noContestadasEntry.add(new Entry(egt.getEstadisticasTests()[i].getNoRespondidas(), i));
                                 xVals.add(toDayMonthYear(egt.getEstadisticasTests()[i].getDate()));
                             }
-                            LineDataSet setComp1 = new LineDataSet(responseData, "Notas");
-                            LineData data = new LineData(xVals, setComp1);
+                            LineDataSet notasLDS = new LineDataSet(notasEntry, "Notas");
+                            LineDataSet aciertosLDS = new LineDataSet(aciertosEntry, "Aciertos");
+                            LineDataSet fallosLDS = new LineDataSet(fallosEntry, "Fallos");
+                            LineDataSet nocontestadasLDS = new LineDataSet(noContestadasEntry, "No Contestadas");
+
+                            aciertosLDS.setColor(getResources().getColor(R.color.green_test));
+                            fallosLDS.setColor(getResources().getColor(R.color.red_test));
+                            nocontestadasLDS.setColor(getResources().getColor(R.color.orange));
+
+                            ArrayList<LineDataSet> dataSets = new ArrayList<>();
+                            dataSets.add(notasLDS);
+                            dataSets.add(aciertosLDS);
+                            dataSets.add(fallosLDS);
+                            dataSets.add(nocontestadasLDS);
+
+
+                            LineData data = new LineData(xVals, dataSets);
                             chart_mark.setData(data);
+
                             chart_mark.setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -119,20 +145,6 @@ public class FragmentEstadisticas extends Fragment {
                             chart_mark.invalidate(); // refresh
 
 
-                            TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, 150);
-                            TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-
-                            TableLayout tableLayout = new TableLayout(context);
-                            tableLayout.setLayoutParams(tableParams);
-
-                            TableRow tableRow = new TableRow(context);
-                            tableRow.setLayoutParams(tableParams);
-
-                            TextView textView = new TextView(context);
-                            textView.setLayoutParams(rowParams);
-                            textView.setText("WTG");
-                            tableRow.addView(textView);
-                            l.addView(tableLayout);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -147,5 +159,50 @@ public class FragmentEstadisticas extends Fragment {
         return rootView;
     }
 
+
+    private void createRowTableAverage(TableLayout tb, String text1, String text2) {
+        TableRow tR = new TableRow(context);
+        tR.setPadding(5, 5, 5, 5);
+        TextView tV_txt1 = new TextView(context);
+        tV_txt1.setText(text1);
+        TextView tV_txt2 = new TextView(context);
+        tV_txt2.setText(text2);
+        tR.addView(tV_txt1);
+        tR.addView(tV_txt2);
+        tb.addView(tR);
+    }
+
+
+    private void createRowTest(TableLayout tb, String fecha, String nota, String acertadas, String falladas, String noContestadas, String tiempo) {
+        TableRow tR = new TableRow(context);
+
+        //Drawable background = getResources().getDrawable(R.drawable.border_question);
+        tR.setPadding(5, 5, 5, 5);
+        TextView tV_txt1 = new TextView(context);
+        TextView tV_txt2 = new TextView(context);
+        TextView tV_txt3 = new TextView(context);
+        TextView tV_txt4 = new TextView(context);
+        TextView tV_txt5 = new TextView(context);
+        TextView tV_txt6 = new TextView(context);
+
+        tV_txt1.setText(fecha);
+        tV_txt2.setText(nota);
+        tV_txt3.setText(acertadas);
+        tV_txt4.setText(falladas);
+        tV_txt5.setText(noContestadas);
+        tV_txt6.setText(tiempo);
+
+        tV_txt1.setPadding(0, 0, 6, 0);
+        tV_txt2.setPadding(0, 0, 6, 0);
+
+        tR.addView(tV_txt1);
+        tR.addView(tV_txt2);
+        tR.addView(tV_txt3);
+        tR.addView(tV_txt4);
+        tR.addView(tV_txt5);
+        tR.addView(tV_txt6);
+
+        tb.addView(tR);
+    }
 
 }

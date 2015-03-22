@@ -3,7 +3,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <com.bsod.tfg.utils.TopBar
         android:id="@+id/topBar"
         android:layout_width="wrap_content"
@@ -44,10 +43,7 @@
     <FrameLayout
         android:id="@+id/fragment"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/topBar">
+        android:layout_height="match_parent">
 
     </FrameLayout>
 

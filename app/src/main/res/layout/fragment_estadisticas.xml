@@ -3,22 +3,30 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/fragment_estadisticas_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:weightSum="1"
-        android:id="@+id/fragment_estadisticas_layout">
+        android:padding="@dimen/android_standard_padding"
+        android:weightSum="1">
 
+        <TableLayout
+            android:id="@+id/table_average"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:stretchColumns="*" />
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/chart_answers"
-            android:layout_width="match_parent"
-            android:layout_height="250dp" />
+            android:layout_width="fill_parent"
+            android:layout_height="300dp" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart_mark"
-            android:layout_width="wrap_content"
-            android:layout_height="250dp" />
+            android:layout_width="fill_parent"
+            android:layout_height="300dp" />
 
     </LinearLayout>
 </ScrollView>

@@ -49,8 +49,6 @@ public class ActivityMain extends FragmentActivity implements
     private FragmentTablon fTablon;
     private FragmentChat fChat;
     private FragmentArchivos fArchivos;
-    private ChatService chatService;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,14 +97,20 @@ public class ActivityMain extends FragmentActivity implements
             case R.id.action_logout:
                 Session.destroySession();
                 Toast.makeText(this, R.string.desconectado, Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "UnLogin OK!");
+                Log.d(TAG, "Unlogin OK!");
                 Intent intent = new Intent(getApplicationContext(), ActivitySplash.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //intent.putExtra("EXIT", true);
                 startActivity(intent);
 
                 return true;
+
+            case R.id.action_statistics:
+                menu.setTab(-1);
+                replaceFragment(new FragmentEstadisticas());
+                return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -165,8 +169,7 @@ public class ActivityMain extends FragmentActivity implements
                 f = fChat;
                 break;
             case TopBar.TAB_ARCHIVOS:
-                //f = fArchivos; //FIXME: esto solo es para la prueba shur!
-                f = new FragmentEstadisticas();
+                f = fArchivos;
                 break;
         }
         if (f != null) {

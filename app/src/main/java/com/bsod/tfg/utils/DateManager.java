@@ -89,5 +89,9 @@ public class DateManager {
         return format.format(d);
     }
 
+    public static String timeStamptoDayMonthYear(long date) {
+        return toDayMonthYear(new Date(date * 1000L));
+    }
+
 }
 

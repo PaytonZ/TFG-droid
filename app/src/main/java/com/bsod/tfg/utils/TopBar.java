@@ -56,6 +56,10 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
 
     }
 
+    public void setTab(int idtab) {
+        selectedTab = idtab;
+    }
+
     @Override
     /** Onclick del tab , si se cambia rapidamente de TAB , se produce una excepcion.
      * Solución realizada : se incluye un delay de entre cambio de pestaña para evitar dicho error

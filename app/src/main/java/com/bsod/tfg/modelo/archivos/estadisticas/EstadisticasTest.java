@@ -24,10 +24,11 @@ public class EstadisticasTest implements Serializable {
     @JsonProperty("failed")
     private int falladas;
     @JsonProperty("not_answered")
-    private float noRespondidas;
+    private int noRespondidas;
 
     @JsonIgnore
     private Date date;
+
     public long getFecha() {
         return fecha;
     }
@@ -76,11 +77,11 @@ public class EstadisticasTest implements Serializable {
         this.falladas = falladas;
     }
 
-    public float getNoRespondidas() {
+    public int getNoRespondidas() {
         return noRespondidas;
     }
 
-    public void setNoRespondidas(float noRespondidas) {
+    public void setNoRespondidas(int noRespondidas) {
         this.noRespondidas = noRespondidas;
     }
 
