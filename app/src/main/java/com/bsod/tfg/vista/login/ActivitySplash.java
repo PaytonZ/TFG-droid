@@ -42,9 +42,8 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
         } else {
 
             // Hack taken from http://stackoverflow.com/questions/2776116/how-do-i-dynamically-choose-which-activity-to-launch-when-opening-an-app
-            if (Session.getSession().getUser() != null && Session.getSession().getUser().getName() != "") {
+            if (Session.getSession().getUser() != null && !Session.getSession().getUser().getName().equals("")) {
                 // Tenemos que comprobar si el token sigue siendo valido , o obligar a volver a logear
-
                 RequestParams params = new RequestParams();
                 params.put("token", Session.getSession().getToken().getToken());
                 HttpClient.get(Constants.HTTP_RENEW_TOKEN, params, new JsonHttpResponseHandlerCustom(this) {
@@ -114,6 +113,7 @@ public class ActivitySplash extends Activity implements View.OnClickListener {
 
                 });
             } else {
+                Log.i(TAG, "Usuario no conectado previamente.");
                 setContentView(R.layout.activity_splash);
                 button_registrate = (Button) findViewById(R.id.splash_registrate_button);
                 button_login = (Button) findViewById(R.id.splash_login_button);

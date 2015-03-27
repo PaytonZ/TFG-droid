@@ -1,11 +1,12 @@
 package com.bsod.tfg.utils;
 
-import android.app.ProgressDialog;
+
 import android.content.Context;
 import android.widget.TextView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.vista.App;
+import com.gc.materialdesign.widgets.ProgressDialog;
 
 /**
  * Created by Payton on 14/10/2014.
@@ -24,7 +25,7 @@ public class ProgressDialogCustom {
      */
     public static void makeDialog(Context context, String message, String title) {
 
-        progressDialog = ProgressDialog.show(context, title, message);
+        //progressDialog = ProgressDialog.show(context, title, message);
 
         progressDialog.setContentView(R.layout.progress_custom);
         TextView tv = (TextView) progressDialog.findViewById(R.id.progressdialogtext);
@@ -39,9 +40,12 @@ public class ProgressDialogCustom {
      */
     public static void makeDialogLoading(Context context) {
 
-        progressDialog = ProgressDialog.show(context, "", App.getContext().getResources().getString(R.string.loading));
-        progressDialog.setContentView(R.layout.progress_custom);
+        progressDialog = new ProgressDialog(context, App.getContext().getResources().getString(R.string.loading));
+        //progressDialog = ProgressDialog.show(context, "", App.getContext().getResources().getString(R.string.loading));
+        progressDialog.requestWindowFeature(R.layout.progress_custom);
+        //progressDialog.setContentView(R.layout.progress_custom);
         progressDialog.setCancelable(true);
+        progressDialog.show();
     }
 
     /**

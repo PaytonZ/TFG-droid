@@ -294,14 +294,13 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public void onSendMessageBoard(String inputText) {
+    public void onSendMessageBoard(String inputText, boolean anonymous) {
 
         RequestParams params = new RequestParams();
         params.put("token", Session.getSession().getToken().getToken());
         params.put("message", inputText);
         params.put("idfaculty", Session.getSession().getFacultad().getId());
-
-        //refreshMessages();
+        params.put("anonymous", anonymous);
 
         HttpClient.get(Constants.HTTP_POST_MESSAGES_BOARD, params, new JsonHttpResponseHandlerCustom(getActivity()) {
             @Override
@@ -312,15 +311,25 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                     if (error == 200) {
                         ObjectMapper mapper = new ObjectMapper();
                         mapper.configure(SerializationFeature.USE_EQUALITY_FOR_OBJECT_ID, true);
-                        List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
+                        final List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
                                 response.get("data").toString(), new TypeReference<List<MessageBoard>>() {
                                 });
                         //listOfMessagesUpdated.addAll(0, listOfMessagesUpdated);
                         aTablon.addMessages(listOfMessagesUpdated);
-                        for (MessageBoard mb : listOfMessagesUpdated) {
-                            daoMessageBoard.createOrUpdate(mb);
-                            daoUsers.createIfNotExists(mb.getUser());
-                        }
+                        new Thread() {
+                            @Override
+                            public void run() {
+                                try {
+                                    for (MessageBoard mb : listOfMessagesUpdated) {
+                                        daoMessageBoard.createOrUpdate(mb);
+                                        daoUsers.createIfNotExists(mb.getUser());
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }.start();
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -5,7 +5,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Opciones</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <color name="red">#FF6969</color>
     <color name="red2">#91368C</color>
     <color name="black">#000</color>
@@ -20,8 +19,8 @@
     <string name="title_activity_activity_splash">ActivitySplash</string>
     <string name="registrate">Crear mi cuenta</string>
     <string name="inicia_sesion">Inicia Sesión</string>
-    <string name="title_activity_activity_registrate">ActivityRegistrate</string>
-    <string name="title_activity_activity_login">ActivityLogin</string>
+    <string name="title_activity_activity_registrate">¡Registrate!</string>
+    <string name="title_activity_activity_login">¡Conéctate!</string>
     <string name="usuario">Usuario</string>
     <string name="contraseña">Contraseña</string>
     <string name="invalid_user_password">Usuario y/o contraseña no válidos</string>
@@ -40,7 +39,7 @@
     <string name="selecciona_facultad"><![CDATA[<<Seleciona Facultad>>]]></string>
     <string name="loading">Cargando…</string>
     <string name="passlenght">Al menos 6 caracteres</string>
-    <string name="register_bad_parameters"> ¡Psst! ¡Hay algún parámetro que está mal! </string>
+    <string name="register_bad_parameters">¡Psst!¡Hay algún parámetro que está mal!</string>
     <string name="already_existing_user"> Ya existe un usuario con ese nombre </string>
     <string name="already_existing_email">Ya existe un usuario con ese e-mail</string>
     <string name="successful_register">¡ Te has registrado satisfactoriamente !</string>
@@ -56,7 +55,7 @@
     <string name="segundo">SEGUNDO CURSO</string>
     <string name="tercero">TERCER CURSO</string>
     <string name="cuarto">CUARTO CURSO</string>
-    <string name="title_activity_activity_solve_exam">ActivitySolveExam</string>
+    <string name="title_activity_activity_solve_exam">Resolviendo un examen</string>
     <string name="solvedexamtext">¡ Enhorabuena ! \nHas completado el examen con éxito.\nPulsa este botón para mandar los resultados o revisa las preguntas antes de enviarlas</string>
     <string name="send_results_text">¡ Enviar Resultados !</string>
     <string name="your_results">Tus resultados :</string>
@@ -82,15 +81,21 @@
     <string name="splash_connection_error">Hay un error con la conexión al servidor… Inténtelo más tarde.</string>
     <string name="tab_chat_next">Próximamente incluiremos aquí un sistema de chat para que puedas comunicarte con los compañeros de tu facultad o con quien tú quieras :)</string>
     <string name="activity_settings_name">Tus opciones</string>
-    <string name="title_activity_activity_change_password">ActivityChangePassword</string>
+    <string name="title_activity_activity_change_password">Cambiar Contraseña</string>
     <string name="new_password_repeat">Contraseña Nueva (repetir)</string>
     <string name="change_password">Cambiar Contraseña</string>
-    <string name="title_activity_activity_change_faculty">ActivityChangeFaculty</string>
+    <string name="title_activity_activity_change_faculty">Cambiar Facultad</string>
     <string name="message_hint">Escribe algo ... ;)</string>
     <string name="send">Enviar</string>
     <string name="profile_me">Mi foto de perfil</string>
     <string name="profile_other">Foto de perfil de usuario</string>
     <string name="crear_nueva_sala">Crear Nueva Sala</string>
     <string name="action_statistics">Tus estadísticas</string>
+    <string name="anonymous_question">¿Anónimo?</string>
+    <string name="old_password">Antigua Contraseña</string>
+    <string name="new_password">Contraseña Nueva</string>
+    <string name="actual_password">Contraseña Actual</string>
+    <string name="change_faculty">Cambiar Facultad</string>
+    <string name="change_faculty_satisfactory">Has cambiado de facultad satisfactoriamente</string>
 
 </resources>

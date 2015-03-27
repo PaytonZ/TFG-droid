@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/android_standard_padding">
 
 
     <TextView
@@ -9,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/localizacion"></TextView>
+        android:text="@string/localizacion" />
 
     <Spinner
         android:id="@+id/spinnerlocation"
@@ -45,5 +46,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <TextView
+
+        style="@style/registertext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/actual_password" />
+
+    <EditText
+        android:id="@+id/change_faculty_password"
+        style="@style/register"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/change_faculty_button"
+        style="@style/registertext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/change_faculty" />
 
 </LinearLayout>

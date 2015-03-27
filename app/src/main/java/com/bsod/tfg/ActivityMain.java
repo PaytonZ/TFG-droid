@@ -53,8 +53,8 @@ public class ActivityMain extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        startService(new Intent(this, ChatService.class));
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, ChatService.class));
         uni_location = Session.getSession().getFacultad().getNombre();
         setContentView(R.layout.activity_main);
         location = (TextView) findViewById(R.id.location);

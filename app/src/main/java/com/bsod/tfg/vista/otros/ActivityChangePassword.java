@@ -3,6 +3,8 @@ package com.bsod.tfg.vista.otros;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,7 @@ import org.json.JSONObject;
 
 public class ActivityChangePassword extends Activity implements View.OnClickListener {
 
+    private static final String TAG = "ActivityChangePassword";
     private TextView oldpassword;
     private TextView newpassword1;
     private TextView newpassword2;
@@ -67,7 +70,7 @@ public class ActivityChangePassword extends Activity implements View.OnClickList
     public void onClick(View view) {
         if (view == changePassword) {
 
-            if (newpassword1.getText().length() > 6 && newpassword1.getText().equals(newpassword2.getText())) {
+            if (newpassword1.getText().length() > 6 && newpassword1.getText().toString().equals(newpassword2.getText().toString())) {
 
                 RequestParams params = new RequestParams();
                 params.put("token", Session.getSession().getToken().getToken());
@@ -82,7 +85,14 @@ public class ActivityChangePassword extends Activity implements View.OnClickList
                             error = Integer.parseInt(response.get("error").toString());
                             if (error == 200) {
                                 Toast.makeText(context, "Cambio de contraseña satisfactorio", Toast.LENGTH_SHORT).show();
-                                finish();
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        finish();
+                                    }
+                                }, 1000);
+
                             } else {
                                 Toast.makeText(context, "¡ Cambio de contraseña ERRÓNEO! ", Toast.LENGTH_SHORT).show();
                             }
@@ -96,7 +106,9 @@ public class ActivityChangePassword extends Activity implements View.OnClickList
             } else {
 
                 Toast.makeText(this, R.string.register_bad_parameters, Toast.LENGTH_SHORT).show();
-
+                Log.d(TAG, "lenght >6".concat(String.valueOf(newpassword1.getText().length())));
+                Log.d(TAG, newpassword1.getText().toString());
+                Log.d(TAG, newpassword2.getText().toString());
             }
 
 

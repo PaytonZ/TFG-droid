@@ -128,6 +128,7 @@ public class SocketChat {
     private class ConnectTask extends AsyncTask<String, Void, Void> {
 
         private Context context;
+
         public ConnectTask(Context context) {
             this.context = context;
         }

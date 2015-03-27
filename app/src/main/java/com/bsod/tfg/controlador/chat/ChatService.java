@@ -84,6 +84,7 @@ public class ChatService extends Service {
                     }
                     if (socket.isConnected()) {
                         Log.d(TAG, "Servicio de Chat Recibiendo mensajes con normalidad");
+                        numberOfAttemps = 0;
                         isRunning = true;
                         while ((result = socket.recieve()) == null) {
                             Log.d(TAG, "Durmiendo ServiceChat 2 seg");

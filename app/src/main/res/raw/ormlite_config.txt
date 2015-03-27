@@ -1,5 +1,5 @@
 #
-# generated on 2015/03/15 04:30:54
+# generated on 2015/03/27 10:32:49
 #
 # --table-start--
 dataClass=com.bsod.tfg.modelo.tablon.MessageBoard
@@ -53,9 +53,13 @@ dataClass=com.bsod.tfg.modelo.sesion.User
 tableName=user
 # --table-fields-start--
 # --field-start--
+fieldName=id
+columnName=id
+generatedId=true
+# --field-end--
+# --field-start--
 fieldName=idUser
 columnName=idUser
-id=true
 indexName=user_idUser_idx
 # --field-end--
 # --field-start--

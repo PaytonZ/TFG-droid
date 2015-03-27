@@ -6,7 +6,7 @@
     <Preference
         android:key="change_password"
         android:title="@string/preference_change_password" />
-    <!-- <Preference
-         android:key="change_faculty"
-         android:title="@string/preference_change_faculty" /> -->
+    <Preference
+        android:key="change_faculty"
+        android:title="@string/preference_change_faculty" />
 </PreferenceScreen>

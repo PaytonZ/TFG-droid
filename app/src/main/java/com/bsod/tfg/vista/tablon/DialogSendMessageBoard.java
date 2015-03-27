@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.bsod.tfg.ActivityMain;
@@ -19,9 +20,9 @@ public class DialogSendMessageBoard extends DialogFragment implements View.OnCli
 
     private TextView dialogTextViewMessage;
 
-
     /* Helpers for the DialogFrament */
     private Button dialogButtonSendMessage;
+    private CheckBox anonymous;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class DialogSendMessageBoard extends DialogFragment implements View.OnCli
         dialogTextViewMessage = (TextView) v.findViewById(R.id.dialog_message_text);
         dialogButtonSendMessage = (Button) v.findViewById(R.id.dialog_message_button);
         dialogButtonSendMessage.setOnClickListener(this);
-
+        anonymous = (CheckBox) v.findViewById(R.id.checkBoxAnonymous);
         return builder.create();
     }
 
@@ -47,13 +48,14 @@ public class DialogSendMessageBoard extends DialogFragment implements View.OnCli
         if (view == dialogButtonSendMessage) {
             //TODO: horrible hack i have done ;/
             DialogSendMessageBoardListener activity = (DialogSendMessageBoardListener) ((ActivityMain) getActivity()).getCurrentFragment();
-            activity.onSendMessageBoard(dialogTextViewMessage.getText().toString());
+            activity.onSendMessageBoard(dialogTextViewMessage.getText().toString(), anonymous.isChecked());
+
             this.dismiss();
         }
     }
 
 
     public interface DialogSendMessageBoardListener {
-        void onSendMessageBoard(String inputText);
+        void onSendMessageBoard(String inputText, boolean anonymous);
     }
 }

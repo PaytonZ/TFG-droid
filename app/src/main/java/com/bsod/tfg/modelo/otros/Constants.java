@@ -27,6 +27,8 @@ public class Constants {
     /* USER STUFF */
     public static final String HTTP_UPLOAD_IMAGE = "uploadimageuser";
     public static final String HTTP_CHANGE_PASSWORD = "changepassword";
+    public static final String HTTP_CHANGE_FACULTY = "changefaculty";
+
     /* TABLON */
     public static final String HTTP_GET_MESSAGES_BOARD = "getmensajestablon";
     public static final String HTTP_POST_MESSAGES_BOARD = "sendmensajetablon";

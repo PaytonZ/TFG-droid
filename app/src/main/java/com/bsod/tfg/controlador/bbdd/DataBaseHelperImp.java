@@ -27,7 +27,7 @@ public class DataBaseHelperImp extends DataBaseHelper {
     protected void openDataBase() throws SQLException {
         //Open the database
         String myPath = DB_PATH; //+ DB_NAME;
-        // myDataBase = SQLiteDatabase.openOrCreateDatabase(myPath,SQLiteDatabase.OPEN_READWRITE, null);
+        myDataBase = SQLiteDatabase.openDatabase(myPath, null, Context.MODE_PRIVATE);
     }
 
 
@@ -47,10 +47,9 @@ public class DataBaseHelperImp extends DataBaseHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
 
         try {
-            TableUtils.createTable(connectionSource, MessageBoard.class);
-            TableUtils.createTable(connectionSource, User.class);
-            TableUtils.createTable(connectionSource, ChatServerBean.class);
-
+            TableUtils.createTableIfNotExists(connectionSource, MessageBoard.class);
+            TableUtils.createTableIfNotExists(connectionSource, User.class);
+            TableUtils.createTableIfNotExists(connectionSource, ChatServerBean.class);
 
         } catch (SQLException e) {
             e.printStackTrace();

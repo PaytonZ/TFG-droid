@@ -13,7 +13,10 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "user")
 public class User implements Serializable {
 
-    @DatabaseField(columnName = "idUser", index = true, id = true)
+    @DatabaseField(columnName = "id", generatedId = true)
+    private int id;
+
+    @DatabaseField(columnName = "idUser", index = true)
     @JsonProperty("pk")
     private int idUser;
 

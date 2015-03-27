@@ -2,11 +2,11 @@ package com.bsod.tfg.vista;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import com.bsod.tfg.controlador.bbdd.DataBaseHelper;
-import com.bsod.tfg.controlador.chat.ChatService;
 import com.bsod.tfg.modelo.sesion.PreferencesManager;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -19,41 +19,23 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  */
 public class App extends Application {
 
-    private static Context mContext;
+    private static final String TAG = "App";
+    private static Context applicationContext;
 
     public static Context getContext() {
-        return mContext;
+        return applicationContext;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
         // your application starts from here
-        mContext = this;
-        initModel();
-    }
-
-    private void initModel() {
-        Context applicationContext = getApplicationContext();
-        PreferencesManager.initializeInstance(applicationContext);
-        Session.loadPreferences();
-
-        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .resetViewBeforeLoading(true)
-                .build();
-        ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this)
-                .memoryCacheSize(41943040)
-                .threadPoolSize(10)
-                .defaultDisplayImageOptions(defaultOptions)
-                .build();
-        ImageLoader.getInstance().init(imageLoaderConfiguration);
-        //TODO: Cuando la cache funcione bien , quitar eso
-        ImageLoader.getInstance().clearMemoryCache();
-        ImageLoader.getInstance().clearDiskCache();
-
-        DataBaseHelper.getInstance(this);
+        applicationContext = this;
+        try {
+            new SetUpApp().execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -72,11 +54,50 @@ public class App extends Application {
         // a configuration changes
     }
 
-
     @Override
     public void onTerminate() {
         super.onTerminate();
         // This method is for use in emulated process environments only.
         // You can simply forget about it because it will never be called on real device
+    }
+
+    private class SetUpApp extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            PreferencesManager.initializeInstance(applicationContext);
+            Session.loadPreferences();
+
+            DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .resetViewBeforeLoading(true)
+                    .build();
+            ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(applicationContext)
+                    .memoryCacheSize(41943040)
+                    .threadPoolSize(10)
+                    .defaultDisplayImageOptions(defaultOptions)
+                    .build();
+            ImageLoader.getInstance().init(imageLoaderConfiguration);
+            //TODO: Cuando la cache funcione bien , quitar eso
+            ImageLoader.getInstance().clearMemoryCache();
+            ImageLoader.getInstance().clearDiskCache();
+
+            DataBaseHelper.getInstance(applicationContext);
+
+            Log.i(TAG, "App Startup Completed");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(null);
+
+        }
     }
 }

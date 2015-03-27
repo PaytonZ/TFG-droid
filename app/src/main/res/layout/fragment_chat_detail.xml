@@ -13,8 +13,8 @@
         android:layout_above="@+id/llSend"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:transcriptMode="alwaysScroll"
-        android:layout_below="@+id/chat_detail_room_name" />
+        android:layout_below="@+id/chat_detail_room_name"
+        android:transcriptMode="alwaysScroll" />
 
     <RelativeLayout
         android:id="@+id/llSend"
@@ -48,8 +48,8 @@
         android:id="@+id/chat_detail_room_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="&lt;nombre_sala>"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="&lt;nombre_sala>" />
 
 </RelativeLayout>

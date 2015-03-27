@@ -31,15 +31,15 @@ public abstract class DataBaseHelper extends OrmLiteSqliteOpenHelper {
         myContext = context;
         DB_PATH = context.getDatabasePath(Constants.DB_NAME).getPath();
         //context.deleteDatabase(Constants.DB_NAME);
-
-
         Log.i(DataBaseHelper.class.getName(), "onCreate");
         try {
             //openDataBase();
-            //onCreate(myDataBase, connectionSource);
+            //SQLiteDatabase myDataBase = null;
+            onCreate(myDataBase, connectionSource);
             /* Chat Tables destroyed at start */
             TableUtils.dropTable(connectionSource, ChatServerBean.class, true);
-            TableUtils.createTable(connectionSource, ChatServerBean.class);
+            TableUtils.createTableIfNotExists(connectionSource, ChatServerBean.class);
+
 
         } catch (Exception e) {
             e.printStackTrace();
