@@ -117,5 +117,8 @@
     <string name="october">Octubre</string>
     <string name="november">Noviembre</string>
     <string name="december">Diciembre</string>
+    <string name="description_optional">Descripción (opcional)</string>
+    <string name="upload_file">Subir archivo</string>
+    <string name="select_image">Selecciona Imagen</string>
 
 </resources>

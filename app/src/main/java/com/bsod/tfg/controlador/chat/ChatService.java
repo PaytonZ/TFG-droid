@@ -26,7 +26,7 @@ public class ChatService extends Service {
     // Binder given to clients
 
     public static boolean isConnected() {
-        return isRunning;
+        return socket.isConnected();
     }
 
     public static void sendMessage(ChatClientBean ccb) throws Exception {
@@ -43,10 +43,13 @@ public class ChatService extends Service {
     }
 
     private void reconnectAttempt() {
-
         final ChatService cs = this;
         Log.d(TAG, "Reconnecting Attempt Number ".concat(String.valueOf(numberOfAttemps)));
-
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         getApplicationContext().startService(new Intent(cs, ChatService.class));
         numberOfAttemps++;
 

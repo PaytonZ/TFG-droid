@@ -1,7 +1,10 @@
 package com.bsod.tfg.vista.archivos;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -26,17 +30,23 @@ import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gc.materialdesign.views.Button;
+import com.kbeanie.imagechooser.api.ChooserType;
+import com.kbeanie.imagechooser.api.ChosenImage;
+import com.kbeanie.imagechooser.api.ImageChooserListener;
+import com.kbeanie.imagechooser.api.ImageChooserManager;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSelectedListener, DatePickerDialogFragment.DatePickerDialogHandler, View.OnClickListener {
+public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSelectedListener, DatePickerDialogFragment.DatePickerDialogHandler, View.OnClickListener,
+        ImageChooserListener {
 
     private static final String TAG = "FragmentUploadFile";
     private View rootView;
@@ -49,11 +59,15 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
     private TextView textViewYear;
     private int monthSelected;
     private int yearSelected;
+    private Button buttonSelectimage;
+    private ImageChooserManager imageChooserManager;
+    private ImageView imageViewThumb;
+    private int chooserType;
+    private String filePath;
 
     public FragmentUploadFile() {
         // Required empty public constructor
     }
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,6 +80,12 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
             textViewMonth = (TextView) rootView.findViewById(R.id.textViewMonth);
             textViewYear = (TextView) rootView.findViewById(R.id.textViewYear);
             button_selectyearmonth.setOnClickListener(this);
+
+            buttonSelectimage = (Button) rootView.findViewById(R.id.button_selectimage);
+            buttonSelectimage.setOnClickListener(this);
+
+            imageViewThumb = (ImageView) rootView.findViewById(R.id.imageViewThumb);
+
             context = getActivity();
             RequestParams params = new RequestParams();
             params.put("token", Session.getSession().getToken().getToken());
@@ -135,10 +155,12 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
         }
     }
 
+
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
 
     @Override
     public void onClick(View view) {
@@ -149,6 +171,8 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
                     .setTargetFragment(this)
                     .setStyleResId(R.style.BetterPickersDialogFragment_Light);
             dpb.show();
+        } else if (view == buttonSelectimage) {
+            chooseImage();
         }
     }
 
@@ -159,5 +183,67 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
         yearSelected = year;
         textViewMonth.setText(DateManager.monthToString(monthOfYear + 1));
         textViewYear.setText(String.valueOf(year));
+    }
+
+    private void chooseImage() {
+        chooserType = ChooserType.REQUEST_PICK_PICTURE;
+        imageChooserManager = new ImageChooserManager(this,
+                ChooserType.REQUEST_PICK_PICTURE, "myfolder", true);
+        imageChooserManager.setImageChooserListener(this);
+        try {
+            //pbar.setVisibility(View.VISIBLE);
+            filePath = imageChooserManager.choose();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onImageChosen(final ChosenImage chosenImage) {
+        Log.d(TAG, "onImageChosen");
+        getActivity().runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                //pbar.setVisibility(View.GONE);
+                if (chosenImage != null) {
+                    //textViewFile.setText(image.getFilePathOriginal());
+                    imageViewThumb.setImageURI(Uri.parse(new File(chosenImage
+                            .getFileThumbnail()).toString()));
+                    /*imageViewThumbSmall.setImageURI(Uri.parse(new File(image
+                            .getFileThumbnailSmall()).toString()));*/
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult");
+        if (resultCode == Activity.RESULT_OK) /*&& (requestCode == ChooserType.REQUEST_PICK_PICTURE || requestCode == ChooserType.REQUEST_CAPTURE_PICTURE)) */ {
+            if (imageChooserManager == null) {
+                reinitializeImageChooser();
+            }
+            // imageChooserManager.submit(requestCode, data);
+            imageChooserManager.submit(chooserType, data);
+        } else {
+            // pbar.setVisibility(View.GONE);
+        }
+    }
+
+    // Should be called if for some reason the ImageChooserManager is null (Due
+    // to destroying of activity for low memory situations)
+    private void reinitializeImageChooser() {
+        imageChooserManager = new ImageChooserManager(this, chooserType,
+                "myfolder", true);
+        imageChooserManager.setImageChooserListener(this);
+        imageChooserManager.reinitialize(filePath);
+    }
+
+    @Override
+    public void onError(String s) {
+
     }
 }

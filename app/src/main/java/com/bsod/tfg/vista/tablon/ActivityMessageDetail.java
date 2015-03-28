@@ -64,7 +64,7 @@ public class ActivityMessageDetail extends Activity implements View.OnClickListe
         numberOflikes.setText(String.valueOf(mb.getNumOfFavs()));
         if (!mb.getUser().getPicImageUrl().equals("")) {
             ImageLoader im = ImageLoader.getInstance();
-            im.displayImage(Constants.MEDIA_URL + mb.getUser().getPicImageUrl(), image);
+            im.displayImage(Constants.BASE_URL.concat(mb.getUser().getPicImageUrl()), image);
         } else {
             image.setImageResource(R.drawable.no_image);
         }
@@ -91,7 +91,6 @@ public class ActivityMessageDetail extends Activity implements View.OnClickListe
                                 ObjectMapper mapper = new ObjectMapper();
                                 //mapper.registerModule(new JsonOrgModule());
                                 mb = mapper.readValue(response.get("data").toString(), MessageBoard.class);
-
                             } else {
                                 Toast.makeText(context, context.getString(R.string.error_cannot_favorited), Toast.LENGTH_SHORT).show();
                                 v.setImageResource(message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);

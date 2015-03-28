@@ -1,11 +1,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/android_standard_padding">
 
@@ -89,6 +89,58 @@
             android:layout_marginTop="10dp"
             android:background="@color/red"
             android:text="@string/select_month_year"
+            materialdesign:animate="false" />
+
+        <TextView
+            style="@style/registertext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/description_optional" />
+
+        <EditText
+            android:id="@+id/edit_description"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/imageViewThumb"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/image_border"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_launcher" />
+
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:id="@+id/button_selectimage"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_toEndOf="@+id/imageViewThumb"
+                android:layout_toRightOf="@+id/imageViewThumb"
+                android:background="@color/red"
+                android:text="@string/select_image"
+                materialdesign:animate="false" />
+        </RelativeLayout>
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/button_send"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@color/red"
+            android:text="@string/upload_file"
             materialdesign:animate="false" />
 
     </LinearLayout>

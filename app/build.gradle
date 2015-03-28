@@ -75,4 +75,5 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
     compile 'org.jraf:android-switch-backport:1.4.0@aar'
+    compile 'com.kbeanie:image-chooser-library:1.4.3@aar'
 }

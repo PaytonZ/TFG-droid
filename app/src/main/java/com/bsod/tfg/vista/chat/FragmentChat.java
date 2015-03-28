@@ -156,7 +156,7 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
                 }
                 checkConnection();
             }
-        }, 30 * 1000);
+        }, 10000);
     }
 
     @Override

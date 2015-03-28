@@ -21,7 +21,6 @@ import com.bsod.tfg.controlador.chat.ChatService;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.TopBar;
-import com.bsod.tfg.vista.archivos.FragmentArchivos;
 import com.bsod.tfg.vista.archivos.FragmentEstadisticas;
 import com.bsod.tfg.vista.archivos.FragmentUploadFile;
 import com.bsod.tfg.vista.chat.FragmentChat;
@@ -49,7 +48,9 @@ public class ActivityMain extends FragmentActivity implements
     private TopBar menu;
     private FragmentTablon fTablon;
     private FragmentChat fChat;
-    private FragmentArchivos fArchivos;
+    /*private FragmentArchivos fArchivos;*/ //FIXME: solo es para probar
+    private Fragment fArchivos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,9 @@ public class ActivityMain extends FragmentActivity implements
 
         fTablon = new FragmentTablon();
         fChat = new FragmentChat();
-        fArchivos = new FragmentArchivos();
+        /*fArchivos = new FragmentArchivos();*/ //FIXME : the same
+        fArchivos = new FragmentUploadFile();
+
 
         menu.setSelectedTab(TopBar.TAB_TABLON);
 
@@ -134,10 +137,11 @@ public class ActivityMain extends FragmentActivity implements
                 location.setText(data.getExtras().getString(NEXT_LOCATION));
             }
         }
+
     }
 
     public Fragment getCurrentFragment() {
-        Fragment f = null;
+        /*Fragment f = null;
         switch (menu.getSelectedTab()) {
             case TopBar.TAB_TABLON:
                 f = fTablon;
@@ -150,9 +154,11 @@ public class ActivityMain extends FragmentActivity implements
                 f = fArchivos;
                 break;
         }
-        return f;
+        return f;*/
 
-
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment);
+        Log.i(TAG, currentFragment.getClass().toString());
+        return currentFragment;
     }
 
     @Override
@@ -168,8 +174,8 @@ public class ActivityMain extends FragmentActivity implements
                 f = fChat;
                 break;
             case TopBar.TAB_ARCHIVOS:
-                //f = fArchivos;
-                f = new FragmentUploadFile();
+                f = fArchivos;
+
                 break;
         }
         if (f != null) {
