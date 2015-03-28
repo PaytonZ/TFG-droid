@@ -85,7 +85,7 @@
     <string name="new_password_repeat">Contraseña Nueva (repetir)</string>
     <string name="change_password">Cambiar Contraseña</string>
     <string name="title_activity_activity_change_faculty">Cambiar Facultad</string>
-    <string name="message_hint">Escribe algo ... ;)</string>
+    <string name="message_hint">Escribe algo &#8230; ;)</string>
     <string name="send">Enviar</string>
     <string name="profile_me">Mi foto de perfil</string>
     <string name="profile_other">Foto de perfil de usuario</string>
@@ -97,5 +97,25 @@
     <string name="actual_password">Contraseña Actual</string>
     <string name="change_faculty">Cambiar Facultad</string>
     <string name="change_faculty_satisfactory">Has cambiado de facultad satisfactoriamente</string>
+    <string name="subject">Asignatura</string>
+    <string name="theme_optional">Tema(opcional)</string>
+    <string name="want_exit_question">¿ Quieres salir ?</string>
+    <string name="want_exit_app_string">¿ Estás seguro de que quieres salir de esta fantástica app ?</string>
+    <string name="select_month_year">Seleccione Mes y Año</string>
+    <string name="month_colon">Mes :</string>
+    <string name="year_colon">Año :</string>
+    <string name="not_selected">No seleccionado</string>
+    <string name="january">Enero</string>
+    <string name="february">Febrero</string>
+    <string name="march">Marzo</string>
+    <string name="april">April</string>
+    <string name="may">Mayo</string>
+    <string name="june">Junio</string>
+    <string name="july">July</string>
+    <string name="august">Agosto</string>
+    <string name="september">Septiembre</string>
+    <string name="october">Octubre</string>
+    <string name="november">Noviembre</string>
+    <string name="december">Diciembre</string>
 
 </resources>

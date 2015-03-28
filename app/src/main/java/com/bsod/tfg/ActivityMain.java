@@ -23,6 +23,7 @@ import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.TopBar;
 import com.bsod.tfg.vista.archivos.FragmentArchivos;
 import com.bsod.tfg.vista.archivos.FragmentEstadisticas;
+import com.bsod.tfg.vista.archivos.FragmentUploadFile;
 import com.bsod.tfg.vista.chat.FragmentChat;
 import com.bsod.tfg.vista.login.ActivitySplash;
 import com.bsod.tfg.vista.otros.ActivitySearchUni;
@@ -110,8 +111,6 @@ public class ActivityMain extends FragmentActivity implements
                 replaceFragment(new FragmentEstadisticas());
                 return true;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -169,7 +168,8 @@ public class ActivityMain extends FragmentActivity implements
                 f = fChat;
                 break;
             case TopBar.TAB_ARCHIVOS:
-                f = fArchivos;
+                //f = fArchivos;
+                f = new FragmentUploadFile();
                 break;
         }
         if (f != null) {
@@ -203,8 +203,8 @@ public class ActivityMain extends FragmentActivity implements
             super.onBackPressed();
         } else {
             new AlertDialog.Builder(this)
-                    .setTitle("¿ Quieres salir ?")
-                    .setMessage("¿ Estás seguro de que quieres salir de esta fantástica app ?")
+                    .setTitle(getString(R.string.want_exit_question))
+                    .setMessage(getString(R.string.want_exit_app_string))
                     .setNegativeButton(android.R.string.no, null)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 

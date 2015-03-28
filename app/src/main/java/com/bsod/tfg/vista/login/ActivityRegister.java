@@ -46,7 +46,7 @@ import java.util.List;
 public class ActivityRegister extends Activity implements AdapterView.OnItemSelectedListener, View.OnFocusChangeListener, View.OnClickListener {
 
     private static final String TAG = "ActivityRegister";
-    private ArrayList<GenericType> listOfProvincias = new ArrayList<GenericType>();
+    private ArrayList<GenericType> listOfProvincias = new ArrayList<>();
     private Spinner spinnerProvincias;
     private Spinner spinnerUniversidad;
     private Spinner spinnerFacultad;
@@ -92,7 +92,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
 
                                 processJSONData(response, listOfProvincias, ProvinciaRegistro.class);
 
-                                spinnerProvincias.setAdapter(new ArrayAdapter<GenericType>(thisactivity, android.R.layout.simple_spinner_item, listOfProvincias));
+                                spinnerProvincias.setAdapter(new ArrayAdapter<>(thisactivity, android.R.layout.simple_spinner_item, listOfProvincias));
                                 spinnerProvincias.setOnItemSelectedListener(thisactivity);
 
                             }

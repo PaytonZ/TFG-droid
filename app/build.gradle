@@ -19,7 +19,10 @@ android {
     repositories {
         jcenter()
         mavenCentral()
-        maven { url "https://jitpack.io" }
+        maven {
+            url "https://jitpack.io"
+        }
+
     }
     signingConfigs {
         releaseConfig {
@@ -68,4 +71,8 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:4.45'
     compile 'com.github.navasmdc:MaterialDesign:1.4'
     compile 'com.github.PhilJay:MPAndroidChart:v2.0.8'
+    compile("com.doomonafireball.betterpickers:library:1.5.4") {
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    compile 'org.jraf:android-switch-backport:1.4.0@aar'
 }

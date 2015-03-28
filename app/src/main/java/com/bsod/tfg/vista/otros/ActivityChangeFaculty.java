@@ -139,7 +139,7 @@ public class ActivityChangeFaculty extends Activity implements AdapterView.OnIte
             if (p.getId() > 0) {
                 RequestParams params = new RequestParams();
                 params.add("id", p.getId().toString());
-                final ArrayList<GenericType> listOfUniversitys = new ArrayList<GenericType>();
+                final ArrayList<GenericType> listOfUniversitys = new ArrayList<>();
                 HttpClient.get(Constants.HTTP_GET_UNIS, params, new JsonHttpResponseHandlerCustom(this) {
 
                     @Override

@@ -17,6 +17,9 @@ allprojects {
         maven {
             url "dl.bintray.com/populov/maven";
         }
+        maven {
+            url "http://JRAF.org/static/maven/2"
+        }
         mavenCentral()
     }
 }

@@ -39,6 +39,7 @@ public class Constants {
     public static final String HTTP_FAV_SUBJECT = "favoritesubject";
     public static final String HTTP_GET_FAV_SUBJECTS = "getfavsubjects";
     public static final String HTTP_GET_SUBJECTS = "getsubjects";
+    public static final String HTTP_GET_ALL_SUBJECTS = "getallsubjects";
     public static final String HTTP_GET_THEMES = "getthemes";
     public static final String HTTP_GET_EXAMS = "getexams";
     public static final String HTTP_SEND_EXAMS = "sendresults";

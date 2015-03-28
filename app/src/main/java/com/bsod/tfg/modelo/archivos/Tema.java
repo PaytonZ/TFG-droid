@@ -21,4 +21,12 @@ public class Tema implements Serializable {
     public int getid() {
         return id;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -182,7 +182,7 @@ public class AdapterTablon extends BaseAdapter {
 
         ImageLoader im = ImageLoader.getInstance();
         //if (!mb.getUser().getPicImageUrl().equals("")) {
-        im.displayImage(Constants.MEDIA_URL + mb.getUser().getPicImageUrl(), image);
+        im.displayImage(Constants.BASE_URL + mb.getUser().getPicImageUrl(), image);
         //} else {
         // image.setImageResource(R.drawable.no_image);
         //}

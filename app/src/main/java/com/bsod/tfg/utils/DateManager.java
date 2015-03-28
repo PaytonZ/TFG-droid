@@ -1,5 +1,8 @@
 package com.bsod.tfg.utils;
 
+import com.bsod.tfg.R;
+import com.bsod.tfg.vista.App;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -91,6 +94,50 @@ public class DateManager {
 
     public static String timeStamptoDayMonthYear(long date) {
         return toDayMonthYear(new Date(date * 1000L));
+    }
+
+    public static String monthToString(int month) {
+        String monthString = "";
+        switch (month) {
+            case 1:
+                monthString = App.getContext().getString(R.string.january);
+                break;
+            case 2:
+                monthString = App.getContext().getString(R.string.february);
+                break;
+            case 3:
+                monthString = App.getContext().getString(R.string.march);
+                break;
+            case 4:
+                monthString = App.getContext().getString(R.string.april);
+                break;
+            case 5:
+                monthString = App.getContext().getString(R.string.may);
+                break;
+            case 6:
+                monthString = App.getContext().getString(R.string.june);
+                break;
+            case 7:
+                monthString = App.getContext().getString(R.string.july);
+                break;
+            case 8:
+                monthString = App.getContext().getString(R.string.august);
+                break;
+            case 9:
+                monthString = App.getContext().getString(R.string.september);
+                break;
+            case 10:
+                monthString = App.getContext().getString(R.string.october);
+                break;
+            case 11:
+                monthString = App.getContext().getString(R.string.november);
+                break;
+            case 12:
+                monthString = App.getContext().getString(R.string.march);
+                break;
+
+        }
+        return monthString;
     }
 
 }
