@@ -120,5 +120,8 @@
     <string name="description_optional">Descripción (opcional)</string>
     <string name="upload_file">Subir archivo</string>
     <string name="select_image">Selecciona Imagen</string>
+    <string name="connected">Conectado</string>
+    <string name="disconnected">Desconectado</string>
+    <string name="title_activity_activity_image_user_detail">Detalle Imagen</string>
 
 </resources>

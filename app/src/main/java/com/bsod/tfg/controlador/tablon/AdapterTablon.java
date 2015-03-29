@@ -1,6 +1,7 @@
 package com.bsod.tfg.controlador.tablon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.bsod.tfg.modelo.tablon.MessageBoardUpdate;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.ViewHolder;
+import com.bsod.tfg.vista.tablon.ActivityImageUserDetail;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -105,7 +107,7 @@ public class AdapterTablon extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.tablonlayout, parent, false);
         }
 
-        TextView message = ViewHolder.get(convertView, R.id.message_board_text);
+        final TextView message = ViewHolder.get(convertView, R.id.message_board_text);
         TextView title = ViewHolder.get(convertView, R.id.message_board_title);
         final ImageView image = ViewHolder.get(convertView, R.id.message_board_image);
         TextView date = ViewHolder.get(convertView, R.id.message_board_date);
@@ -117,7 +119,7 @@ public class AdapterTablon extends BaseAdapter {
             public void onClick(View view) {
                 final ImageView v = (ImageView) view;
                 final MessageBoard message = getItem(position);
-                // Trick for making it more fluid
+                /* Trick for making it more fluid */
                 v.setImageResource(!message.isUserFavorited() ? R.drawable.ic_action_favorite_selected : R.drawable.ic_action_favorite);
                 numberOflikes.setText(String.valueOf(!message.isUserFavorited() ? message.getNumOfFavs() + 1 : message.getNumOfFavs() - 1));
 
@@ -157,15 +159,20 @@ public class AdapterTablon extends BaseAdapter {
                 });
             }
         });
+        final MessageBoard mb = getItem(position);
         image.setOnClickListener(new View.OnClickListener() {
                                      @Override
                                      public void onClick(View view) {
                                          //Toast.makeText(context, "No toques la imagen!", Toast.LENGTH_SHORT).show();
+                                         Intent i = new Intent(context, ActivityImageUserDetail.class);
+                                         i.putExtra(Constants.INTENT_USER_IMAGE_DETAIL, mb.getUser().getPicImageUrl());
+                                         context.startActivity(i);
+
                                      }
                                  }
 
         );
-        MessageBoard mb = getItem(position);
+
 
         // Formating Date
         //SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yy hh:mm:ss");
@@ -182,7 +189,7 @@ public class AdapterTablon extends BaseAdapter {
 
         ImageLoader im = ImageLoader.getInstance();
         //if (!mb.getUser().getPicImageUrl().equals("")) {
-        im.displayImage(Constants.BASE_URL + mb.getUser().getPicImageUrl(), image);
+        im.displayImage(Constants.BASE_URL.concat(mb.getUser().getPicImageUrl()), image);
         //} else {
         // image.setImageResource(R.drawable.no_image);
         //}

@@ -58,6 +58,8 @@ public class Constants {
     public static final String TFG_FRAGMENT = "TFGFragment";
     public static final String CHAT_BROADCAST = "CHAT_BROADCAST";
     public static final String CHAT_SERVER_EXTRA = "CHAT_SERVER_EXTRA";
+    public static final String INTENT_USER_IMAGE_DETAIL = "INTENT_USER_IMAGE_DETAIL";
+
     /* Application Settings */
     public static final int NUM_OF_QUESTIONS_IN_EXAM = 20;
     /* Local SQLITE */

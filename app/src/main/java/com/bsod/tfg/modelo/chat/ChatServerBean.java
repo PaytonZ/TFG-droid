@@ -19,7 +19,7 @@ public class ChatServerBean implements Serializable {
 
     @JsonIgnore
     @DatabaseField(generatedId = true)
-    protected long id_db;
+    private long id_db;
 
     @DatabaseField
     @JsonProperty("type")
@@ -92,5 +92,13 @@ public class ChatServerBean implements Serializable {
 
     public void setTime(Long time) {
         this.time = time;
+    }
+
+    public long getId_db() {
+        return id_db;
+    }
+
+    public void setId_db(long id_db) {
+        this.id_db = id_db;
     }
 }

@@ -19,11 +19,8 @@ import java.io.IOException;
 public class ChatService extends Service {
 
     private static final String TAG = "ChatService";
-    private static boolean isRunning = false;
-    // Random number generator
     private static SocketChat socket;
     private int numberOfAttemps = 0;
-    // Binder given to clients
 
     public static boolean isConnected() {
         return socket.isConnected();
@@ -52,7 +49,6 @@ public class ChatService extends Service {
         }
         getApplicationContext().startService(new Intent(cs, ChatService.class));
         numberOfAttemps++;
-
 
     }
 
@@ -88,7 +84,7 @@ public class ChatService extends Service {
                     if (socket.isConnected()) {
                         Log.d(TAG, "Servicio de Chat Recibiendo mensajes con normalidad");
                         numberOfAttemps = 0;
-                        isRunning = true;
+                        /* En principio la llamada es bloqueante. */
                         while ((result = socket.recieve()) == null) {
                             Log.d(TAG, "Durmiendo ServiceChat 2 seg");
                             Thread.sleep(2000);

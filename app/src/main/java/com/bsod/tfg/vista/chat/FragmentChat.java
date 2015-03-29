@@ -94,7 +94,7 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                connectionStatus.setText("Conectado");
+                                connectionStatus.setText(getActivity().getString(R.string.connected));
                                 chatRoomAdapter.add(cr);
                                 Fragment f = FragmentChatDetail.newInstance(cr);
                                 fragmentList.put(cr.getIdRoom(), f);
@@ -104,7 +104,7 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                connectionStatus.setText("Desconectado");
+                                connectionStatus.setText(getActivity().getString(R.string.disconnected));
                             }
                         });
 
@@ -136,23 +136,14 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
             public void run() {
                 if (!isPaused) {
                     Log.d(TAG, "Comprobando la conexión con el sistema de chat...");
-                    if (ChatService.isConnected()) {
 
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                connectionStatus.setText("Conectado");
-                            }
-                        });
-                    } else {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                connectionStatus.setText("Desconectado");
-                            }
-                        });
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            connectionStatus.setText(ChatService.isConnected() ? getActivity().getString(R.string.connected) : getActivity().getString(R.string.disconnected));
+                        }
+                    });
 
-                    }
                 }
                 checkConnection();
             }

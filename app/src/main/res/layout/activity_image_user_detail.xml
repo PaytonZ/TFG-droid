@@ -1,0 +1,13 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/android_standard_padding"
+    tools:context="com.bsod.tfg.vista.tablon.ActivityImageUserDetail">
+
+    <ImageView
+        android:id="@+id/imageviewUserDetail"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</LinearLayout>

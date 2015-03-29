@@ -12,19 +12,19 @@ import java.io.Serializable;
  */
 @DatabaseTable(tableName = "user")
 public class User implements Serializable {
-
-    @DatabaseField(columnName = "id", generatedId = true)
+    public static final String ID_FIELD_NAME = "id";
+    public static final String IDUSER_FIELD_NAME = "idUser";
+    public static final String NAME_FIELD_NAME = "name";
+    public static final String IMAGE_FIELD_NAME = "image";
+    @DatabaseField(columnName = ID_FIELD_NAME, generatedId = true)
     private int id;
-
-    @DatabaseField(columnName = "idUser", index = true)
+    @DatabaseField(columnName = IDUSER_FIELD_NAME, index = true)
     @JsonProperty("pk")
     private int idUser;
-
-    @DatabaseField(columnName = "name")
+    @DatabaseField(columnName = NAME_FIELD_NAME)
     @JsonProperty("username")
     private String name;
-
-    @DatabaseField(columnName = "image")
+    @DatabaseField(columnName = IMAGE_FIELD_NAME)
     @JsonProperty("image")
     private String image;
 

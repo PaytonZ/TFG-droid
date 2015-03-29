@@ -130,6 +130,7 @@ public class ActivityMain extends FragmentActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.i(TAG, "onActivityResult");
+        /* Llamando al activityresult del fragment */
         getCurrentFragment().onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == Constants.UNI_SELECTED) {
@@ -141,24 +142,7 @@ public class ActivityMain extends FragmentActivity implements
     }
 
     public Fragment getCurrentFragment() {
-        /*Fragment f = null;
-        switch (menu.getSelectedTab()) {
-            case TopBar.TAB_TABLON:
-                f = fTablon;
-                break;
-            case TopBar.TAB_CHAT:
-                f = fChat;
-                break;
-
-            case TopBar.TAB_ARCHIVOS:
-                f = fArchivos;
-                break;
-        }
-        return f;*/
-
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment);
-        Log.i(TAG, currentFragment.getClass().toString());
-        return currentFragment;
+        return getSupportFragmentManager().findFragmentById(R.id.fragment);
     }
 
     @Override

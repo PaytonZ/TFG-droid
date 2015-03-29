@@ -346,6 +346,8 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+
         Intent i = new Intent(thisContext, ActivityMessageDetail.class);
         i.putExtra(Constants.INTENT_MESSAGE_DETAIL, aTablon.getItem(position));
         startActivityForResult(i, Constants.INTENT_MESSAGE_DELETED);
