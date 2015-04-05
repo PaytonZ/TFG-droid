@@ -101,7 +101,35 @@
         <EditText
             android:id="@+id/edit_description"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            android:layout_height="fill_parent"
+            android:inputType="text"
+            android:hint="@string/upload_file_insert_description" />
+
+        <TextView
+            style="@style/registertext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/kind_file" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notes"
+                android:id="@+id/notesradiobutton"
+                android:checked="false" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exam"
+                android:id="@+id/examenradiobutton"
+                android:checked="false" />
+        </RadioGroup>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -131,6 +159,7 @@
                 android:background="@color/red"
                 android:text="@string/select_image"
                 materialdesign:animate="false" />
+
         </RelativeLayout>
 
         <com.gc.materialdesign.views.ButtonRectangle

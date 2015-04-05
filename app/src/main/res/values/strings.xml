@@ -123,5 +123,9 @@
     <string name="connected">Conectado</string>
     <string name="disconnected">Desconectado</string>
     <string name="title_activity_activity_image_user_detail">Detalle Imagen</string>
+    <string name="upload_file_insert_description">Introduce una pequeña descripción para este fichero</string>
+    <string name="kind_file">Tipo de Archivo</string>
+    <string name="notes">Apuntes</string>
+    <string name="exam">Examen</string>
 
 </resources>
