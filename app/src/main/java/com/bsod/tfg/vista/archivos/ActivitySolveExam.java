@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.SparseIntArray;
@@ -14,6 +15,8 @@ import android.view.MenuItem;
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.archivos.AdapterFragmentExams;
 import com.bsod.tfg.modelo.archivos.Pregunta;
+import com.bsod.tfg.modelo.archivos.PreguntaRespuestaMultiple;
+import com.bsod.tfg.modelo.archivos.PreguntaRespuestaUnica;
 import com.bsod.tfg.modelo.archivos.ResponseExamStats;
 import com.bsod.tfg.modelo.archivos.ResponseExamTotal;
 import com.bsod.tfg.modelo.otros.Constants;
@@ -39,24 +42,49 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
 
         listOfQuestions = (ArrayList<Pregunta>) getIntent().getSerializableExtra(Constants.INTENT_EXTRA_ARRAY_QUESTIONS);
         idTest = getIntent().getIntExtra(Constants.INTENT_ID_TEST, -1);
+        int typeOfTest = getIntent().getIntExtra(Constants.INTENT_EXTRA_TYPE_OF_QUESTIONS, -1);
         Log.i(TAG, "ID TEST ...:" + String.valueOf(idTest));
         setContentView(R.layout.activity_solve_exam);
         //Set the pager with an adapter
         pager = (ViewPager) findViewById(R.id.pager);
+        fragmentList = new ArrayList<>();
+        PagerAdapter pagerAdapter = null;
+        switch (typeOfTest) {
+            case 0: //MA
+                for (Pregunta p : listOfQuestions) {
 
+                    fragmentList.add(FragmentPreguntaSeleccionable.newInstance((PreguntaRespuestaUnica) p));
 
-        //ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
-        fragmentList = new ArrayList<Fragment>();
-        for (Pregunta p : listOfQuestions) {
-            //fragmentList.add(FragmentQuestion.newInstance(p));
-            fragmentList.add(FragmentQuestion.newInstance(p));
+                }
+                pagerAdapter = new AdapterFragmentExams(getSupportFragmentManager(), fragmentList);
+                break;
+
+            case 1:
+                for (Pregunta p : listOfQuestions) {
+
+                    fragmentList.add(FragmentPreguntaSeleccionable.newInstance((PreguntaRespuestaMultiple) p));
+
+                }
+                pagerAdapter = new AdapterFragmentExams(getSupportFragmentManager(), fragmentList);
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                break;
+
+            default:
+                break;
         }
+
+
         fragmentList.add(FragmentFinalExam.newInstance());
 
         //adapterFragmentExams = new AdapterFragmentExams(getSupportFragmentManager());
         //adapterFragmentExams.setList(fragmentList);
 
-        pager.setAdapter(new AdapterFragmentExams(getSupportFragmentManager(), fragmentList));
+        pager.setAdapter(pagerAdapter);
         pager.setCurrentItem(0);
 
         //Bind the title indicator to the adapter
@@ -106,7 +134,7 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
         int failed = 0;
 
         for (int i = 0; i < size; i++) {
-            FragmentQuestion f = (FragmentQuestion) fragmentList.get(i);
+            FragmentPreguntaSeleccionable f = (FragmentPreguntaSeleccionable) fragmentList.get(i);
             ResponseExamStats res = f.correctQuestions();
             questions.put(res.getId(), res.getSelectedOption());
             if (res.getValue() < 0) {

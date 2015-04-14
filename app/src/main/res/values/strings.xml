@@ -127,5 +127,9 @@
     <string name="kind_file">Tipo de Archivo</string>
     <string name="notes">Apuntes</string>
     <string name="exam">Examen</string>
+    <string name="unique_answer">Respuesta única</string>
+    <string name="multiple_answer">Respuesta múltiple</string>
+    <string name="short_answer">Respuesta Corta</string>
+    <string name="pairing_answer">Emparejamientos</string>
 
 </resources>

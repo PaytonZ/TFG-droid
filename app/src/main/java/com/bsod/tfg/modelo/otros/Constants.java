@@ -1,5 +1,8 @@
 package com.bsod.tfg.modelo.otros;
 
+import com.bsod.tfg.R;
+import com.bsod.tfg.vista.App;
+
 /**
  * Created by Payton on 08/10/2014.
  */
@@ -45,7 +48,6 @@ public class Constants {
     public static final String HTTP_SEND_EXAMS = "sendresults";
     public static final String HTTP_CREATE_DOCUMENT = "createdocument";
 
-
     /* STATS */
     public static final String HTTP_GENERATE_EXAM_STATS = "generateuserstats";
 
@@ -62,6 +64,7 @@ public class Constants {
     public static final String CHAT_BROADCAST = "CHAT_BROADCAST";
     public static final String CHAT_SERVER_EXTRA = "CHAT_SERVER_EXTRA";
     public static final String INTENT_USER_IMAGE_DETAIL = "INTENT_USER_IMAGE_DETAIL";
+    public static final String INTENT_EXTRA_TYPE_OF_QUESTIONS = "INTENT_EXTRA_TYPE_OF_QUESTIONS";
 
     /* Application Settings */
     public static final int NUM_OF_QUESTIONS_IN_EXAM = 20;
@@ -69,16 +72,20 @@ public class Constants {
     public static final String DB_NAME = "database.sqlite";
     public static final int DATABASE_VERSION = 1;
 
+    public static final String[] TYPE_OF_QUESTIONS = {App.getContext().getString(R.string.unique_answer), App.getContext().getString(R.string.multiple_answer), App.getContext().getString(R.string.short_answer), App.getContext().getString(R.string.pairing_answer)};
+    public static final String[] TYPE_OF_QUESTIONS_SHORT = {"na", "ma", "sa", "pa"};
+
+
     /* CHAT STUFF */
-    public static String CHAT_STATE_CHAT = "CHAT";
-    public static int CHAT_PORT = 8000;
+    public static final String CHAT_STATE_CHAT = "CHAT";
+    public static final int CHAT_PORT = 8000;
     /* Connection Settings - Deploy - Testing */
     //public static String BASE_URL = "http://192.168.1.12/";
     //public static String BASE_URL = "http:/bsodsoftware.me/";
-    public static String SERVER_IP = "192.168.1.12";
+    public static final String SERVER_IP = "192.168.1.12";
     //public static String SERVER_IP = "178.62.194.33";
-    public static String BASE_URL = "http://".concat(SERVER_IP).concat("/");
-    public static String MEDIA_URL = BASE_URL.concat("media/");
+    public static final String BASE_URL = "http://".concat(SERVER_IP).concat("/");
+    public static final String MEDIA_URL = BASE_URL.concat("media/");
 
 
 }

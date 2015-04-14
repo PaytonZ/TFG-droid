@@ -12,22 +12,23 @@ import android.widget.TextView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.archivos.Pregunta;
+import com.bsod.tfg.modelo.archivos.PreguntaSeleccionable;
 import com.bsod.tfg.modelo.archivos.ResponseExamStats;
 import com.bsod.tfg.utils.ViewHolder;
 
 /**
  * Proudly created by Payton on 16/11/2014.
  */
-public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickListener {
+public class AdapterExamenPreguntaSeleccionable extends BaseAdapter implements AdapterView.OnItemClickListener {
 
     private static final String TAG = "AdapterExam";
     private final Context context;
-    private Pregunta pregunta;
+    private PreguntaSeleccionable pregunta;
     private int selecteditem = -1;
     private TextView respuestaCorrecta;
     private boolean correctionMode = false;
 
-    public AdapterExam(Context context, Pregunta p) {
+    public AdapterExamenPreguntaSeleccionable(Context context, PreguntaSeleccionable p) {
         this.context = context;
         pregunta = p;
     }
@@ -80,11 +81,11 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
             convertView = LayoutInflater.from(context).inflate(R.layout.question_layout, parent, false);
         }
         TextView respuesta = ViewHolder.get(convertView, R.id.textViewresponseQuestion);
-
+/*FIXME
         if ((respuestaCorrecta == null) && (position == (pregunta.getRespuestaCorrecta() - 1))) {
             respuestaCorrecta = respuesta;
         }
-
+*/
         if (!correctionMode)
             respuesta.setTextColor((position == selecteditem) ? context.getResources().getColor(R.color.white) : context.getResources().getColor(R.color.black));
 
@@ -94,7 +95,7 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
         return convertView;
     }
 
-    public void setPregunta(Pregunta p) {
+    public void setPregunta(PreguntaSeleccionable p) {
         this.pregunta = p;
         notifyDataSetChanged();
     }
@@ -141,7 +142,7 @@ public class AdapterExam extends BaseAdapter implements AdapterView.OnItemClickL
         } else { // Se seleccionó un valor.
             stats.setSelectedOption(selecteditem + 1);
             Log.i(TAG, String.valueOf(stats.getSelectedOption()));
-            stats.setValue((selecteditem == pregunta.getRespuestaCorrecta() - 1) ? +1.0 : -1.0);
+           //FIXME stats.setValue((selecteditem == pregunta.getRespuestaCorrecta() - 1) ? +1.0 : -1.0);
         }
         return stats;
     }

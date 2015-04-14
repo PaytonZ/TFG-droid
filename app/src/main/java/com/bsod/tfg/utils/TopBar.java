@@ -16,22 +16,19 @@ import com.bsod.tfg.R;
  */
 public class TopBar extends RelativeLayout implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-
     public static final int TAB_TABLON = 1;
     public static final int TAB_CHAT = 2;
     public static final int TAB_ARCHIVOS = 3;
+    public static final int TAB_EXAMENES = 4;
     private static final String TAG = "TopBar";
-
     private int selectedTab;
-
     private ImageView tablon;
     private ImageView chat;
     private ImageView archivos;
-
+    private ImageView examen;
     private long timeLastTabChange;
     private Context context;
     private TabSelectedListener listenerTab = null;
-
 
     public TopBar(Context context) {
         this(context, null);
@@ -49,10 +46,11 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
         tablon = (ImageView) v.findViewById(R.id.imageViewTablon);
         chat = (ImageView) v.findViewById(R.id.imageViewChat);
         archivos = (ImageView) v.findViewById(R.id.imageViewArchivos);
-
+        examen = (ImageView) v.findViewById(R.id.imageViewexamen);
         tablon.setOnClickListener(this);
         chat.setOnClickListener(this);
         archivos.setOnClickListener(this);
+        examen.setOnClickListener(this);
 
     }
 
@@ -78,8 +76,10 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
         } else if (view == archivos && selectedTab != TAB_ARCHIVOS) {
             operationOK = true;
             tab_changed = TAB_ARCHIVOS;
+        } else if (view == examen && selectedTab != TAB_EXAMENES) {
+            operationOK = true;
+            tab_changed = TAB_EXAMENES;
         }
-
         if (operationOK) {
 
             long time = System.currentTimeMillis() - timeLastTabChange;
@@ -93,21 +93,10 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
             }
         }
 
-
     }
 
     public void markTab(int idtab) {
         selectedTab = idtab;
-        updateTabs();
-    }
-
-    private void updateTabs() {
-        /*
-        standings.setTextColor(selectedTab==TAB_STANDINGS ? getResources().getColor(R.color.barradorada) : getResources().getColor(R.color.textcolorsecundario));
-        matches.setTextColor(selectedTab==TAB_MATCHES ? getResources().getColor(R.color.barradorada) : getResources().getColor(R.color.textcolorsecundario));
-        teams.setTextColor(selectedTab==TAB_TEAMS ? getResources().getColor(R.color.barradorada) : getResources().getColor(R.color.textcolorsecundario));
-        headlines.setTextColor(selectedTab==TAB_HEADLINES ? getResources().getColor(R.color.barradorada) : getResources().getColor(R.color.textcolorsecundario));
-*/
     }
 
     @Override
@@ -143,6 +132,10 @@ public class TopBar extends RelativeLayout implements View.OnClickListener, Adap
             case TAB_ARCHIVOS:
                 markTab(TAB_ARCHIVOS);
                 listenerTab.tabSelected(TAB_ARCHIVOS);
+                break;
+            case TAB_EXAMENES:
+                markTab(TAB_EXAMENES);
+                listenerTab.tabSelected(TAB_EXAMENES);
                 break;
         }
     }

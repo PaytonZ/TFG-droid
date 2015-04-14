@@ -21,6 +21,7 @@ import com.bsod.tfg.controlador.chat.ChatService;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.TopBar;
+import com.bsod.tfg.vista.archivos.FragmentArchivos;
 import com.bsod.tfg.vista.archivos.FragmentEstadisticas;
 import com.bsod.tfg.vista.archivos.FragmentUploadFile;
 import com.bsod.tfg.vista.chat.FragmentChat;
@@ -48,8 +49,8 @@ public class ActivityMain extends FragmentActivity implements
     private TopBar menu;
     private FragmentTablon fTablon;
     private FragmentChat fChat;
-    /*private FragmentArchivos fArchivos;*/ //FIXME: solo es para probar
-    private Fragment fArchivos;
+    private FragmentArchivos fArchivos;
+    private Fragment fExamenes;
 
 
     @Override
@@ -71,9 +72,8 @@ public class ActivityMain extends FragmentActivity implements
 
         fTablon = new FragmentTablon();
         fChat = new FragmentChat();
-        /*fArchivos = new FragmentArchivos();*/ //FIXME : the same
-        fArchivos = new FragmentUploadFile();
-
+        fArchivos = new FragmentArchivos();
+        fExamenes = new FragmentUploadFile();
 
         menu.setSelectedTab(TopBar.TAB_TABLON);
 
@@ -159,11 +159,12 @@ public class ActivityMain extends FragmentActivity implements
                 break;
             case TopBar.TAB_ARCHIVOS:
                 f = fArchivos;
-
+                break;
+            case TopBar.TAB_EXAMENES:
+                f = fExamenes;
                 break;
         }
         if (f != null) {
-
             replaceFragment(f);
 
         }

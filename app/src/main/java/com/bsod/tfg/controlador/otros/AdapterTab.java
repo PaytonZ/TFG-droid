@@ -15,15 +15,16 @@ import com.bsod.tfg.vista.tablon.FragmentTablon;
 public class AdapterTab extends FragmentPagerAdapter {
 
     private static final String TAG = "AdapterTab";
-    private static int NUM_OF_TABS = 3;
+    private static int NUM_OF_TABS = 4;
     private Fragment[] fragmentList;
 
     public AdapterTab(FragmentManager fm) {
         super(fm);
-        fragmentList = new Fragment[3];
+        fragmentList = new Fragment[NUM_OF_TABS];
         fragmentList[0] = FragmentTablon.newInstance();
         fragmentList[1] = FragmentChat.newInstance();
         fragmentList[2] = FragmentArchivos.newInstance();
+        fragmentList[3] = FragmentArchivos.newInstance();
 
     }
 
