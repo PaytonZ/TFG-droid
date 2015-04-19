@@ -10,15 +10,19 @@ import java.io.Serializable;
  * Clase encargada de encapulsar las respuestas de las distintas preguntas
  */
 public abstract class ResponseExam implements Serializable {
-    protected double value;
-    protected int id;
-
     /**
      * Valor de la respuesta
      * 0 si no respondida
      * -1 si respondida , pero erronea
      * +1 si respondida correcta
      */
+    protected double value;
+    /**
+     * Identificador de la pregunta
+     */
+    protected int id;
+
+
     public double getValue() {
         return value;
     }

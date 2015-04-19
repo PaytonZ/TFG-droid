@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/android_standard_padding"
+    tools:context="com.bsod.tfg.vista.archivos.FragmentPreguntaCorta">
+
+    <TextView
+        android:id="@+id/textview_titulo_pregunta_corta"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/edittext_pregunta_corta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="top"
+        android:hint="Escribe aquí tu respuesta."
+        android:imeOptions="actionSend"
+
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/textview_respuesta_correcta_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/the_correct_answer_was"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textview_respuesta_correcta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Respuesta Correcta"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="invisible" />
+
+</LinearLayout>

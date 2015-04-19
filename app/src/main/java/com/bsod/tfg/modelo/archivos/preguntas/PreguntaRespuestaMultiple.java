@@ -15,6 +15,7 @@ public class PreguntaRespuestaMultiple extends PreguntaSeleccionable {
     public List<Integer> getRespuestasCorrectas() {
         return respuestasCorrectas;
     }
+
     public void setRespuestasCorrectas(List<Integer> respuestasCorrectas) {
         this.respuestasCorrectas = respuestasCorrectas;
     }

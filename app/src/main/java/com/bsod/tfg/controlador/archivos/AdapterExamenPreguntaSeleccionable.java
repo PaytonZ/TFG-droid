@@ -18,6 +18,7 @@ import com.bsod.tfg.modelo.archivos.respuestas.ResponseExam;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamMultiRespuesta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamUnicaRespuesta;
 import com.bsod.tfg.utils.ViewHolder;
+import com.bsod.tfg.vista.archivos.InterfaceCorrectQuestions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * Proudly created by Payton on 16/11/2014.
  */
-public class AdapterExamenPreguntaSeleccionable extends BaseAdapter implements AdapterView.OnItemClickListener {
+public class AdapterExamenPreguntaSeleccionable extends BaseAdapter implements AdapterView.OnItemClickListener, InterfaceCorrectQuestions {
 
     private static final String TAG = "AdapterExamenPreguntaSeleccionable";
     private final Context context;
@@ -173,6 +174,7 @@ public class AdapterExamenPreguntaSeleccionable extends BaseAdapter implements A
         }
     }
 
+    @Override
     public ResponseExam correctQuestions() {
 
         correctionMode = true;

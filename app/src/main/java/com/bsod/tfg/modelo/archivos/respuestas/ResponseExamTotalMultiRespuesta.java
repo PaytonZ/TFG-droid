@@ -6,9 +6,8 @@ import java.util.List;
 /**
  * Proudly created by Payton on 19/04/2015.
  */
-public class ResponseExamTotalMultiRespuesta extends ResponseExamTotal
-{
-    private HashMap<Integer,List<Integer>> questions;
+public class ResponseExamTotalMultiRespuesta extends ResponseExamTotal {
+    private HashMap<Integer, List<Integer>> questions;
 
     public HashMap<Integer, List<Integer>> getQuestions() {
         return questions;

@@ -1,6 +1,5 @@
 package com.bsod.tfg.vista.archivos;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -49,40 +48,40 @@ public class FragmentAsignaturas extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        if (rootView == null) {
+        /* Inflate the layout for this fragment
+        if (rootView == null) {*/
 
-            curso = getArguments().getInt("curso", 0);
-            rootView = inflater.inflate(R.layout.fragment_asignaturas, container, false);
+        curso = getArguments().getInt("curso", 0);
+        rootView = inflater.inflate(R.layout.fragment_asignaturas, container, false);
 
-            listviewAsignaturas = (ListView) rootView.findViewById(R.id.listview_asignaturas);
+        listviewAsignaturas = (ListView) rootView.findViewById(R.id.listview_asignaturas);
 
-            final AdapterAsignaturas adapter = (adapterAsignaturas == null) ? adapterAsignaturas = new AdapterAsignaturas(getActivity()) : adapterAsignaturas;
-            listviewAsignaturas.setAdapter(adapter);
-            listviewAsignaturas.setOnItemClickListener(adapter);
-            textViewCurso = (TextView) rootView.findViewById(R.id.textViewCurso);
-            switch (curso) {
-                case 1:
-                    textViewCurso.setText(R.string.primero);
-                    break;
-                case 2:
-                    textViewCurso.setText(R.string.segundo);
-                    break;
-                case 3:
-                    textViewCurso.setText(R.string.tercero);
-                    break;
-                case 4:
-                    textViewCurso.setText(R.string.cuarto);
-                    break;
-            }
-            getAsignaturas();
-
-        } else {
-            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        final AdapterAsignaturas adapter = (adapterAsignaturas == null) ? adapterAsignaturas = new AdapterAsignaturas(getActivity()) : adapterAsignaturas;
+        listviewAsignaturas.setAdapter(adapter);
+        listviewAsignaturas.setOnItemClickListener(adapter);
+        textViewCurso = (TextView) rootView.findViewById(R.id.textViewCurso);
+        switch (curso) {
+            case 1:
+                textViewCurso.setText(R.string.primero);
+                break;
+            case 2:
+                textViewCurso.setText(R.string.segundo);
+                break;
+            case 3:
+                textViewCurso.setText(R.string.tercero);
+                break;
+            case 4:
+                textViewCurso.setText(R.string.cuarto);
+                break;
         }
+        getAsignaturas();
+
+    /*} else {
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }*/
+
         return rootView;
     }
-
 
     private void getAsignaturas() {
         RequestParams params = new RequestParams();

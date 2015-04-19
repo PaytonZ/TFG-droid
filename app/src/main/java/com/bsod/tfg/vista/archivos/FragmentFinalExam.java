@@ -15,10 +15,12 @@ import android.widget.Toast;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespondida;
+import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespondidaCorta;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespondidaMultiple;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespondidaUnica;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotal;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalMultiRespuesta;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalUnicaRespuesta;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
@@ -101,7 +103,7 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
 
                 case 1: // Respuesta múltiple MA
 
-                    HashMap map = ((ResponseExamTotalMultiRespuesta) ret).getQuestions();
+                    HashMap<Integer, List<Integer>> map = ((ResponseExamTotalMultiRespuesta) ret).getQuestions();
                     Iterator it = map.entrySet().iterator();
                     while (it.hasNext()) {
                         PreguntaRespondida pr = new PreguntaRespondidaMultiple();
@@ -115,7 +117,17 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
                     break;
 
                 case 2:
-
+                    HashMap map1 = ((ResponseExamTotalRespuestaCorta) ret).getQuestions();
+                    Iterator it1 = map1.entrySet().iterator();
+                    while (it1.hasNext()) {
+                        PreguntaRespondida pr = new PreguntaRespondidaCorta();
+                        Map.Entry pair = (Map.Entry) it1.next();
+                        //System.out.println(pair.getKey() + " = " + pair.getValue());
+                        pr.seti((Integer) pair.getKey());
+                        ((PreguntaRespondidaCorta) pr).setR((String) pair.getValue());
+                        list.add(pr);
+                        it1.remove(); // avoids a ConcurrentModificationException
+                    }
                     break;
 
                 case 3:

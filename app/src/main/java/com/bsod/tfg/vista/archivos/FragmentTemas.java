@@ -19,10 +19,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.archivos.AdapterTemas;
 import com.bsod.tfg.modelo.archivos.Asignatura;
+import com.bsod.tfg.modelo.archivos.Tema;
 import com.bsod.tfg.modelo.archivos.preguntas.Pregunta;
+import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaMultiple;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaUnica;
-import com.bsod.tfg.modelo.archivos.Tema;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.HttpClient;
@@ -163,6 +164,9 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
                                                                };
                                                            } else if (typeOfQuestions[which].equals(typeOfQuestions[1])) {
                                                                tr = new TypeReference<List<PreguntaRespuestaMultiple>>() {
+                                                               };
+                                                           } else if (typeOfQuestions[which].equals(typeOfQuestions[2])) {
+                                                               tr = new TypeReference<List<PreguntaRespuestaCorta>>() {
                                                                };
                                                            }
                                                            if (tr != null) {

@@ -67,7 +67,7 @@ public class Constants {
     public static final String INTENT_EXTRA_TYPE_OF_QUESTIONS = "INTENT_EXTRA_TYPE_OF_QUESTIONS";
 
     /* Application Settings */
-    public static final int NUM_OF_QUESTIONS_IN_EXAM = 2;
+    public static final int NUM_OF_QUESTIONS_IN_EXAM = 3;
     /* Local SQLITE */
     public static final String DB_NAME = "database.sqlite";
     public static final int DATABASE_VERSION = 1;

@@ -19,7 +19,7 @@ import com.bsod.tfg.modelo.otros.Constants;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentPreguntaSeleccionable extends Fragment {
+public class FragmentPreguntaSeleccionable extends Fragment implements InterfaceCorrectQuestions {
 
     private View rootView;
     private AdapterExamenPreguntaSeleccionable adapterExamenPreguntaSeleccionable;
@@ -37,7 +37,7 @@ public class FragmentPreguntaSeleccionable extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        /*if (rootView == null) {*/
+
         rootView = inflater.inflate(R.layout.fragment_question, container, false);
         pregunta = (PreguntaSeleccionable) getArguments().getSerializable(
                 "pregunta");
@@ -52,13 +52,10 @@ public class FragmentPreguntaSeleccionable extends Fragment {
         listViewExam.setAdapter(adapter);
         listViewExam.setOnItemClickListener(adapter);
 
-        /*} else {
-            ((ViewGroup) rootView.getParent()).removeView(rootView);
-        }*/
-
         return rootView;
     }
 
+    @Override
     public ResponseExam correctQuestions() {
         return adapterExamenPreguntaSeleccionable.correctQuestions();
     }

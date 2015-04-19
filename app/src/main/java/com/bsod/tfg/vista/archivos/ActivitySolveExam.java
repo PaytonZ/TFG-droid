@@ -15,11 +15,14 @@ import android.view.MenuItem;
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.archivos.AdapterFragmentExams;
 import com.bsod.tfg.modelo.archivos.preguntas.Pregunta;
+import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaMultiple;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaUnica;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamMultiRespuesta;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotal;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalMultiRespuesta;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalUnicaRespuesta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamUnicaRespuesta;
 import com.bsod.tfg.modelo.otros.Constants;
@@ -54,42 +57,37 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
         //Set the pager with an adapter
         pager = (ViewPager) findViewById(R.id.pager);
         fragmentList = new ArrayList<>();
-        PagerAdapter pagerAdapter = null;
+        PagerAdapter pagerAdapter;
         switch (typeOfTest) {
             case 0: //Respuesta única ( NA )
                 for (Pregunta p : listOfQuestions) {
 
                     fragmentList.add(FragmentPreguntaSeleccionable.newInstance((PreguntaRespuestaUnica) p));
-
                 }
-                pagerAdapter = new AdapterFragmentExams(getSupportFragmentManager(), fragmentList);
                 break;
 
             case 1://Respuesta Múltiple ( MA )
                 for (Pregunta p : listOfQuestions) {
 
                     fragmentList.add(FragmentPreguntaSeleccionable.newInstance((PreguntaRespuestaMultiple) p));
-
                 }
-                pagerAdapter = new AdapterFragmentExams(getSupportFragmentManager(), fragmentList);
                 break;
+            case 2: // Preguntas Cortas
+                for (Pregunta p : listOfQuestions) {
 
-            case 2:
+                    fragmentList.add(FragmentPreguntaCorta.newInstance((PreguntaRespuestaCorta) p));
+                }
                 break;
-
             case 3:
                 break;
-
             default:
                 break;
         }
-
-
         fragmentList.add(FragmentFinalExam.newInstance());
 
         //adapterFragmentExams = new AdapterFragmentExams(getSupportFragmentManager());
         //adapterFragmentExams.setList(fragmentList);
-
+        pagerAdapter = new AdapterFragmentExams(getSupportFragmentManager(), fragmentList);
         pager.setAdapter(pagerAdapter);
         pager.setCurrentItem(0);
 
@@ -150,7 +148,6 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
                         correct += 1;
                     }
                 }
-
                 ((ResponseExamTotalUnicaRespuesta) ret).setQuestions(questions);
                 ret.setFinalMark(Math.max((correct * valuePerQuestions) - (failed * (valuePerQuestions / 2)), 0.0));
                 Log.i(TAG, "Examen completado TIPO RESPUESTA ÚNICA");
@@ -176,7 +173,27 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
                 Log.i(TAG, "Examen completado TIPO RESPUESTA MULTIPLE");
                 ret.setFinalMark(Math.max((correct1 * valuePerQuestions) - (failed1 * (valuePerQuestions / 2)), 0.0));
                 break;
-            case 2: //MA
+            case 2: // Respuesta Corta (SA)
+
+                HashMap<Integer, String> questions2 = new HashMap<>();
+                ret = new ResponseExamTotalRespuestaCorta();
+                double correct2 = 0.0;
+                double failed2 = 0.0;
+                for (int i = 0; i < size; i++) {
+
+                    FragmentPreguntaCorta f = (FragmentPreguntaCorta) fragmentList.get(i);
+                    ResponseExamRespuestaCorta res = (ResponseExamRespuestaCorta) f.correctQuestions();
+                    questions2.put(res.getId(), res.getRespuesta());
+                    if (res.getValue() < 0) {
+                        failed2 += 1;
+                    } else if (res.getValue() > 0) {
+                        correct2 += res.getValue();
+                    }
+                }
+                ((ResponseExamTotalRespuestaCorta) ret).setQuestions(questions2);
+                Log.i(TAG, "Examen completado TIPO RESPUESTA CORTA");
+                ret.setFinalMark(Math.max((correct2 * valuePerQuestions) - (failed2 * (valuePerQuestions / 2)), 0.0));
+
                 break;
             case 3: //MA
                 break;
@@ -193,9 +210,7 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
             ret.setTypeofQuestions(typeOfTest);
         }
 
-
         return ret;
-
     }
 
     @Override
