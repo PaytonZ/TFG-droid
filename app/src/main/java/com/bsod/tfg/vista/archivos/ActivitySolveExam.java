@@ -14,15 +14,20 @@ import android.view.MenuItem;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.archivos.AdapterFragmentExams;
-import com.bsod.tfg.modelo.archivos.Pregunta;
-import com.bsod.tfg.modelo.archivos.PreguntaRespuestaMultiple;
-import com.bsod.tfg.modelo.archivos.PreguntaRespuestaUnica;
-import com.bsod.tfg.modelo.archivos.ResponseExamStats;
-import com.bsod.tfg.modelo.archivos.ResponseExamTotal;
+import com.bsod.tfg.modelo.archivos.preguntas.Pregunta;
+import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaMultiple;
+import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaUnica;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamMultiRespuesta;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotal;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalMultiRespuesta;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalUnicaRespuesta;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamUnicaRespuesta;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.viewpagerindicator.LinePageIndicator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ActivitySolveExam extends FragmentActivity implements FragmentFinalExam.CorrectExam {
@@ -35,6 +40,7 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
     private Integer idTest;
     private Boolean finished = false;
     private long startTime;
+    private int typeOfTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,7 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
 
         listOfQuestions = (ArrayList<Pregunta>) getIntent().getSerializableExtra(Constants.INTENT_EXTRA_ARRAY_QUESTIONS);
         idTest = getIntent().getIntExtra(Constants.INTENT_ID_TEST, -1);
-        int typeOfTest = getIntent().getIntExtra(Constants.INTENT_EXTRA_TYPE_OF_QUESTIONS, -1);
+        typeOfTest = getIntent().getIntExtra(Constants.INTENT_EXTRA_TYPE_OF_QUESTIONS, -1);
         Log.i(TAG, "ID TEST ...:" + String.valueOf(idTest));
         setContentView(R.layout.activity_solve_exam);
         //Set the pager with an adapter
@@ -50,7 +56,7 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
         fragmentList = new ArrayList<>();
         PagerAdapter pagerAdapter = null;
         switch (typeOfTest) {
-            case 0: //MA
+            case 0: //Respuesta única ( NA )
                 for (Pregunta p : listOfQuestions) {
 
                     fragmentList.add(FragmentPreguntaSeleccionable.newInstance((PreguntaRespuestaUnica) p));
@@ -59,7 +65,7 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
                 pagerAdapter = new AdapterFragmentExams(getSupportFragmentManager(), fragmentList);
                 break;
 
-            case 1:
+            case 1://Respuesta Múltiple ( MA )
                 for (Pregunta p : listOfQuestions) {
 
                     fragmentList.add(FragmentPreguntaSeleccionable.newInstance((PreguntaRespuestaMultiple) p));
@@ -121,38 +127,73 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
      * Método que itera cada fragment y obtiene los datos como que respuesta se obtuvo y si se acertó
      */
     public ResponseExamTotal correctQuestions() {
-        ResponseExamTotal ret = new ResponseExamTotal();
+        ResponseExamTotal ret = null;
         long convert = TimeUnit.MILLISECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
-        ret.setTime(convert);
         int size = fragmentList.size() - 1;
-        ret.setFinalMark(0.0);
-        ret.setNumOfQuestions(size);
-        ret.setIdTest(idTest);
-
-        SparseIntArray questions = new SparseIntArray();
-        int correct = 0;
-        int failed = 0;
-
-        for (int i = 0; i < size; i++) {
-            FragmentPreguntaSeleccionable f = (FragmentPreguntaSeleccionable) fragmentList.get(i);
-            ResponseExamStats res = f.correctQuestions();
-            questions.put(res.getId(), res.getSelectedOption());
-            if (res.getValue() < 0) {
-                failed += 1;
-            } else if (res.getValue() > 0) {
-                correct += 1;
-            }
-        }
-        Log.i(TAG, "Correct answers :" + String.valueOf(correct));
-        Log.i(TAG, "Failed answers :" + String.valueOf(failed));
-        // Log.i(TAG, "Transcurred Time:" + String.valueOf(convert));
         double valuePerQuestions = 10.0 / size;
+        switch (typeOfTest) {
+
+            case 0: //Respuesta única ( NA )
+                ret = new ResponseExamTotalUnicaRespuesta();
+
+                int correct = 0;
+                int failed = 0;
+                SparseIntArray questions = new SparseIntArray();
+
+                for (int i = 0; i < size; i++) {
+                    FragmentPreguntaSeleccionable f = (FragmentPreguntaSeleccionable) fragmentList.get(i);
+                    ResponseExamUnicaRespuesta res = (ResponseExamUnicaRespuesta) f.correctQuestions();
+                    questions.put(res.getId(), res.getSelectedOption());
+                    if (res.getValue() < 0) {
+                        failed += 1;
+                    } else if (res.getValue() > 0) {
+                        correct += 1;
+                    }
+                }
+
+                ((ResponseExamTotalUnicaRespuesta) ret).setQuestions(questions);
+                ret.setFinalMark(Math.max((correct * valuePerQuestions) - (failed * (valuePerQuestions / 2)), 0.0));
+                Log.i(TAG, "Examen completado TIPO RESPUESTA ÚNICA");
+                Log.i(TAG, "Correct answers :" + String.valueOf(correct));
+                Log.i(TAG, "Failed answers :" + String.valueOf(failed));
+                break;
+            case 1: //Respuesta Múltiple ( MA )
+                HashMap<Integer, List<Integer>> questions1 = new HashMap<>();
+                ret = new ResponseExamTotalMultiRespuesta();
+                double correct1 = 0.0;
+                double failed1 = 0.0;
+                for (int i = 0; i < size; i++) {
+                    FragmentPreguntaSeleccionable f = (FragmentPreguntaSeleccionable) fragmentList.get(i);
+                    ResponseExamMultiRespuesta res = (ResponseExamMultiRespuesta) f.correctQuestions();
+                    questions1.put(res.getId(), res.getSelectedOptions());
+                    if (res.getValue() < 0) {
+                        failed1 += 1;
+                    } else if (res.getValue() > 0) {
+                        correct1 += res.getValue();
+                    }
+                }
+                ((ResponseExamTotalMultiRespuesta) ret).setQuestions(questions1);
+                Log.i(TAG, "Examen completado TIPO RESPUESTA MULTIPLE");
+                ret.setFinalMark(Math.max((correct1 * valuePerQuestions) - (failed1 * (valuePerQuestions / 2)), 0.0));
+                break;
+            case 2: //MA
+                break;
+            case 3: //MA
+                break;
+        }
+
+        //Log.i(TAG, "Transcurred Time:" + String.valueOf(convert));
         // Log.i(TAG, "valuePerQuestions val :" + String.valueOf(valuePerQuestions));
+        if (ret != null) {
 
-        finished = true;
+            ret.setNumOfQuestions(size);
+            ret.setIdTest(idTest);
+            finished = true;
+            ret.setTime(convert);
+            ret.setTypeofQuestions(typeOfTest);
+        }
 
-        ret.setFinalMark(Math.max((correct * valuePerQuestions) - (failed * (valuePerQuestions / 2)), 0.0));
-        ret.setQuestions(questions);
+
         return ret;
 
     }

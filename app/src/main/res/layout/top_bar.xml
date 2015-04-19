@@ -47,32 +47,32 @@
             android:textSize="16sp" />
 
         <ImageView
-        android:id="@+id/imageViewArchivos"
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
+            android:id="@+id/imageViewArchivos"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
 
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/imageViewChat"
-        android:gravity="center"
-        android:padding="4dp"
-        android:src="@drawable/ic_tab_archivos"
-        android:textAllCaps="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp" />
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageViewChat"
+            android:gravity="center"
+            android:padding="4dp"
+            android:src="@drawable/ic_tab_archivos"
+            android:textAllCaps="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/imageViewexamen"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
 
+            android:layout_alignBottom="@+id/imageViewArchivos"
             android:layout_toRightOf="@+id/imageViewArchivos"
             android:gravity="center"
             android:padding="4dp"
             android:src="@drawable/ic_tab_exam"
             android:textAllCaps="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="16sp"
-            android:layout_alignBottom="@+id/imageViewArchivos" />
+            android:textSize="16sp" />
 
 
     </RelativeLayout>

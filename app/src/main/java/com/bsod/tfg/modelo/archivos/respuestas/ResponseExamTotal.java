@@ -1,24 +1,21 @@
-package com.bsod.tfg.modelo.archivos;
+package com.bsod.tfg.modelo.archivos.respuestas;
 
 /**
  * Proudly created by Payton on 17/11/2014.
  */
-
-import android.util.SparseIntArray;
 
 import java.io.Serializable;
 
 /**
  * Clase que encapusla un resultado final de un examen
  */
-public class ResponseExamTotal implements Serializable {
+public abstract class ResponseExamTotal implements Serializable {
 
     private int idTest;
     private double finalMark;
     private int numOfQuestions;
-    private SparseIntArray questions;
     private long time;
-
+    private int typeofQuestions;
 
     public double getFinalMark() {
         return finalMark;
@@ -37,14 +34,6 @@ public class ResponseExamTotal implements Serializable {
     }
 
 
-    public SparseIntArray getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(SparseIntArray questions) {
-        this.questions = questions;
-    }
-
     public int getIdTest() {
         return idTest;
     }
@@ -59,5 +48,13 @@ public class ResponseExamTotal implements Serializable {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public int getTypeofQuestions() {
+        return typeofQuestions;
+    }
+
+    public void setTypeofQuestions(int typeofQuestions) {
+        this.typeofQuestions = typeofQuestions;
     }
 }

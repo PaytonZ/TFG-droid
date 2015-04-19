@@ -60,35 +60,35 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if (rootView == null) {
-            // Inflate the layout for this fragment
-            rootView = inflater.inflate(R.layout.fragment_archivos, container,
-                    false);
+        /*if (rootView == null) {
+            // Inflate the layout for this fragment*/
+        rootView = inflater.inflate(R.layout.fragment_archivos, container,
+                false);
 
-            buttonFirst = (Button) rootView.findViewById(R.id.archivos_boton_primero);
-            buttonSecond = (Button) rootView.findViewById(R.id.archivos_boton_segundo);
-            buttonThird = (Button) rootView.findViewById(R.id.archivos_boton_tercero);
-            buttonFourth = (Button) rootView.findViewById(R.id.archivos_boton_cuarto);
+        buttonFirst = (Button) rootView.findViewById(R.id.archivos_boton_primero);
+        buttonSecond = (Button) rootView.findViewById(R.id.archivos_boton_segundo);
+        buttonThird = (Button) rootView.findViewById(R.id.archivos_boton_tercero);
+        buttonFourth = (Button) rootView.findViewById(R.id.archivos_boton_cuarto);
 
-            listViewAsignaturasFavoritas = (ListView) rootView.findViewById(R.id.listview_fav_asignaturas);
+        listViewAsignaturasFavoritas = (ListView) rootView.findViewById(R.id.listview_fav_asignaturas);
 
-            adapter = new AdapterAsignaturasDetail(getActivity());
-            listViewAsignaturasFavoritas.setAdapter(adapter);
-            listViewAsignaturasFavoritas.setOnItemClickListener(adapter);
+        adapter = new AdapterAsignaturasDetail(getActivity());
+        listViewAsignaturasFavoritas.setAdapter(adapter);
+        listViewAsignaturasFavoritas.setOnItemClickListener(adapter);
 
-            getFavSubjects();
-            setListViewHeightBasedOnChildren(listViewAsignaturasFavoritas);
+        getFavSubjects();
+        setListViewHeightBasedOnChildren(listViewAsignaturasFavoritas);
 
-            buttonFirst.setOnClickListener(this);
-            buttonSecond.setOnClickListener(this);
-            buttonThird.setOnClickListener(this);
-            buttonFourth.setOnClickListener(this);
-        } else {
-            getFavSubjects();
+        buttonFirst.setOnClickListener(this);
+        buttonSecond.setOnClickListener(this);
+        buttonThird.setOnClickListener(this);
+        buttonFourth.setOnClickListener(this);
+        /*} else {
+            /*getFavSubjects();
             setListViewHeightBasedOnChildren(listViewAsignaturasFavoritas);
 
             ((ViewGroup) rootView.getParent()).removeView(rootView);
-        }
+        }*/
         return rootView;
     }
 

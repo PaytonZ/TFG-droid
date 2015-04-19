@@ -37,9 +37,9 @@ import android.view.ViewConfiguration;
  */
 public class UnderlinePageIndicator extends View implements PageIndicator {
     private static final int INVALID_POINTER = -1;
-    private int mActivePointerId = INVALID_POINTER;
     private static final int FADE_FRAME_MS = 30;
     private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private int mActivePointerId = INVALID_POINTER;
     private boolean mFades;
     private int mFadeDelay;
     private int mFadeLength;

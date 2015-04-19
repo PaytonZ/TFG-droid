@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.archivos.AdapterExamenPreguntaSeleccionable;
-import com.bsod.tfg.modelo.archivos.PreguntaSeleccionable;
-import com.bsod.tfg.modelo.archivos.ResponseExamStats;
+import com.bsod.tfg.modelo.archivos.preguntas.PreguntaSeleccionable;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExam;
 import com.bsod.tfg.modelo.otros.Constants;
 
 /**
@@ -59,7 +59,7 @@ public class FragmentPreguntaSeleccionable extends Fragment {
         return rootView;
     }
 
-    public ResponseExamStats correctQuestions() {
+    public ResponseExam correctQuestions() {
         return adapterExamenPreguntaSeleccionable.correctQuestions();
     }
 }

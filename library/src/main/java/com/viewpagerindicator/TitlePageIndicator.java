@@ -64,11 +64,11 @@ public class TitlePageIndicator extends View implements PageIndicator {
      */
     private static final String EMPTY_TITLE = "";
     private static final int INVALID_POINTER = -1;
-    private int mActivePointerId = INVALID_POINTER;
     private final Paint mPaintText = new Paint();
     private final Rect mBounds = new Rect();
     private final Paint mPaintFooterLine = new Paint();
     private final Paint mPaintFooterIndicator = new Paint();
+    private int mActivePointerId = INVALID_POINTER;
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mListener;
     private int mCurrentPage = -1;

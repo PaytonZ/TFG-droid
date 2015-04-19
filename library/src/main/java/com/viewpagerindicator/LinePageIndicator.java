@@ -38,9 +38,9 @@ import android.view.ViewConfiguration;
  */
 public class LinePageIndicator extends View implements PageIndicator {
     private static final int INVALID_POINTER = -1;
-    private int mActivePointerId = INVALID_POINTER;
     private final Paint mPaintUnselected = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mPaintSelected = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private int mActivePointerId = INVALID_POINTER;
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mListener;
     private int mCurrentPage;

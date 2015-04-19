@@ -1,4 +1,4 @@
-package com.bsod.tfg.modelo.archivos;
+package com.bsod.tfg.modelo.archivos.preguntas;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -34,7 +34,6 @@ public abstract class Pregunta implements Serializable {
     public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
     }
-
 
     public String getTipo() {
         return tipo;

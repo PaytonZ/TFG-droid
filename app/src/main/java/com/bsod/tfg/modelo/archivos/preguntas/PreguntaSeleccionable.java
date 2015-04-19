@@ -1,13 +1,11 @@
-package com.bsod.tfg.modelo.archivos;
+package com.bsod.tfg.modelo.archivos.preguntas;
 
-import com.bsod.tfg.modelo.archivos.Pregunta;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Proudly created by Payton on 14/04/2015.
  */
-public class PreguntaSeleccionable extends Pregunta {
-
+public abstract class PreguntaSeleccionable extends Pregunta {
 
     @JsonProperty("respuesta1")
     private String respuesta1;
@@ -59,5 +57,8 @@ public class PreguntaSeleccionable extends Pregunta {
     public void setRespuesta5(String respuesta5) {
         this.respuesta5 = respuesta5;
     }
+
+    public abstract boolean isMultiAnswer();
+
 
 }

@@ -69,58 +69,58 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflamos la Vista que se debe mostrar en pantalla.
-        if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_tablon, container,
-                    false);
+        /* Inflamos la Vista que se debe mostrar en pantalla.
+        if (rootView == null) {*/
+        rootView = inflater.inflate(R.layout.fragment_tablon, container,
+                false);
 
-            swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_tablon);
-            swipeLayout.setOnRefreshListener(this);
+        swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_tablon);
+        swipeLayout.setOnRefreshListener(this);
 
-            aBar = getActivity().getActionBar();
+        aBar = getActivity().getActionBar();
 
-            tablonList = (ListView) rootView.findViewById(R.id.list_tablon);
+        tablonList = (ListView) rootView.findViewById(R.id.list_tablon);
 
-            final AdapterTablon adapter = (aTablon == null) ? aTablon = new AdapterTablon(getActivity()) : aTablon;
-            tablonList.setAdapter(adapter);
-            tablonList.setOnItemClickListener(this);
-            tablonList.setOnScrollListener(this);
+        final AdapterTablon adapter = (aTablon == null) ? aTablon = new AdapterTablon(getActivity()) : aTablon;
+        tablonList.setAdapter(adapter);
+        tablonList.setOnItemClickListener(this);
+        tablonList.setOnScrollListener(this);
 
-            new Thread() {
-                @Override
-                public void run() {
-                    DataBaseHelper db = DataBaseHelper.getInstance();
-                    try {
-                        daoMessageBoard = db.getDAOMessageBoard();
-                        daoUsers = db.getDAOUser();
-                        final List<MessageBoard> list = daoMessageBoard.query(daoMessageBoard.queryBuilder().orderBy("id", false).prepare());
-                        Log.i(TAG, "Existen ".concat(String.valueOf(list.size())).concat(" mensajes en la base de datos local."));
-                        for (MessageBoard mb : list) {
-                            daoUsers.refresh(mb.getUser());
-                        }
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ((AdapterTablon) tablonList.getAdapter()).addMessages(list);
-                                refreshMessages();
-                            }
-                        });
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+        new Thread() {
+            @Override
+            public void run() {
+                DataBaseHelper db = DataBaseHelper.getInstance();
+                try {
+                    daoMessageBoard = db.getDAOMessageBoard();
+                    daoUsers = db.getDAOUser();
+                    final List<MessageBoard> list = daoMessageBoard.query(daoMessageBoard.queryBuilder().orderBy("id", false).prepare());
+                    Log.i(TAG, "Existen ".concat(String.valueOf(list.size())).concat(" mensajes en la base de datos local."));
+                    for (MessageBoard mb : list) {
+                        daoUsers.refresh(mb.getUser());
                     }
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((AdapterTablon) tablonList.getAdapter()).addMessages(list);
+                            refreshMessages();
+                        }
+                    });
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-            }.start();
+            }
+        }.start();
 
 
-            thisContext = getActivity();
+        thisContext = getActivity();
 
-            // Devolvemos la vista para que se muestre en pantalla.
+        // Devolvemos la vista para que se muestre en pantalla.
 
-            setHasOptionsMenu(true);
-        } else {
+        setHasOptionsMenu(true);
+        /*} else {
             ((ViewGroup) rootView.getParent()).removeView(rootView);
-        }
+        }*/
         return rootView;
     }
 

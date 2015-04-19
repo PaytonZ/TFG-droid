@@ -46,7 +46,6 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -85,6 +84,7 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
     private ArrayList<ChosenImage> chosenImagesArray;
     private Button button_send;
     private EditText edit_description;
+    private List<Asignatura> listofSubjects;
 
 
     public FragmentUploadFile() {
@@ -93,38 +93,41 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_upload_file, container, false);
+        /* Inflate the layout for this fragment
+        if (rootView == null) {*/
+        rootView = inflater.inflate(R.layout.fragment_upload_file, container, false);
 
-            imageViewArray = new ArrayList<>();
-            buttonViewArray = new ArrayList<>();
-            chosenImagesArray = new ArrayList<>();
-            spinnersubject = (Spinner) rootView.findViewById(R.id.spinnersubject);
-            spinnertheme = (Spinner) rootView.findViewById(R.id.spinnertheme);
-            button_selectyearmonth = (Button) rootView.findViewById(R.id.button_selectyearmonth);
-            textViewMonth = (TextView) rootView.findViewById(R.id.textViewMonth);
-            textViewYear = (TextView) rootView.findViewById(R.id.textViewYear);
-            button_selectyearmonth.setOnClickListener(this);
+        imageViewArray = new ArrayList<>();
+        buttonViewArray = new ArrayList<>();
+        chosenImagesArray = new ArrayList<>();
+        spinnersubject = (Spinner) rootView.findViewById(R.id.spinnersubject);
+        spinnertheme = (Spinner) rootView.findViewById(R.id.spinnertheme);
+        button_selectyearmonth = (Button) rootView.findViewById(R.id.button_selectyearmonth);
+        textViewMonth = (TextView) rootView.findViewById(R.id.textViewMonth);
+        textViewYear = (TextView) rootView.findViewById(R.id.textViewYear);
+        button_selectyearmonth.setOnClickListener(this);
 
-            Button buttonSelectimage0 = (Button) rootView.findViewById(R.id.button_selectimage);
-            buttonSelectimage0.setOnClickListener(this);
-            buttonViewArray.add(buttonSelectimage0);
+        Button buttonSelectimage0 = (Button) rootView.findViewById(R.id.button_selectimage);
+        buttonSelectimage0.setOnClickListener(this);
+        buttonViewArray.add(buttonSelectimage0);
 
-            imageViewArray.add((ImageView) rootView.findViewById(R.id.imageViewThumb));
+        imageViewArray.add((ImageView) rootView.findViewById(R.id.imageViewThumb));
 
-            notesradiobutton = (RadioButton) rootView.findViewById(R.id.notesradiobutton);
-            examenradiobutton = (RadioButton) rootView.findViewById(R.id.examenradiobutton);
+        notesradiobutton = (RadioButton) rootView.findViewById(R.id.notesradiobutton);
+        examenradiobutton = (RadioButton) rootView.findViewById(R.id.examenradiobutton);
 
-            notesradiobutton.setOnClickListener(this);
-            examenradiobutton.setOnClickListener(this);
+        notesradiobutton.setOnClickListener(this);
+        examenradiobutton.setOnClickListener(this);
 
-            button_send = (Button) rootView.findViewById(R.id.button_send);
-            button_send.setOnClickListener(this);
+        button_send = (Button) rootView.findViewById(R.id.button_send);
+        button_send.setOnClickListener(this);
 
-            edit_description = (EditText) rootView.findViewById(R.id.edit_description);
+        edit_description = (EditText) rootView.findViewById(R.id.edit_description);
 
-            context = getActivity();
+        context = getActivity();
+
+        if (listofSubjects == null) {
+
             RequestParams params = new RequestParams();
             params.put("token", Session.getSession().getToken().getToken());
             params.put("idfaculty", Session.getSession().getFacultad().getId());
@@ -137,7 +140,7 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
                         int error = Integer.parseInt(response.get("error").toString());
                         if (error == 200) {
                             ObjectMapper mapper = new ObjectMapper();
-                            List<Asignatura> listofSubjects = mapper.readValue(
+                            listofSubjects = mapper.readValue(
                                     response.get("data").toString(), new TypeReference<List<Asignatura>>() {
                                     });
                             spinnersubject.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, listofSubjects));
@@ -149,10 +152,14 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
                     }
                 }
             });
-
         } else {
-            ((ViewGroup) rootView.getParent()).removeView(rootView);
+            spinnersubject.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, listofSubjects));
+            spinnersubject.setOnItemSelectedListener(thisfragment);
         }
+
+        /*} else {
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }*/
         return rootView;
     }
 
@@ -315,7 +322,7 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
 
                                                 if (iv != null) {
                                                     //textViewFile.setText(image.getFilePathOriginal());
-                                                   iv.setImageURI(Uri.parse(new File(chosenImage
+                                                    iv.setImageURI(Uri.parse(new File(chosenImage
                                                             .getFileThumbnail()).toString()));
                                                     /*iv.setImageURI(Uri.parse(new File(chosenImage
                                                             .getFilePathOriginal()).toString()));*/

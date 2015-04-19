@@ -1,4 +1,4 @@
-package com.bsod.tfg.modelo.archivos;
+package com.bsod.tfg.modelo.archivos.respuestas;
 
 /**
  * Proudly created by Payton on 17/11/2014.
@@ -9,10 +9,9 @@ import java.io.Serializable;
 /**
  * Clase encargada de encapulsar las respuestas de las distintas preguntas
  */
-public class ResponseExamStats implements Serializable {
-    private double value;
-    private int id;
-    private int selectedOption;
+public abstract class ResponseExam implements Serializable {
+    protected double value;
+    protected int id;
 
     /**
      * Valor de la respuesta
@@ -39,14 +38,5 @@ public class ResponseExamStats implements Serializable {
         this.id = id;
     }
 
-    /**
-     * En caso de ser erronea,  opción que se eligio o -1 si no se eligio ninguna
-     */
-    public int getSelectedOption() {
-        return selectedOption;
-    }
 
-    public void setSelectedOption(int selectedOption) {
-        this.selectedOption = selectedOption;
-    }
 }
