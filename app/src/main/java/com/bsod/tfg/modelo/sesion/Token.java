@@ -3,12 +3,13 @@ package com.bsod.tfg.modelo.sesion;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Proudly created by Payton on 04/11/2014.
  */
-public class Token {
+public class Token implements Serializable {
     @JsonProperty("pk")
     private int id;
     @JsonProperty("token")

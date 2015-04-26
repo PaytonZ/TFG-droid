@@ -9,6 +9,7 @@ import android.util.Log;
 import com.bsod.tfg.controlador.bbdd.DataBaseHelper;
 import com.bsod.tfg.modelo.sesion.PreferencesManager;
 import com.bsod.tfg.modelo.sesion.Session;
+import com.bsod.tfg.utils.Statistics;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -29,10 +30,13 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Statistics.startProfiling(TAG);
         // your application starts from here
         applicationContext = this;
         try {
             new SetUpApp().execute().get();
+            Statistics.stopProfiling(TAG, "App startup");
         } catch (Exception e) {
             e.printStackTrace();
         }

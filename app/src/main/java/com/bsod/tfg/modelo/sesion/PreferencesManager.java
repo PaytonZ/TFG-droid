@@ -13,7 +13,6 @@ import com.google.gson.Gson;
  */
 public class PreferencesManager {
 
-
     private static final String USER = "com.bsod.tfg.USER";
     private static final String TOKEN = "com.bsod.tfg.TOKEN";
     private static final String FACULTAD = "com.bsod.tfg.FACULTAD";
@@ -74,7 +73,7 @@ public class PreferencesManager {
         Gson gson = new Gson();
         String json = gson.toJson(facultad);
         prefsEditor.putString(FACULTAD, json);
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 
     public User getUser() {
@@ -88,6 +87,6 @@ public class PreferencesManager {
         Gson gson = new Gson();
         String json = gson.toJson(user);
         prefsEditor.putString(USER, json);
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 }

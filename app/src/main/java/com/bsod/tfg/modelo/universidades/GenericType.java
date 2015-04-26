@@ -1,9 +1,11 @@
 package com.bsod.tfg.modelo.universidades;
 
+import java.io.Serializable;
+
 /**
  * Created by Payton on 13/10/2014.
  */
-public abstract class GenericType {
+public abstract class GenericType implements Serializable {
 
     protected Integer id;
     protected String name;

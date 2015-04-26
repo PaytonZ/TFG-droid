@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.bsod.tfg.controlador.chat.ChatService;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
+import com.bsod.tfg.utils.Statistics;
 import com.bsod.tfg.utils.TopBar;
 import com.bsod.tfg.vista.archivos.FragmentArchivos;
 import com.bsod.tfg.vista.archivos.FragmentEstadisticas;
@@ -52,11 +53,11 @@ public class ActivityMain extends FragmentActivity implements
     private FragmentArchivos fArchivos;
     private Fragment fExamenes;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Statistics.startProfiling(TAG);
         startService(new Intent(this, ChatService.class));
         uni_location = Session.getSession().getFacultad().getNombre();
         setContentView(R.layout.activity_main);
@@ -76,7 +77,7 @@ public class ActivityMain extends FragmentActivity implements
         fExamenes = new FragmentUploadFile();
 
         menu.setSelectedTab(TopBar.TAB_TABLON);
-
+        Statistics.stopProfiling(TAG, "ActivityMain Start");
     }
 
     @Override
@@ -204,6 +205,7 @@ public class ActivityMain extends FragmentActivity implements
                             Intent intent = new Intent(getApplicationContext(), ActivitySplash.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("EXIT", true);
+                            stopService(new Intent(ActivityMain.this, ChatService.class));
                             startActivity(intent);
 
                         }

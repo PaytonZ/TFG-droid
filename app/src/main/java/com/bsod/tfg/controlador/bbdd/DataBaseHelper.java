@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.chat.ChatServerBean;
+import com.bsod.tfg.modelo.estadisticas.EstadisticasBean;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.User;
 import com.bsod.tfg.modelo.tablon.MessageBoard;
@@ -39,6 +40,7 @@ public abstract class DataBaseHelper extends OrmLiteSqliteOpenHelper {
             /* Chat Tables destroyed at start */
             TableUtils.dropTable(connectionSource, ChatServerBean.class, true);
             TableUtils.createTableIfNotExists(connectionSource, ChatServerBean.class);
+            TableUtils.createTableIfNotExists(connectionSource, EstadisticasBean.class);
 
 
         } catch (Exception e) {
@@ -71,4 +73,6 @@ public abstract class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     public abstract Dao<User, Integer> getDAOUser();
 
     public abstract Dao<ChatServerBean, Integer> getDAOChatServer();
+
+    public abstract Dao<EstadisticasBean, Integer> getDAOEstadisticas();
 }

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.archivos.AdapterFragmentExams;
 import com.bsod.tfg.modelo.archivos.preguntas.Pregunta;
+import com.bsod.tfg.modelo.archivos.preguntas.PreguntaEmparejamiento;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaMultiple;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaUnica;
@@ -78,7 +79,12 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
                     fragmentList.add(FragmentPreguntaCorta.newInstance((PreguntaRespuestaCorta) p));
                 }
                 break;
-            case 3:
+            case 3: // Preguntas Emparejamiento
+
+                for (Pregunta p : listOfQuestions) {
+
+                    fragmentList.add(FragmentPreguntasEmparejamiento.newInstance((PreguntaEmparejamiento) p));
+                }
                 break;
             default:
                 break;

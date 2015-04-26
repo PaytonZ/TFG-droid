@@ -9,6 +9,7 @@ import com.bsod.tfg.modelo.chat.ChatClientBean;
 import com.bsod.tfg.modelo.chat.ChatServerBean;
 import com.bsod.tfg.modelo.otros.Constants;
 import com.bsod.tfg.modelo.sesion.Session;
+import com.bsod.tfg.utils.Statistics;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -55,6 +56,7 @@ public class ChatService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "Chat Service started");
+        Statistics.startProfiling(TAG);
         if (socket == null) {
             socket = new SocketChat();
         } else {
@@ -62,7 +64,7 @@ public class ChatService extends Service {
         }
         socket.connect(getApplicationContext(), String.valueOf(Session.getSession().getFacultad().getId()));
         startListening();
-
+        Statistics.stopProfiling(TAG, "ChatService Start");
         return START_STICKY;
     }
 

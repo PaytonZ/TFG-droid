@@ -2,13 +2,14 @@ package com.bsod.tfg.modelo.sesion;
 
 import com.bsod.tfg.modelo.universidades.Facultad;
 
+import java.io.Serializable;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Payton on 09/10/2014.
  * Represents a singleton Instance for the User Session
  */
-public class Session {
+public class Session implements Serializable {
 
     private static Session mSession;
 
@@ -18,7 +19,7 @@ public class Session {
     private ConcurrentHashMap<Integer, User> mapUsers;
 
     private Session() {
-        mapUsers = new ConcurrentHashMap<Integer, User>();
+        mapUsers = new ConcurrentHashMap<>();
     }
 
     private static synchronized void createSession() {
@@ -43,7 +44,7 @@ public class Session {
         getSession().setUser(PreferencesManager.getInstance().getUser());
         getSession().setToken(PreferencesManager.getInstance().getToken());
         getSession().setFacultad(PreferencesManager.getInstance().getFacultad());
-        //getSession().setUser(PreferencesManager.getInstance().getUser());
+
     }
 
 

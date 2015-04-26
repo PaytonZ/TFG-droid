@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.bsod.tfg.modelo.chat.ChatServerBean;
+import com.bsod.tfg.modelo.estadisticas.EstadisticasBean;
 import com.bsod.tfg.modelo.sesion.User;
 import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.j256.ormlite.dao.Dao;
@@ -102,6 +103,17 @@ public class DataBaseHelperImp extends DataBaseHelper {
         Dao<ChatServerBean, Integer> result = null;
         try {
             result = DaoManager.createDao(connectionSource, ChatServerBean.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public Dao<EstadisticasBean, Integer> getDAOEstadisticas() {
+        Dao<EstadisticasBean, Integer> result = null;
+        try {
+            result = DaoManager.createDao(connectionSource, EstadisticasBean.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

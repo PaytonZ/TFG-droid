@@ -1,11 +1,12 @@
 package com.bsod.tfg.modelo.archivos.respuestas;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Proudly created by Payton on 19/04/2015.
  */
-public class ResponseExamTotalRespuestaCorta extends ResponseExamTotal {
+public class ResponseExamTotalRespuestaCorta extends ResponseExamTotal implements Serializable {
 
     private HashMap<Integer, String> questions;
 

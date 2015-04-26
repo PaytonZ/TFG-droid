@@ -51,7 +51,9 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
 
         aBar = getActionBar();
 
-        aBar.setDisplayHomeAsUpEnabled(true);
+        if (aBar != null) {
+            aBar.setDisplayHomeAsUpEnabled(true);
+        }
 
     }
 
@@ -88,7 +90,6 @@ public class ActivityLogin extends Activity implements View.OnClickListener {
 
             final String username = user.getText().toString();
             final String pass = password.getText().toString();
-
 
             // HARDCODING for making root toor always accesible
             if (username.equals("root") && pass.equals("toor")) {

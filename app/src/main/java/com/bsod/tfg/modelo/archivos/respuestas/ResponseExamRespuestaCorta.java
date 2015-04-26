@@ -1,9 +1,11 @@
 package com.bsod.tfg.modelo.archivos.respuestas;
 
+import java.io.Serializable;
+
 /**
  * Proudly created by Payton on 19/04/2015.
  */
-public class ResponseExamRespuestaCorta extends ResponseExam {
+public class ResponseExamRespuestaCorta extends ResponseExam implements Serializable {
 
     private String respuesta;
 

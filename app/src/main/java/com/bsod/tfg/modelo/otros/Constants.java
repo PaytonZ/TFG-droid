@@ -75,7 +75,6 @@ public class Constants {
     public static final String[] TYPE_OF_QUESTIONS = {App.getContext().getString(R.string.unique_answer), App.getContext().getString(R.string.multiple_answer), App.getContext().getString(R.string.short_answer), App.getContext().getString(R.string.pairing_answer)};
     public static final String[] TYPE_OF_QUESTIONS_SHORT = {"na", "ma", "sa", "pa"};
 
-
     /* CHAT STUFF */
     public static final String CHAT_STATE_CHAT = "CHAT";
     public static final int CHAT_PORT = 8000;

@@ -24,11 +24,10 @@ import com.bsod.tfg.modelo.chat.ChatClientEnum;
 import com.bsod.tfg.modelo.chat.ChatRoom;
 import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.FragmentReplace;
+import com.bsod.tfg.utils.Statistics;
 import com.gc.materialdesign.views.ButtonFloat;
 
 import java.util.HashMap;
-
-import static java.lang.Thread.sleep;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,7 +56,7 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
                              Bundle savedInstanceState) {
         /* Inflate the layout for this fragment
         if (rootView == null) {*/
-
+        Statistics.startProfiling(TAG);
         rootView = inflater.inflate(R.layout.fragment_chat, container, false);
         connectionStatus = (TextView) rootView.findViewById(R.id.chat_connection_status);
         listOfChats = (ListView) rootView.findViewById(R.id.listViewChatRooms);
@@ -70,9 +69,8 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
         final String startingRoom = String.valueOf(Session.getSession().getFacultad().getId());
         isPaused = false;
 
-        new Handler().postDelayed(new Runnable() {
+        new Handler().postDelayed(new Thread() {
             public void run() {
-
                 int tries = 0;
                 while (!ChatService.isConnected() && tries < 3) {
                     try {
@@ -98,6 +96,8 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
                             chatRoomAdapter.add(cr);
                             Fragment f = FragmentChatDetail.newInstance(cr);
                             fragmentList.put(cr.getIdRoom(), f);
+                            Statistics.stopProfiling(TAG, "FragmentChat connected to the chatService");
+
                         }
                     });
                 } else {
@@ -132,7 +132,7 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
     }
 
     private void checkConnection() {
-        new Handler().postDelayed(new Runnable() {
+        new Handler().postDelayed(new Thread() {
             public void run() {
                 if (!isPaused) {
                     Log.d(TAG, "Comprobando la conexión con el sistema de chat...");

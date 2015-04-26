@@ -29,6 +29,7 @@ import com.bsod.tfg.modelo.tablon.MessageBoard;
 import com.bsod.tfg.modelo.tablon.MessageBoardUpdate;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
+import com.bsod.tfg.utils.Statistics;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -71,6 +72,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                              Bundle savedInstanceState) {
         /* Inflamos la Vista que se debe mostrar en pantalla.
         if (rootView == null) {*/
+        Statistics.startProfiling(TAG);
         rootView = inflater.inflate(R.layout.fragment_tablon, container,
                 false);
 
@@ -105,7 +107,6 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                             refreshMessages();
                         }
                     });
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -182,6 +183,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     private void updateMessages() {
+
         RequestParams params = new RequestParams();
         int elementCount = aTablon.getCount();
         params.put("token", Session.getSession().getToken().getToken());
@@ -239,13 +241,16 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     private void refreshMessages() {
-
+        Statistics.startProfiling(TAG);
 
         RequestParams params = new RequestParams();
         params.put("token", Session.getSession().getToken().getToken());
         params.put("idmessage", (aTablon.getCount() == 0) ? 0 : ((AdapterTablon) tablonList.getAdapter()).getItem(0).getId());
         params.put("idfaculty", Session.getSession().getFacultad().getId());
 
+
+        final int[] numberofMessagesProcessed = new int[1];
+        numberofMessagesProcessed[0] = -1;
         HttpClient.get(Constants.HTTP_GET_MESSAGES_BOARD, params, new JsonHttpResponseHandler() {
 
             @Override
@@ -261,7 +266,7 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                         List<MessageBoard> listOfMessagesUpdated = mapper.readValue(
                                 response.get("data").toString(), new TypeReference<List<MessageBoard>>() {
                                 });
-                        //listOfMessages.addAll(0, listOfMessagesUpdated);
+                        numberofMessagesProcessed[0] = listOfMessagesUpdated.size();
                         ((AdapterTablon) tablonList.getAdapter()).addMessages(listOfMessagesUpdated);
                         swipeLayout.setRefreshing(false);
 
@@ -282,6 +287,8 @@ public class FragmentTablon extends Fragment implements SwipeRefreshLayout.OnRef
                     swipeLayout.setRefreshing(false);
                     Toast.makeText(thisContext, thisContext.getString(R.string.error_update_messages), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
+                } finally {
+                    Statistics.stopProfiling(TAG, "Processed" + numberofMessagesProcessed[0] + "Messages.");
                 }
             }
 

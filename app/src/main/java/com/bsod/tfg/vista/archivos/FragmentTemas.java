@@ -21,6 +21,7 @@ import com.bsod.tfg.controlador.archivos.AdapterTemas;
 import com.bsod.tfg.modelo.archivos.Asignatura;
 import com.bsod.tfg.modelo.archivos.Tema;
 import com.bsod.tfg.modelo.archivos.preguntas.Pregunta;
+import com.bsod.tfg.modelo.archivos.preguntas.PreguntaEmparejamiento;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaMultiple;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaUnica;
@@ -168,13 +169,16 @@ public class FragmentTemas extends Fragment implements AdapterView.OnItemClickLi
                                                            } else if (typeOfQuestions[which].equals(typeOfQuestions[2])) {
                                                                tr = new TypeReference<List<PreguntaRespuestaCorta>>() {
                                                                };
+                                                           } else if (typeOfQuestions[which].equals(typeOfQuestions[3])) {
+                                                               tr = new TypeReference<List<PreguntaEmparejamiento>>() {
+                                                               };
                                                            }
                                                            if (tr != null) {
 
                                                                ArrayList<?> listOfQuestions = mapper.readValue(
                                                                        response.get("data").toString(), tr);
 
-                                                               int idTest = mapper.readValue(response.get("test").toString(), Integer.class);
+                                                               int idTest = mapper.readValue(response.getString("test"), Integer.class);
 
                                                                Intent i = new Intent(getActivity(), ActivitySolveExam.class);
                                                                i.putExtra(Constants.INTENT_EXTRA_ARRAY_QUESTIONS, listOfQuestions);
