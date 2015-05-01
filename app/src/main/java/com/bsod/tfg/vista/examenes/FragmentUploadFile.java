@@ -1,4 +1,4 @@
-package com.bsod.tfg.vista.archivos;
+package com.bsod.tfg.vista.examenes;
 
 
 import android.app.Activity;
@@ -93,8 +93,6 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /* Inflate the layout for this fragment
-        if (rootView == null) {*/
         rootView = inflater.inflate(R.layout.fragment_upload_file, container, false);
 
         imageViewArray = new ArrayList<>();
@@ -157,9 +155,6 @@ public class FragmentUploadFile extends Fragment implements AdapterView.OnItemSe
             spinnersubject.setOnItemSelectedListener(thisfragment);
         }
 
-        /*} else {
-            ((ViewGroup) rootView.getParent()).removeView(rootView);
-        }*/
         return rootView;
     }
 

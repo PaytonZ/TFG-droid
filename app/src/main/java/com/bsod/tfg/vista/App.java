@@ -37,6 +37,10 @@ public class App extends Application {
         try {
             new SetUpApp().execute().get();
             Statistics.stopProfiling(TAG, "App startup");
+            if (Statistics.PROFILING_ACTIVE) {
+                Statistics.showStadisticsViaLog();
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -19,9 +19,11 @@ import com.bsod.tfg.modelo.archivos.preguntas.PreguntaEmparejamiento;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaMultiple;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaUnica;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamEmparejamientos;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamMultiRespuesta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotal;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalEmparejamientos;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalMultiRespuesta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalUnicaRespuesta;
@@ -201,12 +203,25 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
                 ret.setFinalMark(Math.max((correct2 * valuePerQuestions) - (failed2 * (valuePerQuestions / 2)), 0.0));
 
                 break;
-            case 3: //MA
+            case 3: //Empajeramiento
+                ret = new ResponseExamTotalEmparejamientos();
+                double correct3 = 0.0;
+                double failed3 = 0.0;
+                HashMap<Integer, int[][]> questions3 = new HashMap<>();
+                for (int i = 0; i < size; i++) {
+                    FragmentPreguntasEmparejamiento f = (FragmentPreguntasEmparejamiento) fragmentList.get(i);
+                    ResponseExamEmparejamientos res = (ResponseExamEmparejamientos) f.correctQuestions();
+                    questions3.put(res.getId(), res.getRespuesta());
+                    if (res.getValue() > 0.0) {
+                        correct3 += 1.0;
+                    } else {
+                        failed3 += 1.0;
+                    }
+                }
+                ((ResponseExamTotalEmparejamientos) ret).setQuestions(questions3);
+                ret.setFinalMark(Math.max((correct3 * valuePerQuestions) - (failed3 * (valuePerQuestions / 2)), 0.0));
                 break;
         }
-
-        //Log.i(TAG, "Transcurred Time:" + String.valueOf(convert));
-        // Log.i(TAG, "valuePerQuestions val :" + String.valueOf(valuePerQuestions));
         if (ret != null) {
 
             ret.setNumOfQuestions(size);
@@ -215,7 +230,6 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
             ret.setTime(convert);
             ret.setTypeofQuestions(typeOfTest);
         }
-
         return ret;
     }
 

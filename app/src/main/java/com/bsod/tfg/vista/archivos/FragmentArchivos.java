@@ -46,15 +46,16 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
     private ListView listViewAsignaturasFavoritas;
     private AdapterAsignaturasDetail adapter;
     private View rootView;
+    private boolean documents;
 
-    public FragmentArchivos() {
-        // Required empty public constructor
+
+    public static FragmentArchivos newInstance(boolean documents) {
+        FragmentArchivos fg = new FragmentArchivos();
+        Bundle args = new Bundle();
+        args.putBoolean("documents", documents);
+        fg.setArguments(args);
+        return fg;
     }
-
-    public static Fragment newInstance() {
-        return new FragmentArchivos();
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +65,7 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
             // Inflate the layout for this fragment*/
         rootView = inflater.inflate(R.layout.fragment_archivos, container,
                 false);
-
+        documents = getArguments().getBoolean("documents");
         buttonFirst = (Button) rootView.findViewById(R.id.archivos_boton_primero);
         buttonSecond = (Button) rootView.findViewById(R.id.archivos_boton_segundo);
         buttonThird = (Button) rootView.findViewById(R.id.archivos_boton_tercero);
@@ -107,7 +108,7 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
         }
         if (curso != 0) {
 
-            FragmentReplace.replaceFragment(getActivity(), FragmentAsignaturas.newInstance(curso));
+            FragmentReplace.replaceFragment(getActivity(), FragmentAsignaturas.newInstance(curso, documents));
         }
     }
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaEmparejamiento;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExam;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamEmparejamientos;
 
 import java.util.Random;
 
@@ -32,7 +33,6 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
     private TextView pareja23;
     private PreguntaEmparejamiento pregunta;
     private final String TAG = "FragmentPreguntasEm";
-    private TextView enunciado;
     private Random rand;
     private boolean firstRow = false;
     private int color;
@@ -41,7 +41,9 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
 
     private int[] respuestasDadas = {-1, -1, -1};
     private int[][] respuestasCorrectas = {{-1, -1, -1}, {-1, -1, -1}};
-    private String[] columna2textos;
+
+    private TextView[] rightColumn;
+    private TextView[] leftColumn;
 
 
     public static FragmentPreguntasEmparejamiento newInstance(PreguntaEmparejamiento p) {
@@ -70,7 +72,7 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
                 Log.e(TAG.substring(0, 23), "Pregunta no se cargo correctamente.");
             } else {
 
-                enunciado = (TextView) rootView.findViewById(R.id.textViewExamQuestion);
+                TextView enunciado = (TextView) rootView.findViewById(R.id.textViewExamQuestion);
                 enunciado.setText(pregunta.getPregunta());
 
                 pareja11 = (TextView) rootView.findViewById(R.id.pareja11);
@@ -80,6 +82,18 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
                 pareja22 = (TextView) rootView.findViewById(R.id.pareja22);
                 pareja23 = (TextView) rootView.findViewById(R.id.pareja23);
 
+                rightColumn = new TextView[3];
+                leftColumn = new TextView[3];
+
+                leftColumn[0] = pareja11;
+                leftColumn[1] = pareja12;
+                leftColumn[2] = pareja13;
+
+                rightColumn[0] = pareja21;
+                rightColumn[1] = pareja22;
+                rightColumn[2] = pareja23;
+
+                // Reordenando de forma aleatoria
                 rand = new Random();
                 boolean validValues[][] = {{true, true, true}, {true, true, true}};
                 for (int i = 0; i < 3; i++) {
@@ -87,20 +101,12 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
                         int n;
                         do {
                             n = rand.nextInt(3) + 1;
-                            Log.d(TAG, n + "");
-                            Log.d(TAG, validValues.toString());
                         } while (!validValues[j][n - 1]);
 
                         validValues[j][n - 1] = false;
                         respuestasCorrectas[j][i] = n;
                     }
-
                 }
-
-                for (int i = 0; i < respuestasCorrectas.length; i++) {
-                    Log.d(TAG, "i:" + i + "respuestascorrectas[]" + respuestasCorrectas[i]);
-                }
-
 
                 configurePareja(pareja11, getTextColumna1(respuestasCorrectas[0][0]));
                 configurePareja(pareja12, getTextColumna1(respuestasCorrectas[0][1]));
@@ -130,14 +136,28 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
             // quiere elegir la segunda columna y ya tiene elegida una de la priemra.
             // Esta respondiendo de forma adecuada
         } else if (firstRow && ((view == pareja21) || (view == pareja22) || (view == pareja23))) {
-            Log.d(TAG, "quiere elegir la segunda columna y ya tiene elegida una de la priemra.");
+            // Había una respuesta seleccionada anteriormente.
+            int selectedViewSecondRow = (view == pareja21) ? 0 : ((view == pareja22) ? 1 : 2);
+            // Si había selecionado respuesta y no es la misma que la anterior, se "quita" el color a la anterior , indica no no seleccion
+            boolean containsValue = false;
+            int k = -1;
+            for (int i = 0; i < 3; i++) {
+                if (respuestasDadas[i] == selectedViewSecondRow) {
+                    k = i;
+                    containsValue = true;
+                }
+            }
+            if (containsValue) {
+                leftColumn[k].setBackground(getResources().getDrawableForDensity(R.drawable.border_question, getResources().getDisplayMetrics().densityDpi, null));
+                leftColumn[k].setTextColor(getResources().getColor(R.color.black));
+                respuestasDadas[k] = -1;
+            }
             view.setBackgroundColor(color);
             ((TextView) view).setTextColor(getResources().getColor(R.color.white));
             selectedView = null;
             firstRow = false;
             color = -1;
-
-            respuestasDadas[selectedViewValue - 1] = (view == pareja21) ? 1 : ((view == pareja22) ? 2 : 3);
+            respuestasDadas[selectedViewValue] = selectedViewSecondRow;
             // El usuario quiere deseleccionar la vista que pulso anteriormente
         } else if (selectedView != null && view == selectedView) {
 
@@ -149,10 +169,8 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
         }
         // El usuario seleccionó una de la primera columna y ahora desea elegir otra
         else if (firstRow && (view == pareja11 || view == pareja12 || view == pareja13)) {
-            if (selectedView == null) {
-                Log.e(TAG, "Error en la lógica de onClick de preguntas emparejamiento.");
-            } else {
-                selectedView.setBackgroundColor(getResources().getColor(R.color.white));
+            if (selectedView != null) {
+                selectedView.setBackground(getResources().getDrawableForDensity(R.drawable.border_question, getResources().getDisplayMetrics().densityDpi, null));
                 selectedView.setTextColor(getResources().getColor(R.color.black));
                 // Esto se repite con el otro.
                 color = generateRandomColor();
@@ -160,27 +178,58 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
                 view.setBackgroundColor(color);
                 ((TextView) view).setTextColor(getResources().getColor(R.color.white));
                 firstRow = true;
-                selectedViewValue = (view == pareja11) ? 1 : ((view == pareja12) ? 2 : 3);
+                selectedViewValue = (view == pareja11) ? 0 : ((view == pareja12) ? 1 : 2);
+                if (respuestasDadas[selectedViewValue] != -1) {
+                    rightColumn[respuestasDadas[selectedViewValue]].setBackground(getResources().getDrawableForDensity(R.drawable.border_question, getResources().getDisplayMetrics().densityDpi, null));
+                    rightColumn[respuestasDadas[selectedViewValue]].setTextColor(getResources().getColor(R.color.black));
+                    respuestasDadas[selectedViewValue] = -1;
+                }
             }
         }
         // Esta seleccionando la primera columna por primera vez
-        else if ((view == pareja11 || view == pareja12 || view == pareja13) && !firstRow) {
-            Log.d(TAG, "Esta seleccionando la primera columna por primera vez");
+        else if ((view == pareja11 || view == pareja12 || view == pareja13)) {
             color = generateRandomColor();
             selectedView = (TextView) view;
             view.setBackgroundColor(color);
             ((TextView) view).setTextColor(getResources().getColor(R.color.white));
             firstRow = true;
-            selectedViewValue = (view == pareja11) ? 1 : ((view == pareja12) ? 2 : 3);
-        } else {
-
+            selectedViewValue = (view == pareja11) ? 0 : ((view == pareja12) ? 1 : 2);
+            if (respuestasDadas[selectedViewValue] != -1) {
+                rightColumn[respuestasDadas[selectedViewValue]].setBackground(getResources().getDrawableForDensity(R.drawable.border_question, getResources().getDisplayMetrics().densityDpi, null));
+                rightColumn[respuestasDadas[selectedViewValue]].setTextColor(getResources().getColor(R.color.black));
+                respuestasDadas[selectedViewValue] = -1;
+            }
         }
-
     }
 
     @Override
     public ResponseExam correctQuestions() {
-        return null;
+        ResponseExamEmparejamientos re = new ResponseExamEmparejamientos();
+
+        re.setId(pregunta.getId());
+        boolean correct = true;
+        int len = respuestasDadas.length;
+        for (int i = 0; i < len; i++) {
+            correct &= (respuestasDadas[i] == respuestasCorrectas[1][i]);
+
+
+        }
+        re.setValue((correct) ? 1.0 : 0.0);
+        int respuestaDadasbi[][] = new int[3][2];
+        // Senseless stuff
+        // 1 - 4
+        // 2 - 5
+        // 3 - 6
+
+        for (int i = 0; i < 3; i++) {
+            respuestaDadasbi[i][0] = 1;
+            respuestaDadasbi[i][1] = (respuestasDadas[i] == -1) ? -1 : respuestasDadas[i] * 3;
+        }
+
+        re.setRespuesta(respuestaDadasbi);
+
+        return re;
+
     }
 
     private String getTextColumna1(int pos) {
@@ -195,7 +244,6 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
             case 3:
                 resultado = pregunta.getPareja13();
                 break;
-
         }
 
         return resultado;
@@ -214,7 +262,6 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
             case 3:
                 resultado = pregunta.getPareja23();
                 break;
-
         }
 
         return resultado;

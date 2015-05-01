@@ -24,7 +24,6 @@ import com.bsod.tfg.utils.Statistics;
 import com.bsod.tfg.utils.TopBar;
 import com.bsod.tfg.vista.archivos.FragmentArchivos;
 import com.bsod.tfg.vista.archivos.FragmentEstadisticas;
-import com.bsod.tfg.vista.archivos.FragmentUploadFile;
 import com.bsod.tfg.vista.chat.FragmentChat;
 import com.bsod.tfg.vista.login.ActivitySplash;
 import com.bsod.tfg.vista.otros.ActivitySearchUni;
@@ -51,7 +50,7 @@ public class ActivityMain extends FragmentActivity implements
     private FragmentTablon fTablon;
     private FragmentChat fChat;
     private FragmentArchivos fArchivos;
-    private Fragment fExamenes;
+    private FragmentArchivos fExamenes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +72,8 @@ public class ActivityMain extends FragmentActivity implements
 
         fTablon = new FragmentTablon();
         fChat = new FragmentChat();
-        fArchivos = new FragmentArchivos();
-        fExamenes = new FragmentUploadFile();
+        fArchivos = FragmentArchivos.newInstance(false);
+        fExamenes = FragmentArchivos.newInstance(true);
 
         menu.setSelectedTab(TopBar.TAB_TABLON);
         Statistics.stopProfiling(TAG, "ActivityMain Start");

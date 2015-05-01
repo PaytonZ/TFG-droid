@@ -16,9 +16,11 @@ import android.widget.Toast;
 import com.bsod.tfg.R;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespondida;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespondidaCorta;
+import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespondidaEmparejamiento;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespondidaMultiple;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespondidaUnica;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotal;
+import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalEmparejamientos;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalMultiRespuesta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalRespuestaCorta;
 import com.bsod.tfg.modelo.archivos.respuestas.ResponseExamTotalUnicaRespuesta;
@@ -132,6 +134,17 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
 
                 case 3:
 
+                    HashMap map2 = ((ResponseExamTotalEmparejamientos) ret).getQuestions();
+                    Iterator it2 = map2.entrySet().iterator();
+                    while (it2.hasNext()) {
+                        PreguntaRespondida pr = new PreguntaRespondidaEmparejamiento();
+                        Map.Entry pair = (Map.Entry) it2.next();
+                        //System.out.println(pair.getKey() + " = " + pair.getValue());
+                        pr.seti((Integer) pair.getKey());
+                        ((PreguntaRespondidaEmparejamiento) pr).setR((int[][]) pair.getValue());
+                        list.add(pr);
+                        it2.remove(); // avoids a ConcurrentModificationException
+                    }
                     break;
 
                 default:

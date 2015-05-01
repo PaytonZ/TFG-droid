@@ -23,8 +23,8 @@ public class AdapterTab extends FragmentPagerAdapter {
         fragmentList = new Fragment[NUM_OF_TABS];
         fragmentList[0] = FragmentTablon.newInstance();
         fragmentList[1] = FragmentChat.newInstance();
-        fragmentList[2] = FragmentArchivos.newInstance();
-        fragmentList[3] = FragmentArchivos.newInstance();
+        fragmentList[2] = FragmentArchivos.newInstance(false);
+        fragmentList[3] = FragmentArchivos.newInstance(true);
 
     }
 

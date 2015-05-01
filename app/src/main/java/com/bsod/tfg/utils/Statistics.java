@@ -14,6 +14,7 @@ import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Proudly created by Payton on 31/10/2014.
@@ -21,6 +22,7 @@ import java.util.HashMap;
 public class Statistics {
 
     public static final boolean PROFILING_ACTIVE = (BuildConfig.DEBUG);
+    private static final String TAG = "Statistics";
     private static HashMap<String, Long> timeMap = new HashMap<>();
 
     public static void startProfiling(String TAG) {
@@ -54,6 +56,27 @@ public class Statistics {
             Log.e("Stadistics", "The class".concat(TAG).concat(" dont start profiling."));
         }
     }
+
+    public static void showStadisticsViaLog() {
+
+        Log.v(TAG, "=========================================================");
+        Log.v(TAG, "GENERATED STATS ");
+        Dao<EstadisticasBean, Integer> daoEstadisticas = DataBaseHelper.getInstance().getDAOEstadisticas();
+        try {
+            List<EstadisticasBean> stats =
+                    daoEstadisticas.query(
+                            daoEstadisticas.queryBuilder().groupBy("tag")
+                                    .prepare());
+            for (EstadisticasBean stat : stats) {
+                Log.v(TAG, stat.getTag() + " - " + stat.getSeconds() + " OTHER: " + stat.getOther());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Log.v(TAG, "=========================================================");
+    }
+
 
     /**
      * Devuelve la resolución de la pantalla en formato ancho x altura

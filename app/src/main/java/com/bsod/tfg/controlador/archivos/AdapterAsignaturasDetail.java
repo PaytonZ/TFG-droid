@@ -15,7 +15,7 @@ import com.bsod.tfg.utils.ViewHolder;
  */
 public class AdapterAsignaturasDetail extends AdapterAsignaturas {
     public AdapterAsignaturasDetail(Context context) {
-        super(context);
+        super(context, false);
     }
 
     @Override

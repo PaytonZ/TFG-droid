@@ -30,6 +30,7 @@ import java.util.List;
 public class FragmentAsignaturas extends Fragment {
 
 
+    private boolean documents;
     private ListView listviewAsignaturas;
     private AdapterAsignaturas adapterAsignaturas;
     private TextView textViewCurso;
@@ -37,10 +38,11 @@ public class FragmentAsignaturas extends Fragment {
     //http://stackoverflow.com/questions/10716571/avoid-recreating-same-view-when-perform-tab-switching/11914078#11914078
     private View rootView;
 
-    public static FragmentAsignaturas newInstance(int curso) {
+    public static FragmentAsignaturas newInstance(int curso, boolean documents) {
         FragmentAsignaturas myFragment = new FragmentAsignaturas();
         Bundle args = new Bundle();
         args.putInt("curso", curso);
+        args.putBoolean("documents", documents);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -48,38 +50,33 @@ public class FragmentAsignaturas extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /* Inflate the layout for this fragment
-        if (rootView == null) {*/
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_asignaturas, container, false);
+            curso = getArguments().getInt("curso", 0);
+            documents = getArguments().getBoolean("documents");
 
-        curso = getArguments().getInt("curso", 0);
-        rootView = inflater.inflate(R.layout.fragment_asignaturas, container, false);
+            listviewAsignaturas = (ListView) rootView.findViewById(R.id.listview_asignaturas);
 
-        listviewAsignaturas = (ListView) rootView.findViewById(R.id.listview_asignaturas);
-
-        final AdapterAsignaturas adapter = (adapterAsignaturas == null) ? adapterAsignaturas = new AdapterAsignaturas(getActivity()) : adapterAsignaturas;
-        listviewAsignaturas.setAdapter(adapter);
-        listviewAsignaturas.setOnItemClickListener(adapter);
-        textViewCurso = (TextView) rootView.findViewById(R.id.textViewCurso);
-        switch (curso) {
-            case 1:
-                textViewCurso.setText(R.string.primero);
-                break;
-            case 2:
-                textViewCurso.setText(R.string.segundo);
-                break;
-            case 3:
-                textViewCurso.setText(R.string.tercero);
-                break;
-            case 4:
-                textViewCurso.setText(R.string.cuarto);
-                break;
+            final AdapterAsignaturas adapter = (adapterAsignaturas == null) ? adapterAsignaturas = new AdapterAsignaturas(getActivity(), documents) : adapterAsignaturas;
+            listviewAsignaturas.setAdapter(adapter);
+            listviewAsignaturas.setOnItemClickListener(adapter);
+            textViewCurso = (TextView) rootView.findViewById(R.id.textViewCurso);
+            switch (curso) {
+                case 1:
+                    textViewCurso.setText(R.string.primero);
+                    break;
+                case 2:
+                    textViewCurso.setText(R.string.segundo);
+                    break;
+                case 3:
+                    textViewCurso.setText(R.string.tercero);
+                    break;
+                case 4:
+                    textViewCurso.setText(R.string.cuarto);
+                    break;
+            }
+            getAsignaturas();
         }
-        getAsignaturas();
-
-    /*} else {
-            ((ViewGroup) rootView.getParent()).removeView(rootView);
-        }*/
-
         return rootView;
     }
 

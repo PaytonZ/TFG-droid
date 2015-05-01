@@ -47,6 +47,7 @@ public class Constants {
     public static final String HTTP_GET_EXAMS = "getexams";
     public static final String HTTP_SEND_EXAMS = "sendresults";
     public static final String HTTP_CREATE_DOCUMENT = "createdocument";
+    public static final String HTTP_GET_DOCUMENTS = "getdocuments";
 
     /* STATS */
     public static final String HTTP_GENERATE_EXAM_STATS = "generateuserstats";
@@ -74,6 +75,9 @@ public class Constants {
 
     public static final String[] TYPE_OF_QUESTIONS = {App.getContext().getString(R.string.unique_answer), App.getContext().getString(R.string.multiple_answer), App.getContext().getString(R.string.short_answer), App.getContext().getString(R.string.pairing_answer)};
     public static final String[] TYPE_OF_QUESTIONS_SHORT = {"na", "ma", "sa", "pa"};
+
+    public static final String[] TYPE_OF_DOCUMENTS = {App.getContext().getString(R.string.exam), App.getContext().getString(R.string.notes)};
+    public static final String[] TYPE_OF_DOCUMENTS_SHORT = {"exam", "notes"};
 
     /* CHAT STUFF */
     public static final String CHAT_STATE_CHAT = "CHAT";
