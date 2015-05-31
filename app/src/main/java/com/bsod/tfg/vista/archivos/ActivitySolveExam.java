@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bsod.tfg.R;
-import com.bsod.tfg.controlador.archivos.AdapterFragmentExams;
+import com.bsod.tfg.controlador.archivos.AdapterFragmentSimple;
 import com.bsod.tfg.modelo.archivos.preguntas.Pregunta;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaEmparejamiento;
 import com.bsod.tfg.modelo.archivos.preguntas.PreguntaRespuestaCorta;
@@ -40,7 +40,7 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
 
     private static final String TAG = "ActivitySolveExam";
     private ViewPager pager;
-    private AdapterFragmentExams adapterFragmentExams;
+    private AdapterFragmentSimple adapterFragmentSimple;
     private ArrayList<Pregunta> listOfQuestions;
     private ArrayList<Fragment> fragmentList;
     private Integer idTest;
@@ -64,27 +64,23 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
         switch (typeOfTest) {
             case 0: //Respuesta única ( NA )
                 for (Pregunta p : listOfQuestions) {
-
                     fragmentList.add(FragmentPreguntaSeleccionable.newInstance((PreguntaRespuestaUnica) p));
                 }
                 break;
 
             case 1://Respuesta Múltiple ( MA )
                 for (Pregunta p : listOfQuestions) {
-
                     fragmentList.add(FragmentPreguntaSeleccionable.newInstance((PreguntaRespuestaMultiple) p));
                 }
                 break;
             case 2: // Preguntas Cortas
                 for (Pregunta p : listOfQuestions) {
-
                     fragmentList.add(FragmentPreguntaCorta.newInstance((PreguntaRespuestaCorta) p));
                 }
                 break;
             case 3: // Preguntas Emparejamiento
 
                 for (Pregunta p : listOfQuestions) {
-
                     fragmentList.add(FragmentPreguntasEmparejamiento.newInstance((PreguntaEmparejamiento) p));
                 }
                 break;
@@ -92,10 +88,9 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
                 break;
         }
         fragmentList.add(FragmentFinalExam.newInstance());
-
         //adapterFragmentExams = new AdapterFragmentExams(getSupportFragmentManager());
         //adapterFragmentExams.setList(fragmentList);
-        pagerAdapter = new AdapterFragmentExams(getSupportFragmentManager(), fragmentList);
+        pagerAdapter = new AdapterFragmentSimple(getSupportFragmentManager(), fragmentList);
         pager.setAdapter(pagerAdapter);
         pager.setCurrentItem(0);
 
@@ -223,7 +218,6 @@ public class ActivitySolveExam extends FragmentActivity implements FragmentFinal
                 break;
         }
         if (ret != null) {
-
             ret.setNumOfQuestions(size);
             ret.setIdTest(idTest);
             finished = true;

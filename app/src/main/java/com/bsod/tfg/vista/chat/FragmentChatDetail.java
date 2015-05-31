@@ -78,7 +78,7 @@ public class FragmentChatDetail extends Fragment implements View.OnClickListener
             listViewChat.setAdapter(chatAdapter);
             processMessages();
         } else {
-            ((ViewGroup) rootView.getParent()).removeView(rootView);
+            //((ViewGroup) rootView.getParent()).removeView(rootView);
         }
         return rootView;
     }

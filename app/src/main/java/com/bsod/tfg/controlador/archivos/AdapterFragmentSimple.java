@@ -9,12 +9,12 @@ import java.util.ArrayList;
 /**
  * Proudly created by Payton on 16/11/2014.
  */
-public class AdapterFragmentExams extends FragmentPagerAdapter {
+public class AdapterFragmentSimple extends FragmentPagerAdapter {
 
 
     private ArrayList<Fragment> list;
 
-    public AdapterFragmentExams(FragmentManager fm, ArrayList<Fragment> list) {
+    public AdapterFragmentSimple(FragmentManager fm, ArrayList<Fragment> list) {
         super(fm);
         this.list = list;
     }

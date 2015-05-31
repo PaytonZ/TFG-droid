@@ -36,6 +36,14 @@
         android:text="@string/cuarto"
         android:theme="@style/buttons_splash" />
 
+    <Button
+        android:id="@+id/archivos_subir_examen"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_exam"
+        android:textAllCaps="true"
+        android:theme="@style/buttons_splash" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"

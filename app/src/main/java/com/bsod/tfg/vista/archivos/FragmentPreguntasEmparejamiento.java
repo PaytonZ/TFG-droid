@@ -24,6 +24,7 @@ import java.util.Random;
 public class FragmentPreguntasEmparejamiento extends Fragment implements View.OnClickListener, InterfaceCorrectQuestions {
 
 
+    private final String TAG = "FragmentPreguntasEm";
     private View rootView;
     private TextView pareja11;
     private TextView pareja12;
@@ -32,7 +33,6 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
     private TextView pareja22;
     private TextView pareja23;
     private PreguntaEmparejamiento pregunta;
-    private final String TAG = "FragmentPreguntasEm";
     private Random rand;
     private boolean firstRow = false;
     private int color;
@@ -46,16 +46,16 @@ public class FragmentPreguntasEmparejamiento extends Fragment implements View.On
     private TextView[] leftColumn;
 
 
+    public FragmentPreguntasEmparejamiento() {
+        // Required empty public constructor
+    }
+
     public static FragmentPreguntasEmparejamiento newInstance(PreguntaEmparejamiento p) {
         FragmentPreguntasEmparejamiento fq = new FragmentPreguntasEmparejamiento();
         Bundle args = new Bundle();
         args.putSerializable("pregunta", p);
         fq.setArguments(args);
         return fq;
-    }
-
-    public FragmentPreguntasEmparejamiento() {
-        // Required empty public constructor
     }
 
     @Override

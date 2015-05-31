@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageProfile"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@string/profile_other"
+        android:src="@drawable/no_image" />
+
+    <TextView
+        android:id="@+id/document_item"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="16dp"
+
+        android:layout_toEndOf="@+id/imageProfile"
+        android:layout_toRightOf="@+id/imageProfile"
+        android:text="this is a long text"
+        android:textSize="25sp" />
+
+</RelativeLayout>

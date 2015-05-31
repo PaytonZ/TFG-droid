@@ -86,15 +86,11 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         // If the response is JSONObject instead of expected JSONArray
                         try {
-
                             int error = Integer.parseInt(response.get("error").toString());
                             if (error == 200) {
-
                                 processJSONData(response, listOfProvincias, ProvinciaRegistro.class);
-
                                 spinnerProvincias.setAdapter(new ArrayAdapter<>(thisactivity, android.R.layout.simple_spinner_item, listOfProvincias));
                                 spinnerProvincias.setOnItemSelectedListener(thisactivity);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -246,6 +242,7 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                         editTextPassword.setTextColor(getResources().getColor(R.color.green_test));
                         editTextPassword.setError(null);
                     } else {
+                        editTextPassword.setError(getText(R.string.passlenght));
                         editTextPassword.setTextColor(Color.RED);
                     }
                 }
@@ -328,7 +325,9 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                     }
                 });
             } else {
-                Toast.makeText(this, R.string.register_bad_parameters, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, R.string.register_bad_parameters, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Seleccione Provincia , Facultad y Universidad", Toast.LENGTH_SHORT).show();
+
             }
         }
     }
@@ -341,7 +340,6 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
      */
     private boolean checkValidity(View v) {
         final boolean[] validity = new boolean[2];
-
         try {
 
     /* Comprobación del Campo de Contraseña */
@@ -367,14 +365,12 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
                                         editTextUsuario.setTextColor(Color.RED);
                                         editTextUsuario.setError(thisactivity.getString(R.string.already_existing_user));
                                     }
-
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
                     });
-
                 }
             }
     /* Comprobación del Campo de Email */
@@ -409,6 +405,8 @@ public class ActivityRegister extends Activity implements AdapterView.OnItemSele
             /* Comprobación del Campos de Provincia - Facultad y Universidad  */
             } else if (v == spinnerUniversidad || v == spinnerProvincias || v == spinnerFacultad) {
                 validity[0] = ((GenericType) ((Spinner) v).getSelectedItem()).getId() > 0;
+                if (!validity[0])
+                    Toast.makeText(this, "Seleccione Provincia , Facultad y Universidad", Toast.LENGTH_SHORT).show();
             }
 
         } catch (Exception e) {

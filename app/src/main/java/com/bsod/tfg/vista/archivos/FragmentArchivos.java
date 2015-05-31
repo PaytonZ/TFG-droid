@@ -18,6 +18,7 @@ import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.utils.FragmentReplace;
 import com.bsod.tfg.utils.HttpClient;
 import com.bsod.tfg.utils.JsonHttpResponseHandlerCustom;
+import com.bsod.tfg.vista.examenes.FragmentUploadFile;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,6 +48,7 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
     private AdapterAsignaturasDetail adapter;
     private View rootView;
     private boolean documents;
+    private Button buttonUploadExam;
 
 
     public static FragmentArchivos newInstance(boolean documents) {
@@ -71,6 +73,10 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
         buttonThird = (Button) rootView.findViewById(R.id.archivos_boton_tercero);
         buttonFourth = (Button) rootView.findViewById(R.id.archivos_boton_cuarto);
 
+        buttonUploadExam = (Button) rootView.findViewById(R.id.archivos_subir_examen);
+        if (!documents) {
+            buttonUploadExam.setVisibility(View.INVISIBLE);
+        }
         listViewAsignaturasFavoritas = (ListView) rootView.findViewById(R.id.listview_fav_asignaturas);
 
         adapter = new AdapterAsignaturasDetail(getActivity());
@@ -84,6 +90,7 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
         buttonSecond.setOnClickListener(this);
         buttonThird.setOnClickListener(this);
         buttonFourth.setOnClickListener(this);
+        buttonUploadExam.setOnClickListener(this);
         /*} else {
             /*getFavSubjects();
             setListViewHeightBasedOnChildren(listViewAsignaturasFavoritas);
@@ -97,7 +104,10 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         int curso = 0;
-        if (view == buttonFirst) {
+
+        if (view == buttonUploadExam) {
+            FragmentReplace.replaceFragment(getActivity(), new FragmentUploadFile());
+        } else if (view == buttonFirst) {
             curso = 1;
         } else if (view == buttonSecond) {
             curso = 2;
@@ -107,7 +117,6 @@ public class FragmentArchivos extends Fragment implements View.OnClickListener {
             curso = 4;
         }
         if (curso != 0) {
-
             FragmentReplace.replaceFragment(getActivity(), FragmentAsignaturas.newInstance(curso, documents));
         }
     }

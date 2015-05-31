@@ -66,7 +66,7 @@ public class Constants {
     public static final String CHAT_SERVER_EXTRA = "CHAT_SERVER_EXTRA";
     public static final String INTENT_USER_IMAGE_DETAIL = "INTENT_USER_IMAGE_DETAIL";
     public static final String INTENT_EXTRA_TYPE_OF_QUESTIONS = "INTENT_EXTRA_TYPE_OF_QUESTIONS";
-
+    public static final String INTENT_EXTRA_IMAGELIST_DOCUMENTS = "INTENT_EXTRA_IMAGELIST_DOCUMENTS";
     /* Application Settings */
     public static final int NUM_OF_QUESTIONS_IN_EXAM = 3;
     /* Local SQLITE */
@@ -89,6 +89,7 @@ public class Constants {
     //public static String SERVER_IP = "178.62.194.33";
     public static final String BASE_URL = "http://".concat(SERVER_IP).concat("/");
     public static final String MEDIA_URL = BASE_URL.concat("media/");
+    public static final String ADMIN_URL = BASE_URL.concat("admin/");
 
 
 }

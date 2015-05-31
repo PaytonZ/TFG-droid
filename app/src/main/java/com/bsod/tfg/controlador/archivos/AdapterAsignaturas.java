@@ -46,9 +46,9 @@ public class AdapterAsignaturas extends AdapterGeneric<Asignatura> implements Ad
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (id >= 0) {
-            Asignatura a = getItem(position);
+            final Asignatura a = getItem(position);
             final int[] type = new int[1];
-            Fragment f;
+            final Fragment[] f = new Fragment[1];
             if (documents) {
                 new MaterialDialog.Builder(context)
                         .title("Elige tipo de de documento")
@@ -57,14 +57,16 @@ public class AdapterAsignaturas extends AdapterGeneric<Asignatura> implements Ad
                             @Override
                             public void onSelection(MaterialDialog dialog, View view, final int which, CharSequence text) {
                                 type[0] = which;
+                                f[0] = FragmentDocuments.newInstance(a.getId(), a.toString(), Constants.TYPE_OF_DOCUMENTS_SHORT[type[0]]);
+                                FragmentReplace.replaceFragment((FragmentActivity) context, f[0]);
                             }
                         }).show();
-                f = FragmentDocuments.newInstance(a.getId(), Constants.TYPE_OF_DOCUMENTS_SHORT[type[0]]);
+
             } else {
-                f = FragmentTemas.newInstance(a.getId(), a.toString(), a.getUser_favorited());
+                f[0] = FragmentTemas.newInstance(a.getId(), a.toString(), a.getUser_favorited());
+                FragmentReplace.replaceFragment((FragmentActivity) context, f[0]);
             }
-            if (f != null)
-                FragmentReplace.replaceFragment((FragmentActivity) context, f);
+
         }
     }
 }

@@ -54,66 +54,68 @@ public class FragmentChat extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /* Inflate the layout for this fragment
-        if (rootView == null) {*/
-        Statistics.startProfiling(TAG);
-        rootView = inflater.inflate(R.layout.fragment_chat, container, false);
-        connectionStatus = (TextView) rootView.findViewById(R.id.chat_connection_status);
-        listOfChats = (ListView) rootView.findViewById(R.id.listViewChatRooms);
-        chatRoomAdapter = new ChatRoomAdapter(getActivity(), 0);
-        listOfChats.setAdapter(chatRoomAdapter);
-        listOfChats.setOnItemClickListener(this);
-        buttonFloat = (ButtonFloat) rootView.findViewById(R.id.buttonFloat);
-        buttonFloat.setBackgroundColor(getResources().getColor(R.color.red));
-        buttonFloat.setOnClickListener(this);
-        final String startingRoom = String.valueOf(Session.getSession().getFacultad().getId());
-        isPaused = false;
+        /* Inflate the layout for this fragment*/
 
-        new Handler().postDelayed(new Thread() {
-            public void run() {
-                int tries = 0;
-                while (!ChatService.isConnected() && tries < 3) {
-                    try {
-                        sleep(5000);
-                        tries += 1;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        if (rootView == null) {
+            Statistics.startProfiling(TAG);
+            rootView = inflater.inflate(R.layout.fragment_chat, container, false);
+            connectionStatus = (TextView) rootView.findViewById(R.id.chat_connection_status);
+            listOfChats = (ListView) rootView.findViewById(R.id.listViewChatRooms);
+            chatRoomAdapter = new ChatRoomAdapter(getActivity(), 0);
+            listOfChats.setAdapter(chatRoomAdapter);
+            listOfChats.setOnItemClickListener(this);
+            buttonFloat = (ButtonFloat) rootView.findViewById(R.id.buttonFloat);
+            buttonFloat.setBackgroundColor(getResources().getColor(R.color.red));
+            buttonFloat.setOnClickListener(this);
+            final String startingRoom = String.valueOf(Session.getSession().getFacultad().getId());
+            isPaused = false;
+
+            new Handler().postDelayed(new Thread() {
+                public void run() {
+                    int tries = 0;
+                    while (!ChatService.isConnected() && tries < 3) {
+                        try {
+                            sleep(5000);
+                            tries += 1;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    if (ChatService.isConnected()) {
+
+                        final ChatRoom cr = new ChatRoom();
+                        cr.setIdRoom(startingRoom);
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(Session.getSession().getFacultad().getUni().getNombre());
+                        sb.append(" - ");
+                        sb.append(Session.getSession().getFacultad().getNombre());
+                        cr.setName(sb.toString());
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                connectionStatus.setText(getActivity().getString(R.string.connected));
+                                chatRoomAdapter.add(cr);
+                                Fragment f = FragmentChatDetail.newInstance(cr);
+                                fragmentList.put(cr.getIdRoom(), f);
+                                Statistics.stopProfiling(TAG, "FragmentChat connected to the chatService");
+
+                            }
+                        });
+                    } else {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                connectionStatus.setText(getActivity().getString(R.string.disconnected));
+                            }
+                        });
+
+                    }
+                    checkConnection();
                 }
-                if (ChatService.isConnected()) {
+            }, 200);
 
-                    final ChatRoom cr = new ChatRoom();
-                    cr.setIdRoom(startingRoom);
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(Session.getSession().getFacultad().getUni().getNombre());
-                    sb.append(" - ");
-                    sb.append(Session.getSession().getFacultad().getNombre());
-                    cr.setName(sb.toString());
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            connectionStatus.setText(getActivity().getString(R.string.connected));
-                            chatRoomAdapter.add(cr);
-                            Fragment f = FragmentChatDetail.newInstance(cr);
-                            fragmentList.put(cr.getIdRoom(), f);
-                            Statistics.stopProfiling(TAG, "FragmentChat connected to the chatService");
-
-                        }
-                    });
-                } else {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            connectionStatus.setText(getActivity().getString(R.string.disconnected));
-                        }
-                    });
-
-                }
-                checkConnection();
-            }
-        }, 200);
-
-        /*} else {
+        }
+        /*else {
 
             ((ViewGroup) rootView.getParent()).removeView(rootView);
         }*/

@@ -40,23 +40,30 @@ public class ProgressDialogCustom {
      */
     public static void makeDialogLoading(Context context) {
 
-        progressDialog = new ProgressDialog(context, App.getContext().getResources().getString(R.string.loading));
-        //progressDialog = ProgressDialog.show(context, "", App.getContext().getResources().getString(R.string.loading));
-        progressDialog.requestWindowFeature(R.layout.progress_custom);
-        //progressDialog.setContentView(R.layout.progress_custom);
-        progressDialog.setCancelable(true);
-        progressDialog.show();
+        try {
+            progressDialog = new ProgressDialog(context, App.getContext().getResources().getString(R.string.loading));
+            //progressDialog = ProgressDialog.show(context, "", App.getContext().getResources().getString(R.string.loading));
+            progressDialog.requestWindowFeature(R.layout.progress_custom);
+            //progressDialog.setContentView(R.layout.progress_custom);
+            progressDialog.setCancelable(true);
+            progressDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Descarta el mensaje de dialogo anteriormente creado. Es necesario que estuviese creado antes
      */
     public static void dissmissDialog() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-            progressDialog = null;
+        try {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+                progressDialog = null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
 
 }

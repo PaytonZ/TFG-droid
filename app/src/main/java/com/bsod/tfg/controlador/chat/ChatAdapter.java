@@ -13,6 +13,7 @@ import com.bsod.tfg.R;
 import com.bsod.tfg.controlador.bbdd.DataBaseHelper;
 import com.bsod.tfg.modelo.chat.MessageChat;
 import com.bsod.tfg.modelo.otros.Constants;
+import com.bsod.tfg.modelo.sesion.Session;
 import com.bsod.tfg.modelo.sesion.User;
 import com.bsod.tfg.utils.ViewHolder;
 import com.j256.ormlite.dao.Dao;
@@ -35,8 +36,9 @@ public class ChatAdapter extends ArrayAdapter<MessageChat> {
         this.mUserId = userId;
         daoUsers = DataBaseHelper.getInstance().getDAOUser();
         try {
-            ownPhotoURL = daoUsers.queryBuilder().selectColumns(User.IMAGE_FIELD_NAME).where().eq(User.IDUSER_FIELD_NAME, userId).queryForFirst().getPicImageUrl();
-        } catch (SQLException e) {
+            ownPhotoURL = Session.getSession().getUser().getPicImageUrl();
+            //ownPhotoURL = daoUsers.queryBuilder().selectColumns(User.IMAGE_FIELD_NAME).where().eq(User.IDUSER_FIELD_NAME, userId).queryForFirst().getPicImageUrl();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

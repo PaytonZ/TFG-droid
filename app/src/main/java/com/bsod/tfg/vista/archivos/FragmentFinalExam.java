@@ -34,6 +34,7 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -172,7 +173,7 @@ public class FragmentFinalExam extends Fragment implements View.OnClickListener 
                                     examRating.setIsIndicator(true);
                                     buttonSendResults.setVisibility(View.INVISIBLE);
                                     textViewMark.setVisibility(View.VISIBLE);
-                                    textViewMark.setText(String.valueOf(ret.getFinalMark()));
+                                    textViewMark.setText(new DecimalFormat("#.##").format(ret.getFinalMark()));
                                     textViewRating.setVisibility(View.VISIBLE);
                                     textViewYourMark.setVisibility(View.VISIBLE);
                                 } else {

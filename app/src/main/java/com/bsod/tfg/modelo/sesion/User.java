@@ -16,6 +16,7 @@ public class User implements Serializable {
     public static final String IDUSER_FIELD_NAME = "idUser";
     public static final String NAME_FIELD_NAME = "name";
     public static final String IMAGE_FIELD_NAME = "image";
+    public static final String IS_TEACHER_FIELD_NAME = "is_teacher";
     @DatabaseField(columnName = ID_FIELD_NAME, generatedId = true)
     private int id;
     @DatabaseField(columnName = IDUSER_FIELD_NAME, index = true)
@@ -27,6 +28,9 @@ public class User implements Serializable {
     @DatabaseField(columnName = IMAGE_FIELD_NAME)
     @JsonProperty("image")
     private String image;
+    @DatabaseField(columnName = IS_TEACHER_FIELD_NAME)
+    @JsonProperty("is_teacher")
+    private boolean isTeacher = false;
 
     public int getIdUser() {
         return idUser;
@@ -45,13 +49,20 @@ public class User implements Serializable {
     }
 
     public String getPicImageUrl() {
-        return image;
+        return (image == null) ? "" : image;
     }
 
     public void setPicImageUrl(String picImageUrl) {
         this.image = picImageUrl;
     }
 
+    public boolean isTeacher() {
+        return isTeacher;
+    }
+
+    public void setIsTeacher(boolean isTeacher) {
+        this.isTeacher = isTeacher;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -61,5 +72,6 @@ public class User implements Serializable {
         User otherMyClass = (User) other;
         return otherMyClass.idUser == this.idUser;
     }
+
 
 }

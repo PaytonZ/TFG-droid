@@ -9,11 +9,11 @@ import java.io.Serializable;
  */
 public class EstadisticasGlobalTest implements Serializable {
 
-    @JsonProperty("avg_correct")
+    @JsonProperty("per_correct")
     private float averageCorrect;
-    @JsonProperty("avg_failed")
+    @JsonProperty("per_failed")
     private float averageFailed;
-    @JsonProperty("avg_not_answered")
+    @JsonProperty("per_not_answered")
     private float averageNotAnswered;
     @JsonProperty("avg_mark")
     private float averageMark;

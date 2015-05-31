@@ -28,6 +28,7 @@ import com.bsod.tfg.vista.chat.FragmentChat;
 import com.bsod.tfg.vista.login.ActivitySplash;
 import com.bsod.tfg.vista.otros.ActivitySearchUni;
 import com.bsod.tfg.vista.otros.ActivitySettings;
+import com.bsod.tfg.vista.otros.FragmentAdminPanel;
 import com.bsod.tfg.vista.tablon.FragmentTablon;
 
 /**
@@ -83,6 +84,10 @@ public class ActivityMain extends FragmentActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main, menu);
+        MenuItem m = menu.findItem(R.id.action_admin_panel);
+        if (Session.getSession().getUser().isTeacher()) {
+            m.setVisible(true);
+        }
         return true;
     }
 
@@ -106,7 +111,11 @@ public class ActivityMain extends FragmentActivity implements
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //intent.putExtra("EXIT", true);
                 startActivity(intent);
+                return true;
 
+            case R.id.action_admin_panel:
+
+                replaceFragment(FragmentAdminPanel.newInstance(Constants.ADMIN_URL));
                 return true;
 
             case R.id.action_statistics:
