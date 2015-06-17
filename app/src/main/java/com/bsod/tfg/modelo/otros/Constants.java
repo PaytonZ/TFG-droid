@@ -85,8 +85,8 @@ public class Constants {
     /* Connection Settings - Deploy - Testing */
     //public static String BASE_URL = "http://192.168.1.12/";
     //public static String BASE_URL = "http:/bsodsoftware.me/";
-    public static final String SERVER_IP = "192.168.1.12";
-    //public static String SERVER_IP = "178.62.194.33";
+    //public static final String SERVER_IP = "192.168.0.2";
+    public static String SERVER_IP = "178.62.194.33";
     public static final String BASE_URL = "http://".concat(SERVER_IP).concat("/");
     public static final String MEDIA_URL = BASE_URL.concat("media/");
     public static final String ADMIN_URL = BASE_URL.concat("admin/");

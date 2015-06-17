@@ -1,1 +1,1 @@
-$ find . -name '*.java' -not -path "./library*" -not -path "./app/build*" | xargs wc -l
+find . -name '*.java' -not -path "./library*" -not -path "./app/build*" | xargs wc -l
